@@ -1,0 +1,245 @@
+{% extends 'TopxiaWebBundle::layout.html.twig' %}
+
+{% block title %}{{'课程管理'|trans}} - {{ parent() }}{% endblock %}
+
+{% block content %}
+<style>
+.locked li a{
+  padding:10px 15px 10px 0px !important;
+}
+.locked li a>span{
+  display:inline-block;
+  width:35px;
+  padding:0px 10px;
+}
+</style>
+  {#{{ render(controller('TopxiaWebBundle:Course:header', {course:course, manage: true})) }}#}
+
+<div class="row">
+  <div class="col-md-3">
+    {% block side %}
+      {% set side_nav = side_nav|default(null) %}
+      <div class="sidenav locked">
+          {#<ul class="nav nav-pills nav-pills-sm mbs file-chooser-tabs">#}
+          <ul class="nav nav-tabs nav-justified">
+              <li><a class="file-chooser-uploader-tab" href="#video-chooser-upload-pane"
+                     data-toggle="tab">{{ '历史消息'|trans }}</a></li>
+              <li>
+                  <a href="#video-chooser-disk-pane" data-toggle="tab">
+                      {{ '好友列表'|trans }}
+                  </a>
+              </li>
+
+          </ul>
+          <div class="tab-content">
+              <div class="tab-pane active" id="video-chooser-upload-pane">
+
+                  <div class="file-chooser-uploader">
+                      {#{{ '好友列表'|trans }}#}
+
+                      <div class="list-group">
+                          <a href="#" class="list-group-item active">
+                              <h4 class="list-group-item-heading">
+                                  入门网站包
+                              </h4>
+                          </a>
+                          <a href="#" class="list-group-item">
+                              <h4 class="list-group-item-heading">
+                                  免费域名注册
+                              </h4>
+                              <p class="list-group-item-text">
+                                  您将通过网页进行免费域名注册。
+                              </p>
+                          </a>
+                          <a href="#" class="list-group-item">
+                              <h4 class="list-group-item-heading">
+                                  24*7 支持
+                              </h4>
+                              <p class="list-group-item-text">
+                                  我们提供 24*7 支持。
+                              </p>
+                          </a>
+                      </div>
+
+                      {#{% include 'TopxiaWebBundle:CloudFile:video-quality-switcher.html.twig' %}#}
+                      {#{% set token = uploader_token(targetType, targetId, 'private') %}#}
+                    {#  <div class="balloon-uploader"
+                           data-init-url="{{ path('uploader_init', {token:token}) }}"
+                           data-finish-url="{{ path('uploader_finished', {token:token}) }}"
+                           data-upload-auth-url="{{ path('uploader_auth', {token:token}) }}"
+                              {% if storageSetting.upload_mode == 'cloud' %}
+                                  data-accept="{{ uploader_accept(targetType, 'video')|json_encode }}"
+                              {% else %}
+                                  data-accept="{{ uploader_accept(targetType, 'local_video')|json_encode }}"
+                              {% endif %}
+                           data-process="{{ uploader_process(targetType) }}"
+                      ></div>#}
+
+
+                      {#<div class="alert alert-info">#}
+                          {#<ul>#}
+                              {#{% if storageSetting.upload_mode == 'cloud' %}#}
+                                  {#<li>{{ '支持'|trans|raw }}<strong>mp4, avi, flv, wmv, mov, m4v, mpg</strong>{{ '格式的视频文件上传，文件大小不能超过<strong>2 GB</strong>。'|trans|raw }}</li>#}
+                                  {#<li>{{ '支持'|trans|raw }}<strong>{{ '断点续传'|trans|raw }}</strong>{{ '（仅支持HTML5浏览器）。'|trans|raw }}</li>#}
+                                  {#<li>{{ '视频将上传到'|trans|raw }}#}
+                                      {#<strong>{{ '云视频服务器'|trans|raw }}</strong>{{ '，上传之后会对视频进行格式转换，转换过程需要一定的时间，在这个过程中视频将无法播放。'|trans|raw }}#}
+                                  {#</li>#}
+                              {#{% else %}#}
+                                  {#<li>{{ '支持'|trans }}<strong>mp4</strong>{{ '格式的视频文件上传，文件大小不能超过'|trans }}#}
+                                      {#<strong>{{ upload_max_filesize() }} </strong>{{ '。MP4文件的视频编码格式，请使用AVC(H264)编码，否则浏览器无法播放。'|trans }}#}
+                                  {#</li>#}
+                                  {#<li>#}
+                                      {#{{ '视频将上传到'|trans }}#}
+                                      {#<strong>{{ '网站服务器'|trans }}</strong>{{ '。如需使用%Edusoho%云视频,点击'|trans({'%Edusoho%':'EduSoho'|copyright_less}) }}#}
+                                      {#<a href="http://open.edusoho.com/show/cloud/video"#}
+                                         {#target="_blank">{{ '这里'|trans }}</a>{{ '了解详情,%Edusoho%云视频将为您提供稳定、安全、经济、便捷的视频托管服务以及优质的视频播放体验。'|trans({'%Edusoho%':'EduSoho'|copyright_less}) }}#}
+                                  {#</li>#}
+                              {#{% endif %}#}
+                          {#</ul>#}
+                      </div>
+
+                  </div>
+
+              </div>
+        {#<ul class="list-group">#}
+          {#<li class="list-group-heading">{{'课程信息'|trans}}</li>#}
+          {#<li class="list-group-item {% if side_nav == 'base' %}active{% endif %}">#}
+            {#<a href="{% if course.locked|default(0) == 1 %}#}
+            {#{{ path('course_manage_course_sync', {id:course.id,type:'base'}) }}{% else %}#}
+            {#{{ path('course_manage_base', {id:course.id}) }}#}
+            {#{% endif %}">#}
+              {#<span {% if course.locked|default(0) == 1 %}class="es-icon es-icon-lock" aria-hidden="true" {% endif %} ></span>{{'基本信息'|trans}}#}
+            {#</a>#}
+          {#</li>#}
+          {#<li class="list-group-item {% if side_nav == 'detail' %}active{% endif %}">#}
+            {#<a href="{% if course.locked|default(0) == 1 %}#}
+            {#{{ path('course_manage_course_sync', {id:course.id,type:'detail'}) }}{% else %}#}
+            {#{{ path('course_manage_detail', {id:course.id}) }}#}
+            {#{% endif %}">#}
+              {#<span {% if course.locked|default(0) == 1 %}class="es-icon es-icon-lock" aria-hidden="true" {% endif %} ></span>{{'详细信息'|trans}}#}
+            {#</a>#}
+          {#</li>#}
+          {#<li class="list-group-item {% if side_nav == 'picture' %}active{% endif %}">#}
+            {#<a href="{% if course.locked|default(0) == 1 %}#}
+            {#{{ path('course_manage_course_sync', {id:course.id,type:'picture'}) }}{% else %}#}
+            {#{{ path('course_manage_picture', {id:course.id}) }}#}
+            {#{% endif %}">#}
+              {#<span {% if course.locked|default(0) == 1 %}class="es-icon es-icon-lock" aria-hidden="true" {% endif %} ></span>{{'课程图片'|trans}}#}
+            {#</a>#}
+          {#</li>#}
+          {#<li class="list-group-item {% if side_nav == 'lesson' %}active{% endif %}">#}
+            {#<a href="{% if course.locked|default(0) == 1 %}#}
+            {#{{ path('course_manage_course_sync', {id:course.id,type:'lesson'}) }}{% else %}#}
+            {#{{ path('course_manage_lesson', {id:course.id}) }}#}
+            {#{% endif %}">#}
+              {#<span {% if course.locked|default(0) == 1 %}class="es-icon es-icon-lock" aria-hidden="true" {% endif %} ></span>{{'课时管理'|trans}}#}
+            {#</a>#}
+          {#</li>#}
+          {#{% if course.type == 'live' %}#}
+            {#<li class="list-group-item {% if side_nav == 'replay' %}active{% endif %}" >#}
+              {#<a href="{% if course.locked|default(0) == 1 %}#}
+            {#{{ path('course_manage_course_sync', {id:course.id,type:'replay'}) }}{% else %}#}
+            {#{{ path('live_course_manage_replay', {id:course.id}) }}#}
+            {#{% endif %}"><span {% if course.locked|default(0) == 1 %}class="es-icon es-icon-lock" aria-hidden="true" {% endif %}></span>{{'录播管理'|trans}}</a>#}
+            {#</li>#}
+          {#{% endif %}#}
+          {#<li class="list-group-item {% if side_nav == 'files' %}active{% endif %}">#}
+            {#<a href="{% if course.locked|default(0) == 1 %}#}
+            {#{{ path('course_manage_course_sync', {id:course.id,type:'files'}) }}{% else %}#}
+            {#{{ path('course_manage_files', {id:course.id}) }}#}
+            {#{% endif %}">#}
+              {#<span {% if course.locked|default(0) == 1 %}class="es-icon es-icon-lock" aria-hidden="true" {% endif %} ></span>{{'课程文件'|trans}}#}
+            {#</a>#}
+          {#</li>#}
+        {#</ul>#}
+
+        {#<ul class="list-group">#}
+          {#<li class="list-group-heading">{{'课程设置'|trans}}</li>#}
+          {#<li class="list-group-item {% if side_nav == 'price' %}active{% endif %}">#}
+            {#<a href="{% if course.locked|default(0) == 1 %}#}
+            {#{{ path('course_manage_course_sync', {id:course.id,type:'price'}) }}{% else %}#}
+            {#{{ path('course_manage_price', {id:course.id}) }}#}
+            {#{% endif %}">#}
+              {#<span {% if course.locked|default(0) == 1 %}class="es-icon es-icon-lock" aria-hidden="true" {% endif %}></span>{{'价格设置'|trans}}#}
+            {#</a>#}
+          {#</li>#}
+          {#<li class="list-group-item {% if side_nav == 'teachers' %}active{% endif %}">#}
+            {#<a href="{% if course.locked|default(0) == 1 %}#}
+            {#{{ path('course_manage_course_sync', {id:course.id,type:'teachers'}) }}{% else %}#}
+            {#{{ path('course_manage_teachers', {id:course.id}) }}#}
+            {#{% endif %}">#}
+              {#<span {% if course.locked|default(0) == 1 %}class="es-icon es-icon-lock" aria-hidden="true" {% endif %}></span>{{'教师设置'|trans}}#}
+            {#</a>#}
+          {#</li>#}
+          {#<li class="list-group-item {% if side_nav == 'students' %}active{% endif %}">#}
+            {#<a href="{{ path('course_manage_students', {id:course.id}) }}">#}
+              {#<span></span>{{setting('default.user_name')|default('学员'|trans)}}{{'管理'|trans}}#}
+            {#</a>#}
+          {#</li>#}
+        {#</ul>#}
+
+        {#<ul class="list-group">#}
+          {#<li class="list-group-heading">{{'题库'|trans}}</li>#}
+          {#<li class="list-group-item {% if side_nav == 'question' %}active{% endif %}">#}
+            {#<a href="{% if course.locked|default(0) == 1 %}#}
+            {#{{ path('course_manage_course_sync', {id:course.id,type:'question'}) }}{% else %}#}
+            {#{{ path('course_manage_question', {courseId:course.id}) }}#}
+            {#{% endif %}">#}
+              {#<span {% if course.locked|default(0) == 1 %}class="es-icon es-icon-lock" aria-hidden="true" {% endif %}></span>{{'题目管理'|trans}}#}
+            {#</a>#}
+          {#</li>#}
+
+          {#{% if is_plugin_installed('QuestionPlus') and setting('question_plus.enabled') %}#}
+            {#<li class="list-group-item {% if side_nav == 'question_plumber' %}active{% endif %}">#}
+              {#<a href="{% if course.locked|default(0) == 1 %}#}
+              {#{{ path('course_manage_course_sync', {id:course.id,type:'question_plumber'}) }}{% else %}#}
+              {#{{ path('course_question_plumber', {courseId:course.id, type:'import'}) }}#}
+              {#{% endif %}">#}
+                {#<span {% if course.locked|default(0) == 1 %}class="es-icon es-icon-lock" aria-hidden="true" {% endif %}></span>{{'题目导入/导出'|trans}}#}
+              {#</a>#}
+            {#</li>#}
+          {#{% endif %}#}
+
+          {#<!-- <li class="list-group-item {% if side_nav == 'question_category' %}active{% endif %}">#}
+            {#<a href="{{ path('course_manage_question_category', {courseId:course.id}) }}">题目类别管理</a>#}
+          {#</li> -->#}
+
+          {#<li class="list-group-item {% if side_nav == 'testpaper' %}active{% endif %}">#}
+            {#<a href="{% if course.locked|default(0) == 1 %}#}
+            {#{{ path('course_manage_course_sync', {id:course.id,type:'testpaper'}) }}{% else %}#}
+            {#{{ path('course_manage_testpaper', {courseId:course.id}) }}#}
+            {#{% endif %}">#}
+              {#<span {% if course.locked|default(0) == 1 %}class="es-icon es-icon-lock" aria-hidden="true" {% endif %}></span>{{'试卷管理'|trans}}#}
+            {#</a>#}
+          {#</li>#}
+          {#<li class="list-group-item {% if side_nav == 'testCheck' %}active{% endif %}">#}
+            {#<a href="{{ path('course_manage_test_check', {id:course.id, status:'reviewing'}) }}"><span></span>{{'试卷批阅'|trans}}</a>#}
+          {#</li>#}
+          {#{% if is_plugin_installed('Homework') %}#}
+            {#<li class="list-group-item {% if side_nav == 'homeworkCheck' %}active{% endif %}">#}
+              {#<a href="{{ path('course_homework_check_list', {courseId:course.id,status:'reviewing'}) }}"><span></span>{{'作业批改'|trans}}</a>#}
+            {#</li>#}
+          {#{% endif %}#}
+        {#</ul>#}
+
+        {#<ul class="list-group">#}
+          {#<li class="list-group-heading">{{'课程运营'|trans}}</li>#}
+          {#<li class="list-group-item {% if side_nav == 'course_manage_dashboard' %}active{% endif %}">#}
+            {#<a href="{{path('course_manage_course_dashboard',{id:course.id})}}">#}
+              {#<span></span>{{'课程学习数据'|trans}}</a>#}
+          {#</li>#}
+
+          {#{% if app.user.isAdmin() or setting('course.teacher_search_order') == 1 %}#}
+            {#<li class="list-group-item {% if side_nav == 'course_manage_order' %}active{% endif %}">#}
+              {#<a href="{{path('course_manage_order',{id:course.id})}}"><span></span>{{'课程订单查询'|trans}}</a>#}
+            {#</li>#}
+          {#{% endif %}#}
+        {#</ul>#}
+      </div>
+    {% endblock %}
+  </div>
+  <div class="col-md-9">
+    {% block main %}{% endblock %}
+  </div>
+</div>
+{% endblock %}

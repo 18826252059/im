@@ -255,6 +255,11 @@ interface UserService
 
     public function dropFieldData($fieldName);
 
+//    by matthew
+    public function findAllFriendsByUserId($userId);
+
+    public function getFriendsCountByUserId($userId);
+
     /**
      * 解析文本中@(提)到的用户
      */

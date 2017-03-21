@@ -105,4 +105,17 @@ class FriendDaoImpl extends BaseDao implements FriendDao
         $sql = "SELECT COUNT(id) FROM {$this->table} WHERE fromId = ? and pair = 1";
         return $this->getConnection()->fetchColumn($sql, array($userId));
     }
+
+    //by matthew
+    public function findAllFriendsByUserId($userId)
+    {
+        $sql = "SELECT fromId,toId FROM {$this->table} WHERE (fromId = ? OR toId = ?) AND pair = 1";
+        return $this->getConnection()->fetchAll($sql,array($userId, $userId));
+    }
+
+    public function getFriendsCountByUserId($userId)
+    {
+        $sql = "SELECT count(id) as count FROM {$this->table} WHERE (fromId = ? OR toId = ?) AND pair = 1";
+        return $this->getConnection()->fetchColumn($sql, array($userId, $userId));
+    }
 }

@@ -12,9 +12,31 @@ isCoursePublished: course.status,
 } %}
 {% block main %}
 
-  <div class="panel panel-default panel-col">
+  <div class="panel panel-default panel-col" >
     <div class="panel-heading">{{ '聊天界面'|trans }}</div>
-    <div class="panel-body">
+    <div class="panel-body" style="overflow-x: hidden;overflow-y:auto;height: 100%;">
+
+      <ul class="nav nav-pills nav-pills-sm">
+        <a href="#" class="list-group-item" style="border: 0px;">
+          <img src="{{ asset('assets/img/avatar/1.png') }}" alt="" class="contact__photo" style="float: left;margin: 0 10px 0 0;"/>
+          <p class="contact__name" style="margin: 0 0 10px;">Ethan Hawke</p>
+
+          <p class="contact__content" style="display: inline-block;padding: 10px 15px;border-radius: 5px;background: #93C763">jdkjfajfjksdjf</p>
+        </a>
+      </ul>
+
+      <ul class="nav nav-pills nav-pills-sm" style="text-align: right;">
+        <a href="#" class="list-group-item" style="border: 0px;">
+          <img src="{{ asset('assets/img/avatar/1.png') }}" alt="" class="contact__photo" style="float: right;margin: 0 0 0 10px;"/>
+          <p class="contact__name" style="text-align: right;margin: 0 0 10px;">Ethan Hawke</p>
+          {#<span class="contact__status online"></span>#}
+          <p class="contact__content" style="display: inline-block;padding: 10px 15px;border-radius: 5px;background: #93C763;">jdkjfajfjksdjf</p>
+        </a>
+      </ul>
+
+      <ul class="nav nav-pills nav-pills-sm">
+        <p style="text-align: center;">12:30</p>
+        </ul>
       <form class="form-horizontal" id="course-form" method="post">
 
         {#{{ web_macro.flash_messages() }}#}
@@ -155,7 +177,7 @@ isCoursePublished: course.status,
       <textarea id="course_subtitle" name="subtitle" required="required"
                 class="form-control">{{ course.subtitle|default('') }}</textarea>
       {#<div class="col-md-offset-2 col-md-8 controls">#}
-        <button class="btn btn-fat btn-primary" id="course-create-btn" type="submit">{{ '发送'|trans }}</button>
+        <button class="btn btn-fat btn-primary form-control" id="course-create-btn" type="submit">{{ '发送'|trans }}</button>
       {#</div>#}
     </div>
   </div>

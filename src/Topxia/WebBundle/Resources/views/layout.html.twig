@@ -46,10 +46,10 @@
   {% block head_scripts %}{% endblock %}
 
 </head>
-<body {% if bodyClass|default('') %}class="{{ bodyClass }}"{% endif %}>
+<body {% if bodyClass|default('') %}class="{{ bodyClass }}"{% endif %} style="height: 100%;">
 
 {% block body %}
-  <div class="es-wrap">
+  <div class="es-wrap" style="height: 100%;">
 
     {% block header %}
       {% include 'TopxiaWebBundle::site-hint.html.twig' %}
@@ -59,7 +59,7 @@
     {% block full_content %}
       {% block top_content %}{% endblock %}
 
-      <div id="content-container" class="container">
+      <div id="content-container" class="container" style="height: 100%;">
         {% block content %}{% endblock %}
       </div>
 

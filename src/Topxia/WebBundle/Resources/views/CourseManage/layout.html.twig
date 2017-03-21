@@ -4,6 +4,10 @@
 
 {% block content %}
 <style>
+    body {
+        width: 100%;
+        height:100%;
+    }
 .locked li a{
   padding:10px 15px 10px 0px !important;
 }
@@ -15,11 +19,11 @@
 </style>
   {#{{ render(controller('TopxiaWebBundle:Course:header', {course:course, manage: true})) }}#}
 
-<div class="row">
-  <div class="col-md-3">
+<div class="row" style="height: 100%;">
+  <div class="col-md-3" style="height: 100%;">
     {% block side %}
       {% set side_nav = side_nav|default(null) %}
-      <div class="sidenav locked">
+      <div class="sidenav locked" style="height: 80%;">
           {#<ul class="nav nav-pills nav-pills-sm mbs file-chooser-tabs">#}
           <ul class="nav nav-tabs nav-justified">
               <li><a class="file-chooser-uploader-tab" href="#video-chooser-upload-pane"
@@ -31,43 +35,122 @@
               </li>
 
           </ul>
-          <div class="tab-content">
-              <div class="tab-pane active" id="video-chooser-upload-pane">
+          <div style="overflow: auto; height: 80%;">
+          <ul class="nav nav-pills nav-pills-sm">
+              <a href="#" class="list-group-item" style="border: 0px;">
+              <img src="{{ asset('assets/img/avatar/1.png') }}" alt="" class="contact__photo" style="border-radius: 50%;width: 34px;height: 34px;" />
+              <span class="contact__name">Ethan Hawke</span>
+              <span class="contact__status online"></span>
+              </a>
+          </ul>
+          <ul class="nav nav-pills nav-pills-sm">
+              <a href="#" class="list-group-item" style="border: 0px;">
+              <img src="{{ asset('assets/img/avatar/1.png') }}" alt="" class="contact__photo" />
+              <span class="contact__name">Ethan Hawke</span>
+              <span class="contact__status online"></span>
+              </a>
+          </ul>
+              <ul class="nav nav-pills nav-pills-sm">
+                  <a href="#" class="list-group-item" style="border: 0px;">
+                      <img src="{{ asset('assets/img/avatar/1.png') }}" alt="" class="contact__photo" />
+                      <span class="contact__name">Ethan Hawke</span>
+                      <span class="contact__status online"></span>
+                  </a>
+              </ul>
+              <ul class="nav nav-pills nav-pills-sm">
+                  <a href="#" class="list-group-item" style="border: 0px;">
+                      <img src="{{ asset('assets/img/avatar/1.png') }}" alt="" class="contact__photo" />
+                      <span class="contact__name">Ethan Hawke</span>
+                      <span class="contact__status online"></span>
+                  </a>
+              </ul>
+              <ul class="nav nav-pills nav-pills-sm">
+                  <a href="#" class="list-group-item" style="border: 0px;">
+                      <img src="{{ asset('assets/img/avatar/1.png') }}" alt="" class="contact__photo" />
+                      <span class="contact__name">Ethan Hawke</span>
+                      <span class="contact__status online"></span>
+                  </a>
+              </ul>
+              <ul class="nav nav-pills nav-pills-sm">
+                  <a href="#" class="list-group-item" style="border: 0px;">
+                      <img src="{{ asset('assets/img/avatar/1.png') }}" alt="" class="contact__photo" />
+                      <span class="contact__name">Ethan Hawke</span>
+                      <span class="contact__status online"></span>
+                  </a>
+              </ul>
+              <ul class="nav nav-pills nav-pills-sm">
+                  <a href="#" class="list-group-item" style="border: 0px;">
+                      <img src="{{ asset('assets/img/avatar/1.png') }}" alt="" class="contact__photo" />
+                      <span class="contact__name">Ethan Hawke</span>
+                      <span class="contact__status online"></span>
+                  </a>
+              </ul>
+              <ul class="nav nav-pills nav-pills-sm">
+                  <a href="#" class="list-group-item" style="border: 0px;">
+                      <img src="{{ asset('assets/img/avatar/1.png') }}" alt="" class="contact__photo" />
+                      <span class="contact__name">Ethan Hawke</span>
+                      <span class="contact__status online"></span>
+                  </a>
+              </ul>
+              <ul class="nav nav-pills nav-pills-sm">
+                  <a href="#" class="list-group-item" style="border: 0px;">
+                      <img src="{{ asset('assets/img/avatar/1.png') }}" alt="" class="contact__photo" />
+                      <span class="contact__name">Ethan Hawke</span>
+                      <span class="contact__status online"></span>
+                  </a>
+              </ul>
+              <ul class="nav nav-pills nav-pills-sm">
+                  <a href="#" class="list-group-item" style="border: 0px;">
+                      <img src="{{ asset('assets/img/avatar/1.png') }}" alt="" class="contact__photo" />
+                      <span class="contact__name">Ethan Hawke</span>
+                      <span class="contact__status online"></span>
+                  </a>
+              </ul>
+              <ul class="nav nav-pills nav-pills-sm">
+                  <a href="#" class="list-group-item" style="border: 0px;">
+                      <img src="{{ asset('assets/img/avatar/1.png') }}" alt="" class="contact__photo" />
+                      <span class="contact__name">Ethan Hawke</span>
+                      <span class="contact__status online"></span>
+                  </a>
+              </ul>
+          </div>
+          {#<div class="tab-content">#}
+              {#<div class="tab-pane active" id="video-chooser-upload-pane">#}
 
-                  <div class="file-chooser-uploader">
+                  {#<div class="file-chooser-uploader">#}
                       {#{{ '好友列表'|trans }}#}
 
-                      <div class="list-group">
-                          <a href="#" class="list-group-item">
-                              <img src="{{ asset('assets/img/avatar/1.png') }}" alt="" class="contact__photo" />
-                              <span class="contact__name">Ethan Hawke</span>
-                              <span class="contact__status online"></span>
-                          </a>
-                          <a href="#" class="list-group-item">
-                              <img src="{{ asset('assets/img/avatar/2.png') }}" alt="" class="contact__photo" />
-                              <span class="contact__name">Ethan Hawke</span>
-                              <span class="contact__status online"></span>
-                          </a>
-                          <a href="#" class="list-group-item">
-                              <img src="{{ asset('assets/img/avatar/3.png') }}" alt="" class="contact__photo" />
-                              <span class="contact__name">Ethan Hawke</span>
-                              <span class="contact__status online"></span>
-                          </a>
-                      </div>
+                      {#<div class="list-group">#}
+                          {#<a href="#" class="list-group-item">#}
+                              {#<img src="{{ asset('assets/img/avatar/1.png') }}" alt="" class="contact__photo" />#}
+                              {#<span class="contact__name">Ethan Hawke</span>#}
+                              {#<span class="contact__status online"></span>#}
+                          {#</a>#}
+                          {#<a href="#" class="list-group-item">#}
+                              {#<img src="{{ asset('assets/img/avatar/2.png') }}" alt="" class="contact__photo" />#}
+                              {#<span class="contact__name">Ethan Hawke</span>#}
+                              {#<span class="contact__status online"></span>#}
+                          {#</a>#}
+                          {#<a href="#" class="list-group-item">#}
+                              {#<img src="{{ asset('assets/img/avatar/3.png') }}" alt="" class="contact__photo" />#}
+                              {#<span class="contact__name">Ethan Hawke</span>#}
+                              {#<span class="contact__status online"></span>#}
+                          {#</a>#}
+                      {#</div>#}
 
                       {#{% include 'TopxiaWebBundle:CloudFile:video-quality-switcher.html.twig' %}#}
                       {#{% set token = uploader_token(targetType, targetId, 'private') %}#}
-                    {#  <div class="balloon-uploader"
-                           data-init-url="{{ path('uploader_init', {token:token}) }}"
-                           data-finish-url="{{ path('uploader_finished', {token:token}) }}"
-                           data-upload-auth-url="{{ path('uploader_auth', {token:token}) }}"
-                              {% if storageSetting.upload_mode == 'cloud' %}
-                                  data-accept="{{ uploader_accept(targetType, 'video')|json_encode }}"
-                              {% else %}
-                                  data-accept="{{ uploader_accept(targetType, 'local_video')|json_encode }}"
-                              {% endif %}
-                           data-process="{{ uploader_process(targetType) }}"
-                      ></div>#}
+                    {#  <div class="balloon-uploader"#}
+                           {#data-init-url="{{ path('uploader_init', {token:token}) }}"#}
+                           {#data-finish-url="{{ path('uploader_finished', {token:token}) }}"#}
+                           {#data-upload-auth-url="{{ path('uploader_auth', {token:token}) }}"#}
+                              {#{% if storageSetting.upload_mode == 'cloud' %}#}
+                                  {#data-accept="{{ uploader_accept(targetType, 'video')|json_encode }}"#}
+                              {#{% else %}#}
+                                  {#data-accept="{{ uploader_accept(targetType, 'local_video')|json_encode }}"#}
+                              {#{% endif %}#}
+                           {#data-process="{{ uploader_process(targetType) }}"#}
+                      {#></div>#}
 
 
                       {#<div class="alert alert-info">#}
@@ -90,11 +173,11 @@
                                   {#</li>#}
                               {#{% endif %}#}
                           {#</ul>#}
-                      </div>
+                      {#</div>#}
 
-                  </div>
+                  {#</div>#}
 
-              </div>
+              {#</div>#}
         {#<ul class="list-group">#}
           {#<li class="list-group-heading">{{'课程信息'|trans}}</li>#}
           {#<li class="list-group-item {% if side_nav == 'base' %}active{% endif %}">#}
@@ -232,7 +315,7 @@
       </div>
     {% endblock %}
   </div>
-  <div class="col-md-9">
+  <div class="col-md-9" style="height: 100%;">
     {% block main %}{% endblock %}
   </div>
 </div>

@@ -1849,6 +1849,41 @@ class UserServiceImpl extends BaseService implements UserService
     {
         return $this->createService('Org:Org.OrgService');
     }
+
+    //by matthew
+    public function findAllFriendsByUserId($userId)
+    {
+        $friends = $this->getFriendDao()->findAllFriendsByUserId($userId);
+        $friendsId = array();
+        if (!empty($friends)) {
+            $friendsId = ArrayToolkit::column($friends, 'toId');
+            $temp = ArrayToolkit::column($friends, 'fromId');
+
+
+            foreach ($temp as $item) {
+                if ($item != $userId) {
+                    $friendsId[] = $item;
+                }
+            }
+
+
+        }
+        foreach ($friendsId as &$value) {
+            if ($value == $userId) {
+                unset($value);
+            }
+        }
+
+        if (!empty($friendsId)) {
+            $userFriend = $this->findUsersByIds($friendsId);
+        }
+        return $userFriend ? $userFriend: null;
+    }
+
+    public function getFriendsCountByUserId($userId)
+    {
+        return $this->getFriendDao()->getFriendsCountByUserId($userId);
+    }
 }
 
 class UserSerialize

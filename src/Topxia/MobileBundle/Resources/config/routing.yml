@@ -170,3 +170,9 @@ mapi_mobile_log:
     path:  /mobile_school_login
     defaults: { _controller: TopxiaMobileBundle:Mobile:mobileSchoolLogin }
     methods: [POST, GET]
+
+#by matthew
+mapi_list_friend:
+    path:  /friend/list/{id}
+    defaults: { _controller: TopxiaMobileBundle:Friend:list }
+#    methods: [POST, GET]

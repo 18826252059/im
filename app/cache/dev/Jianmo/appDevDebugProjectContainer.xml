@@ -13,6 +13,7 @@
       <parameter key="TwigBundle">Symfony\Bundle\TwigBundle\TwigBundle</parameter>
       <parameter key="MonologBundle">Symfony\Bundle\MonologBundle\MonologBundle</parameter>
       <parameter key="SwiftmailerBundle">Symfony\Bundle\SwiftmailerBundle\SwiftmailerBundle</parameter>
+      <parameter key="AsseticBundle">Symfony\Bundle\AsseticBundle\AsseticBundle</parameter>
       <parameter key="SensioFrameworkExtraBundle">Sensio\Bundle\FrameworkExtraBundle\SensioFrameworkExtraBundle</parameter>
       <parameter key="EndroidQrCodeBundle">Endroid\Bundle\QrCodeBundle\EndroidQrCodeBundle</parameter>
       <parameter key="TopxiaWebBundle">Topxia\WebBundle\TopxiaWebBundle</parameter>
@@ -27,11 +28,150 @@
       <parameter key="BazingaJsTranslationBundle">Bazinga\Bundle\JsTranslationBundle\BazingaJsTranslationBundle</parameter>
       <parameter key="OAuth2ServerBundle">OAuth2\ServerBundle\OAuth2ServerBundle</parameter>
       <parameter key="CodeagesPluginBundle">Codeages\PluginBundle\CodeagesPluginBundle</parameter>
+      <parameter key="GosWebSocketBundle">Gos\Bundle\WebSocketBundle\GosWebSocketBundle</parameter>
+      <parameter key="GosPubSubRouterBundle">Gos\Bundle\PubSubRouterBundle\GosPubSubRouterBundle</parameter>
       <parameter key="CustomWebBundle">Custom\WebBundle\CustomWebBundle</parameter>
       <parameter key="CustomAdminBundle">Custom\AdminBundle\CustomAdminBundle</parameter>
       <parameter key="WebProfilerBundle">Symfony\Bundle\WebProfilerBundle\WebProfilerBundle</parameter>
       <parameter key="SensioDistributionBundle">Sensio\Bundle\DistributionBundle\SensioDistributionBundle</parameter>
       <parameter key="SensioGeneratorBundle">Sensio\Bundle\GeneratorBundle\SensioGeneratorBundle</parameter>
+    </parameter>
+    <parameter key="kernel.bundles_metadata" type="collection">
+      <parameter key="FrameworkBundle" type="collection">
+        <parameter key="parent">null</parameter>
+        <parameter key="path">D:\MyProject\php_project\edusoho\vendor\symfony\symfony\src\Symfony\Bundle\FrameworkBundle</parameter>
+        <parameter key="namespace">Symfony\Bundle\FrameworkBundle</parameter>
+      </parameter>
+      <parameter key="SecurityBundle" type="collection">
+        <parameter key="parent">null</parameter>
+        <parameter key="path">D:\MyProject\php_project\edusoho\vendor\symfony\symfony\src\Symfony\Bundle\SecurityBundle</parameter>
+        <parameter key="namespace">Symfony\Bundle\SecurityBundle</parameter>
+      </parameter>
+      <parameter key="TwigBundle" type="collection">
+        <parameter key="parent">null</parameter>
+        <parameter key="path">D:\MyProject\php_project\edusoho\vendor\symfony\symfony\src\Symfony\Bundle\TwigBundle</parameter>
+        <parameter key="namespace">Symfony\Bundle\TwigBundle</parameter>
+      </parameter>
+      <parameter key="MonologBundle" type="collection">
+        <parameter key="parent">null</parameter>
+        <parameter key="path">D:\MyProject\php_project\edusoho\vendor\symfony\monolog-bundle</parameter>
+        <parameter key="namespace">Symfony\Bundle\MonologBundle</parameter>
+      </parameter>
+      <parameter key="SwiftmailerBundle" type="collection">
+        <parameter key="parent">null</parameter>
+        <parameter key="path">D:\MyProject\php_project\edusoho\vendor\symfony\swiftmailer-bundle</parameter>
+        <parameter key="namespace">Symfony\Bundle\SwiftmailerBundle</parameter>
+      </parameter>
+      <parameter key="AsseticBundle" type="collection">
+        <parameter key="parent">null</parameter>
+        <parameter key="path">D:\MyProject\php_project\edusoho\vendor\symfony\assetic-bundle</parameter>
+        <parameter key="namespace">Symfony\Bundle\AsseticBundle</parameter>
+      </parameter>
+      <parameter key="SensioFrameworkExtraBundle" type="collection">
+        <parameter key="parent">null</parameter>
+        <parameter key="path">D:\MyProject\php_project\edusoho\vendor\sensio\framework-extra-bundle</parameter>
+        <parameter key="namespace">Sensio\Bundle\FrameworkExtraBundle</parameter>
+      </parameter>
+      <parameter key="EndroidQrCodeBundle" type="collection">
+        <parameter key="parent">null</parameter>
+        <parameter key="path">D:\MyProject\php_project\edusoho\vendor\endroid\qrcode-bundle\src</parameter>
+        <parameter key="namespace">Endroid\Bundle\QrCodeBundle</parameter>
+      </parameter>
+      <parameter key="TopxiaWebBundle" type="collection">
+        <parameter key="parent">null</parameter>
+        <parameter key="path">D:\MyProject\php_project\edusoho\src\Topxia\WebBundle</parameter>
+        <parameter key="namespace">Topxia\WebBundle</parameter>
+      </parameter>
+      <parameter key="TopxiaAdminBundle" type="collection">
+        <parameter key="parent">null</parameter>
+        <parameter key="path">D:\MyProject\php_project\edusoho\src\Topxia\AdminBundle</parameter>
+        <parameter key="namespace">Topxia\AdminBundle</parameter>
+      </parameter>
+      <parameter key="TopxiaMobileBundle" type="collection">
+        <parameter key="parent">null</parameter>
+        <parameter key="path">D:\MyProject\php_project\edusoho\src\Topxia\MobileBundle</parameter>
+        <parameter key="namespace">Topxia\MobileBundle</parameter>
+      </parameter>
+      <parameter key="TopxiaMobileBundleV2" type="collection">
+        <parameter key="parent">null</parameter>
+        <parameter key="path">D:\MyProject\php_project\edusoho\src\Topxia\MobileBundleV2</parameter>
+        <parameter key="namespace">Topxia\MobileBundleV2</parameter>
+      </parameter>
+      <parameter key="ClassroomBundle" type="collection">
+        <parameter key="parent">null</parameter>
+        <parameter key="path">D:\MyProject\php_project\edusoho\src\Classroom\ClassroomBundle</parameter>
+        <parameter key="namespace">Classroom\ClassroomBundle</parameter>
+      </parameter>
+      <parameter key="MaterialLibBundle" type="collection">
+        <parameter key="parent">null</parameter>
+        <parameter key="path">D:\MyProject\php_project\edusoho\src\MaterialLib\MaterialLibBundle</parameter>
+        <parameter key="namespace">MaterialLib\MaterialLibBundle</parameter>
+      </parameter>
+      <parameter key="SensitiveWordBundle" type="collection">
+        <parameter key="parent">null</parameter>
+        <parameter key="path">D:\MyProject\php_project\edusoho\src\SensitiveWord\SensitiveWordBundle</parameter>
+        <parameter key="namespace">SensitiveWord\SensitiveWordBundle</parameter>
+      </parameter>
+      <parameter key="OrgBundle" type="collection">
+        <parameter key="parent">null</parameter>
+        <parameter key="path">D:\MyProject\php_project\edusoho\src\Org\OrgBundle</parameter>
+        <parameter key="namespace">Org\OrgBundle</parameter>
+      </parameter>
+      <parameter key="PermissionBundle" type="collection">
+        <parameter key="parent">null</parameter>
+        <parameter key="path">D:\MyProject\php_project\edusoho\src\Permission\PermissionBundle</parameter>
+        <parameter key="namespace">Permission\PermissionBundle</parameter>
+      </parameter>
+      <parameter key="BazingaJsTranslationBundle" type="collection">
+        <parameter key="parent">null</parameter>
+        <parameter key="path">D:\MyProject\php_project\edusoho\vendor\willdurand\js-translation-bundle\Bazinga\Bundle\JsTranslationBundle</parameter>
+        <parameter key="namespace">Bazinga\Bundle\JsTranslationBundle</parameter>
+      </parameter>
+      <parameter key="OAuth2ServerBundle" type="collection">
+        <parameter key="parent">null</parameter>
+        <parameter key="path">D:\MyProject\php_project\edusoho\vendor\bshaffer\oauth2-server-bundle\OAuth2\ServerBundle</parameter>
+        <parameter key="namespace">OAuth2\ServerBundle</parameter>
+      </parameter>
+      <parameter key="CodeagesPluginBundle" type="collection">
+        <parameter key="parent">null</parameter>
+        <parameter key="path">D:\MyProject\php_project\edusoho\vendor\codeages\plugin-bundle</parameter>
+        <parameter key="namespace">Codeages\PluginBundle</parameter>
+      </parameter>
+      <parameter key="GosWebSocketBundle" type="collection">
+        <parameter key="parent">null</parameter>
+        <parameter key="path">D:\MyProject\php_project\edusoho\vendor\gos\web-socket-bundle</parameter>
+        <parameter key="namespace">Gos\Bundle\WebSocketBundle</parameter>
+      </parameter>
+      <parameter key="GosPubSubRouterBundle" type="collection">
+        <parameter key="parent">null</parameter>
+        <parameter key="path">D:\MyProject\php_project\edusoho\vendor\gos\pubsub-router-bundle</parameter>
+        <parameter key="namespace">Gos\Bundle\PubSubRouterBundle</parameter>
+      </parameter>
+      <parameter key="CustomWebBundle" type="collection">
+        <parameter key="parent">null</parameter>
+        <parameter key="path">D:\MyProject\php_project\edusoho\src\Custom\WebBundle</parameter>
+        <parameter key="namespace">Custom\WebBundle</parameter>
+      </parameter>
+      <parameter key="CustomAdminBundle" type="collection">
+        <parameter key="parent">null</parameter>
+        <parameter key="path">D:\MyProject\php_project\edusoho\src\Custom\AdminBundle</parameter>
+        <parameter key="namespace">Custom\AdminBundle</parameter>
+      </parameter>
+      <parameter key="WebProfilerBundle" type="collection">
+        <parameter key="parent">null</parameter>
+        <parameter key="path">D:\MyProject\php_project\edusoho\vendor\symfony\symfony\src\Symfony\Bundle\WebProfilerBundle</parameter>
+        <parameter key="namespace">Symfony\Bundle\WebProfilerBundle</parameter>
+      </parameter>
+      <parameter key="SensioDistributionBundle" type="collection">
+        <parameter key="parent">null</parameter>
+        <parameter key="path">D:\MyProject\php_project\edusoho\vendor\sensio\distribution-bundle</parameter>
+        <parameter key="namespace">Sensio\Bundle\DistributionBundle</parameter>
+      </parameter>
+      <parameter key="SensioGeneratorBundle" type="collection">
+        <parameter key="parent">null</parameter>
+        <parameter key="path">D:\MyProject\php_project\edusoho\vendor\sensio\generator-bundle</parameter>
+        <parameter key="namespace">Sensio\Bundle\GeneratorBundle</parameter>
+      </parameter>
     </parameter>
     <parameter key="kernel.charset">UTF-8</parameter>
     <parameter key="kernel.container_class">appDevDebugProjectContainer</parameter>
@@ -163,14 +303,12 @@
     <parameter key="database_name">edusoho</parameter>
     <parameter key="database_user">root</parameter>
     <parameter key="database_password">root</parameter>
+    <parameter key="locale">zh_CN</parameter>
+    <parameter key="secret">ThisTokenIsNotSoSecretChangeIt</parameter>
     <parameter key="mailer_transport">smtp</parameter>
     <parameter key="mailer_host">127.0.0.1</parameter>
     <parameter key="mailer_user">null</parameter>
     <parameter key="mailer_password">null</parameter>
-    <parameter key="locale">zh_CN</parameter>
-    <parameter key="secret">cogqavup1m8s0sgkkc0ko8gkokkw0ks</parameter>
-    <parameter key="webpack_base_url">http://imlocal.com</parameter>
-    <parameter key="user_partner">none</parameter>
     <parameter key="biz_config" type="collection">
       <parameter key="debug">true</parameter>
       <parameter key="db.options" type="collection">
@@ -255,7 +393,7 @@
     <parameter key="translation.extractor.class">Symfony\Component\Translation\Extractor\ChainExtractor</parameter>
     <parameter key="translation.writer.class">Symfony\Component\Translation\Writer\TranslationWriter</parameter>
     <parameter key="property_accessor.class">Symfony\Component\PropertyAccess\PropertyAccessor</parameter>
-    <parameter key="kernel.secret">cogqavup1m8s0sgkkc0ko8gkokkw0ks</parameter>
+    <parameter key="kernel.secret">ThisTokenIsNotSoSecretChangeIt</parameter>
     <parameter key="kernel.http_method_override">true</parameter>
     <parameter key="kernel.trusted_hosts" type="collection"/>
     <parameter key="kernel.trusted_proxies" type="collection"/>
@@ -351,14 +489,14 @@
     <parameter key="router.options.matcher_base_class">Symfony\Bundle\FrameworkBundle\Routing\RedirectableUrlMatcher</parameter>
     <parameter key="router.options.matcher_dumper_class">Permission\Dumper\PhpMatcherDumper</parameter>
     <parameter key="router.cache_warmer.class">Symfony\Bundle\FrameworkBundle\CacheWarmer\RouterCacheWarmer</parameter>
-    <parameter key="router.options.matcher.cache_class">appDevUrlMatcher</parameter>
-    <parameter key="router.options.generator.cache_class">appDevUrlGenerator</parameter>
+    <parameter key="router.options.matcher.cache_class">appDevDebugProjectContainerUrlMatcher</parameter>
+    <parameter key="router.options.generator.cache_class">appDevDebugProjectContainerUrlGenerator</parameter>
     <parameter key="router_listener.class">Symfony\Component\HttpKernel\EventListener\RouterListener</parameter>
     <parameter key="router.request_context.host">localhost</parameter>
     <parameter key="router.request_context.scheme">http</parameter>
     <parameter key="router.request_context.base_url"></parameter>
-    <parameter key="router.resource">D:\MyProject\php_project\edusoho\app/config/routing_dev.yml</parameter>
-    <parameter key="router.cache_class_prefix">appDev</parameter>
+    <parameter key="router.resource">D:\MyProject\php_project\edusoho\app\cache\dev\Jianmo/assetic/routing.yml</parameter>
+    <parameter key="router.cache_class_prefix">appDevDebugProjectContainer</parameter>
     <parameter key="request_listener.http_port">80</parameter>
     <parameter key="request_listener.https_port">443</parameter>
     <parameter key="annotations.reader.class">Doctrine\Common\Annotations\AnnotationReader</parameter>
@@ -531,6 +669,12 @@
       <parameter key="monolog.handler.chromephp">null</parameter>
       <parameter key="monolog.handler.firephp">null</parameter>
       <parameter key="monolog.handler.main">null</parameter>
+      <parameter key="monolog.handler.websocket" type="collection">
+        <parameter key="type">inclusive</parameter>
+        <parameter key="elements" type="collection">
+          <parameter>websocket</parameter>
+        </parameter>
+      </parameter>
     </parameter>
     <parameter key="swiftmailer.class">Swift_Mailer</parameter>
     <parameter key="swiftmailer.transport.sendmail.class">Swift_Transport_SendmailTransport</parameter>
@@ -566,6 +710,46 @@
       <parameter key="default">swiftmailer.mailer.default</parameter>
     </parameter>
     <parameter key="swiftmailer.default_mailer">default</parameter>
+    <parameter key="assetic.asset_factory.class">Symfony\Bundle\AsseticBundle\Factory\AssetFactory</parameter>
+    <parameter key="assetic.asset_manager.class">Assetic\Factory\LazyAssetManager</parameter>
+    <parameter key="assetic.asset_manager_cache_warmer.class">Symfony\Bundle\AsseticBundle\CacheWarmer\AssetManagerCacheWarmer</parameter>
+    <parameter key="assetic.cached_formula_loader.class">Assetic\Factory\Loader\CachedFormulaLoader</parameter>
+    <parameter key="assetic.config_cache.class">Assetic\Cache\ConfigCache</parameter>
+    <parameter key="assetic.config_loader.class">Symfony\Bundle\AsseticBundle\Factory\Loader\ConfigurationLoader</parameter>
+    <parameter key="assetic.config_resource.class">Symfony\Bundle\AsseticBundle\Factory\Resource\ConfigurationResource</parameter>
+    <parameter key="assetic.coalescing_directory_resource.class">Symfony\Bundle\AsseticBundle\Factory\Resource\CoalescingDirectoryResource</parameter>
+    <parameter key="assetic.directory_resource.class">Symfony\Bundle\AsseticBundle\Factory\Resource\DirectoryResource</parameter>
+    <parameter key="assetic.filter_manager.class">Symfony\Bundle\AsseticBundle\FilterManager</parameter>
+    <parameter key="assetic.worker.ensure_filter.class">Assetic\Factory\Worker\EnsureFilterWorker</parameter>
+    <parameter key="assetic.worker.cache_busting.class">Assetic\Factory\Worker\CacheBustingWorker</parameter>
+    <parameter key="assetic.value_supplier.class">Symfony\Bundle\AsseticBundle\DefaultValueSupplier</parameter>
+    <parameter key="assetic.node.paths" type="collection"/>
+    <parameter key="assetic.cache_dir">D:\MyProject\php_project\edusoho\app\cache\dev\Jianmo/assetic</parameter>
+    <parameter key="assetic.bundles" type="collection">
+      <parameter>GosWebSocketBundle</parameter>
+    </parameter>
+    <parameter key="assetic.twig_extension.class">Symfony\Bundle\AsseticBundle\Twig\AsseticExtension</parameter>
+    <parameter key="assetic.twig_formula_loader.class">Assetic\Extension\Twig\TwigFormulaLoader</parameter>
+    <parameter key="assetic.helper.dynamic.class">Symfony\Bundle\AsseticBundle\Templating\DynamicAsseticHelper</parameter>
+    <parameter key="assetic.helper.static.class">Symfony\Bundle\AsseticBundle\Templating\StaticAsseticHelper</parameter>
+    <parameter key="assetic.php_formula_loader.class">Symfony\Bundle\AsseticBundle\Factory\Loader\AsseticHelperFormulaLoader</parameter>
+    <parameter key="assetic.debug">true</parameter>
+    <parameter key="assetic.use_controller">true</parameter>
+    <parameter key="assetic.enable_profiler">false</parameter>
+    <parameter key="assetic.read_from">D:\MyProject\php_project\edusoho\app/../web</parameter>
+    <parameter key="assetic.write_to">D:\MyProject\php_project\edusoho\app/../web</parameter>
+    <parameter key="assetic.variables" type="collection"/>
+    <parameter key="assetic.java.bin">C:\ProgramData\Oracle\Java\javapath\java.EXE</parameter>
+    <parameter key="assetic.node.bin">/usr/bin/node</parameter>
+    <parameter key="assetic.ruby.bin">/usr/bin/ruby</parameter>
+    <parameter key="assetic.sass.bin">/usr/bin/sass</parameter>
+    <parameter key="assetic.reactjsx.bin">/usr/bin/jsx</parameter>
+    <parameter key="assetic.twig_extension.functions" type="collection"/>
+    <parameter key="assetic.controller.class">Symfony\Bundle\AsseticBundle\Controller\AsseticController</parameter>
+    <parameter key="assetic.routing_loader.class">Symfony\Bundle\AsseticBundle\Routing\AsseticLoader</parameter>
+    <parameter key="assetic.cache.class">Assetic\Cache\FilesystemCache</parameter>
+    <parameter key="assetic.use_controller_worker.class">Symfony\Bundle\AsseticBundle\Factory\Worker\UseControllerWorker</parameter>
+    <parameter key="assetic.request_listener.class">Symfony\Bundle\AsseticBundle\EventListener\RequestListener</parameter>
     <parameter key="sensio_framework_extra.view.guesser.class">Sensio\Bundle\FrameworkExtraBundle\Templating\TemplateGuesser</parameter>
     <parameter key="sensio_framework_extra.controller.listener.class">Sensio\Bundle\FrameworkExtraBundle\EventListener\ControllerListener</parameter>
     <parameter key="sensio_framework_extra.routing.loader.annot_dir.class">Symfony\Component\Routing\Loader\AnnotationDirectoryLoader</parameter>
@@ -799,6 +983,14 @@
     <parameter key="oauth2.user_provider.class">OAuth2\ServerBundle\User\OAuth2UserProvider</parameter>
     <parameter key="oauth2.client_manager.class">OAuth2\ServerBundle\Manager\ClientManager</parameter>
     <parameter key="oauth2.scope_manager.class">OAuth2\ServerBundle\Manager\ScopeManager</parameter>
+    <parameter key="web_socket_server.port">1337</parameter>
+    <parameter key="web_socket_server.host">127.0.0.1</parameter>
+    <parameter key="web_socket_origin_check">false</parameter>
+    <parameter key="web_socket_server.client_storage.ttl">900</parameter>
+    <parameter key="web_socket_server.client_storage.prefix"></parameter>
+    <parameter key="gos_web_socket.firewall" type="collection">
+      <parameter>ws_firewall</parameter>
+    </parameter>
     <parameter key="web_profiler.controller.profiler.class">Symfony\Bundle\WebProfilerBundle\Controller\ProfilerController</parameter>
     <parameter key="web_profiler.controller.router.class">Symfony\Bundle\WebProfilerBundle\Controller\RouterController</parameter>
     <parameter key="web_profiler.controller.exception.class">Symfony\Bundle\WebProfilerBundle\Controller\ExceptionController</parameter>
@@ -860,13 +1052,23 @@
         <parameter>swiftmailer</parameter>
         <parameter>@Swiftmailer/Collector/swiftmailer.html.twig</parameter>
       </parameter>
+      <parameter key="gos_web_socket.data_collector" type="collection">
+        <parameter>websocket</parameter>
+        <parameter>GosWebSocketBundle:Collector:websocket.html.twig</parameter>
+      </parameter>
       <parameter key="data_collector.config" type="collection">
         <parameter>config</parameter>
         <parameter>@WebProfiler/Collector/config.html.twig</parameter>
       </parameter>
     </parameter>
     <parameter key="console.command.ids" type="collection">
+      <parameter>gos_web_socket.server_command</parameter>
+      <parameter>gos_web_socket.websocket_server.command</parameter>
+      <parameter>gos_pubsub_router.debug.command</parameter>
       <parameter>sensio_distribution.security_checker.command</parameter>
+    </parameter>
+    <parameter key="gos_pubsub_registered_routers" type="collection">
+      <parameter>websocket</parameter>
     </parameter>
   </parameters>
   <services>
@@ -1080,6 +1282,12 @@
             <argument type="service" id="codeages_plugin.theme.templating.locator"/>
           </service>
         </argument>
+        <argument type="service">
+          <service class="Symfony\Bundle\AsseticBundle\CacheWarmer\AssetManagerCacheWarmer" public="false">
+            <tag name="kernel.cache_warmer" priority="10"/>
+            <argument type="service" id="service_container"/>
+          </service>
+        </argument>
         <argument type="service" id="kernel.class_cache.cache_warmer"/>
         <argument type="service">
           <service class="Symfony\Bundle\FrameworkBundle\CacheWarmer\TranslationsCacheWarmer" public="false">
@@ -1152,7 +1360,7 @@
       <argument>D:\MyProject\php_project\edusoho\app/Resources</argument>
     </service>
     <service id="uri_signer" class="Symfony\Component\HttpKernel\UriSigner">
-      <argument>cogqavup1m8s0sgkkc0ko8gkokkw0ks</argument>
+      <argument>ThisTokenIsNotSoSecretChangeIt</argument>
     </service>
     <service id="config_cache_factory" class="Symfony\Component\Config\ResourceCheckerConfigCacheFactory">
       <argument type="collection">
@@ -1280,27 +1488,27 @@
           <argument key="ar" type="collection">
             <argument>D:\MyProject\php_project\edusoho\vendor\symfony\symfony\src\Symfony\Component\Validator/Resources/translations\validators.ar.xlf</argument>
             <argument>D:\MyProject\php_project\edusoho\vendor\symfony\symfony\src\Symfony\Component\Form/Resources/translations\validators.ar.xlf</argument>
-            <argument>D:\MyProject\php_project\edusoho\vendor\symfony\symfony\src\Symfony\Component\Security\Core\Exception/../Resources/translations\security.ar.xlf</argument>
+            <argument>D:\MyProject\php_project\edusoho\vendor\symfony\symfony\src\Symfony\Component\Security\Core/Resources/translations\security.ar.xlf</argument>
           </argument>
           <argument key="az" type="collection">
             <argument>D:\MyProject\php_project\edusoho\vendor\symfony\symfony\src\Symfony\Component\Validator/Resources/translations\validators.az.xlf</argument>
             <argument>D:\MyProject\php_project\edusoho\vendor\symfony\symfony\src\Symfony\Component\Form/Resources/translations\validators.az.xlf</argument>
-            <argument>D:\MyProject\php_project\edusoho\vendor\symfony\symfony\src\Symfony\Component\Security\Core\Exception/../Resources/translations\security.az.xlf</argument>
+            <argument>D:\MyProject\php_project\edusoho\vendor\symfony\symfony\src\Symfony\Component\Security\Core/Resources/translations\security.az.xlf</argument>
           </argument>
           <argument key="bg" type="collection">
             <argument>D:\MyProject\php_project\edusoho\vendor\symfony\symfony\src\Symfony\Component\Validator/Resources/translations\validators.bg.xlf</argument>
             <argument>D:\MyProject\php_project\edusoho\vendor\symfony\symfony\src\Symfony\Component\Form/Resources/translations\validators.bg.xlf</argument>
-            <argument>D:\MyProject\php_project\edusoho\vendor\symfony\symfony\src\Symfony\Component\Security\Core\Exception/../Resources/translations\security.bg.xlf</argument>
+            <argument>D:\MyProject\php_project\edusoho\vendor\symfony\symfony\src\Symfony\Component\Security\Core/Resources/translations\security.bg.xlf</argument>
           </argument>
           <argument key="ca" type="collection">
             <argument>D:\MyProject\php_project\edusoho\vendor\symfony\symfony\src\Symfony\Component\Validator/Resources/translations\validators.ca.xlf</argument>
             <argument>D:\MyProject\php_project\edusoho\vendor\symfony\symfony\src\Symfony\Component\Form/Resources/translations\validators.ca.xlf</argument>
-            <argument>D:\MyProject\php_project\edusoho\vendor\symfony\symfony\src\Symfony\Component\Security\Core\Exception/../Resources/translations\security.ca.xlf</argument>
+            <argument>D:\MyProject\php_project\edusoho\vendor\symfony\symfony\src\Symfony\Component\Security\Core/Resources/translations\security.ca.xlf</argument>
           </argument>
           <argument key="cs" type="collection">
             <argument>D:\MyProject\php_project\edusoho\vendor\symfony\symfony\src\Symfony\Component\Validator/Resources/translations\validators.cs.xlf</argument>
             <argument>D:\MyProject\php_project\edusoho\vendor\symfony\symfony\src\Symfony\Component\Form/Resources/translations\validators.cs.xlf</argument>
-            <argument>D:\MyProject\php_project\edusoho\vendor\symfony\symfony\src\Symfony\Component\Security\Core\Exception/../Resources/translations\security.cs.xlf</argument>
+            <argument>D:\MyProject\php_project\edusoho\vendor\symfony\symfony\src\Symfony\Component\Security\Core/Resources/translations\security.cs.xlf</argument>
           </argument>
           <argument key="cy" type="collection">
             <argument>D:\MyProject\php_project\edusoho\vendor\symfony\symfony\src\Symfony\Component\Validator/Resources/translations\validators.cy.xlf</argument>
@@ -1308,22 +1516,22 @@
           <argument key="da" type="collection">
             <argument>D:\MyProject\php_project\edusoho\vendor\symfony\symfony\src\Symfony\Component\Validator/Resources/translations\validators.da.xlf</argument>
             <argument>D:\MyProject\php_project\edusoho\vendor\symfony\symfony\src\Symfony\Component\Form/Resources/translations\validators.da.xlf</argument>
-            <argument>D:\MyProject\php_project\edusoho\vendor\symfony\symfony\src\Symfony\Component\Security\Core\Exception/../Resources/translations\security.da.xlf</argument>
+            <argument>D:\MyProject\php_project\edusoho\vendor\symfony\symfony\src\Symfony\Component\Security\Core/Resources/translations\security.da.xlf</argument>
           </argument>
           <argument key="de" type="collection">
             <argument>D:\MyProject\php_project\edusoho\vendor\symfony\symfony\src\Symfony\Component\Validator/Resources/translations\validators.de.xlf</argument>
             <argument>D:\MyProject\php_project\edusoho\vendor\symfony\symfony\src\Symfony\Component\Form/Resources/translations\validators.de.xlf</argument>
-            <argument>D:\MyProject\php_project\edusoho\vendor\symfony\symfony\src\Symfony\Component\Security\Core\Exception/../Resources/translations\security.de.xlf</argument>
+            <argument>D:\MyProject\php_project\edusoho\vendor\symfony\symfony\src\Symfony\Component\Security\Core/Resources/translations\security.de.xlf</argument>
           </argument>
           <argument key="el" type="collection">
             <argument>D:\MyProject\php_project\edusoho\vendor\symfony\symfony\src\Symfony\Component\Validator/Resources/translations\validators.el.xlf</argument>
             <argument>D:\MyProject\php_project\edusoho\vendor\symfony\symfony\src\Symfony\Component\Form/Resources/translations\validators.el.xlf</argument>
-            <argument>D:\MyProject\php_project\edusoho\vendor\symfony\symfony\src\Symfony\Component\Security\Core\Exception/../Resources/translations\security.el.xlf</argument>
+            <argument>D:\MyProject\php_project\edusoho\vendor\symfony\symfony\src\Symfony\Component\Security\Core/Resources/translations\security.el.xlf</argument>
           </argument>
           <argument key="en" type="collection">
             <argument>D:\MyProject\php_project\edusoho\vendor\symfony\symfony\src\Symfony\Component\Validator/Resources/translations\validators.en.xlf</argument>
             <argument>D:\MyProject\php_project\edusoho\vendor\symfony\symfony\src\Symfony\Component\Form/Resources/translations\validators.en.xlf</argument>
-            <argument>D:\MyProject\php_project\edusoho\vendor\symfony\symfony\src\Symfony\Component\Security\Core\Exception/../Resources/translations\security.en.xlf</argument>
+            <argument>D:\MyProject\php_project\edusoho\vendor\symfony\symfony\src\Symfony\Component\Security\Core/Resources/translations\security.en.xlf</argument>
             <argument>D:\MyProject\php_project\edusoho\src\Topxia\WebBundle/Resources/translations\messages.en.yml</argument>
             <argument>D:\MyProject\php_project\edusoho\src\Topxia\AdminBundle/Resources/translations\messages.en.yml</argument>
             <argument>D:\MyProject\php_project\edusoho\src\Classroom\ClassroomBundle/Resources/translations\messages.en.yml</argument>
@@ -1333,7 +1541,7 @@
           <argument key="es" type="collection">
             <argument>D:\MyProject\php_project\edusoho\vendor\symfony\symfony\src\Symfony\Component\Validator/Resources/translations\validators.es.xlf</argument>
             <argument>D:\MyProject\php_project\edusoho\vendor\symfony\symfony\src\Symfony\Component\Form/Resources/translations\validators.es.xlf</argument>
-            <argument>D:\MyProject\php_project\edusoho\vendor\symfony\symfony\src\Symfony\Component\Security\Core\Exception/../Resources/translations\security.es.xlf</argument>
+            <argument>D:\MyProject\php_project\edusoho\vendor\symfony\symfony\src\Symfony\Component\Security\Core/Resources/translations\security.es.xlf</argument>
           </argument>
           <argument key="et" type="collection">
             <argument>D:\MyProject\php_project\edusoho\vendor\symfony\symfony\src\Symfony\Component\Validator/Resources/translations\validators.et.xlf</argument>
@@ -1346,7 +1554,7 @@
           <argument key="fa" type="collection">
             <argument>D:\MyProject\php_project\edusoho\vendor\symfony\symfony\src\Symfony\Component\Validator/Resources/translations\validators.fa.xlf</argument>
             <argument>D:\MyProject\php_project\edusoho\vendor\symfony\symfony\src\Symfony\Component\Form/Resources/translations\validators.fa.xlf</argument>
-            <argument>D:\MyProject\php_project\edusoho\vendor\symfony\symfony\src\Symfony\Component\Security\Core\Exception/../Resources/translations\security.fa.xlf</argument>
+            <argument>D:\MyProject\php_project\edusoho\vendor\symfony\symfony\src\Symfony\Component\Security\Core/Resources/translations\security.fa.xlf</argument>
           </argument>
           <argument key="fi" type="collection">
             <argument>D:\MyProject\php_project\edusoho\vendor\symfony\symfony\src\Symfony\Component\Validator/Resources/translations\validators.fi.xlf</argument>
@@ -1355,29 +1563,29 @@
           <argument key="fr" type="collection">
             <argument>D:\MyProject\php_project\edusoho\vendor\symfony\symfony\src\Symfony\Component\Validator/Resources/translations\validators.fr.xlf</argument>
             <argument>D:\MyProject\php_project\edusoho\vendor\symfony\symfony\src\Symfony\Component\Form/Resources/translations\validators.fr.xlf</argument>
-            <argument>D:\MyProject\php_project\edusoho\vendor\symfony\symfony\src\Symfony\Component\Security\Core\Exception/../Resources/translations\security.fr.xlf</argument>
+            <argument>D:\MyProject\php_project\edusoho\vendor\symfony\symfony\src\Symfony\Component\Security\Core/Resources/translations\security.fr.xlf</argument>
             <argument>D:\MyProject\php_project\edusoho\src\Org\OrgBundle/Resources/translations\messages.fr.xlf</argument>
             <argument>D:\MyProject\php_project\edusoho\src\Custom\AdminBundle/Resources/translations\messages.fr.xlf</argument>
           </argument>
           <argument key="gl" type="collection">
             <argument>D:\MyProject\php_project\edusoho\vendor\symfony\symfony\src\Symfony\Component\Validator/Resources/translations\validators.gl.xlf</argument>
             <argument>D:\MyProject\php_project\edusoho\vendor\symfony\symfony\src\Symfony\Component\Form/Resources/translations\validators.gl.xlf</argument>
-            <argument>D:\MyProject\php_project\edusoho\vendor\symfony\symfony\src\Symfony\Component\Security\Core\Exception/../Resources/translations\security.gl.xlf</argument>
+            <argument>D:\MyProject\php_project\edusoho\vendor\symfony\symfony\src\Symfony\Component\Security\Core/Resources/translations\security.gl.xlf</argument>
           </argument>
           <argument key="he" type="collection">
             <argument>D:\MyProject\php_project\edusoho\vendor\symfony\symfony\src\Symfony\Component\Validator/Resources/translations\validators.he.xlf</argument>
             <argument>D:\MyProject\php_project\edusoho\vendor\symfony\symfony\src\Symfony\Component\Form/Resources/translations\validators.he.xlf</argument>
-            <argument>D:\MyProject\php_project\edusoho\vendor\symfony\symfony\src\Symfony\Component\Security\Core\Exception/../Resources/translations\security.he.xlf</argument>
+            <argument>D:\MyProject\php_project\edusoho\vendor\symfony\symfony\src\Symfony\Component\Security\Core/Resources/translations\security.he.xlf</argument>
           </argument>
           <argument key="hr" type="collection">
             <argument>D:\MyProject\php_project\edusoho\vendor\symfony\symfony\src\Symfony\Component\Validator/Resources/translations\validators.hr.xlf</argument>
             <argument>D:\MyProject\php_project\edusoho\vendor\symfony\symfony\src\Symfony\Component\Form/Resources/translations\validators.hr.xlf</argument>
-            <argument>D:\MyProject\php_project\edusoho\vendor\symfony\symfony\src\Symfony\Component\Security\Core\Exception/../Resources/translations\security.hr.xlf</argument>
+            <argument>D:\MyProject\php_project\edusoho\vendor\symfony\symfony\src\Symfony\Component\Security\Core/Resources/translations\security.hr.xlf</argument>
           </argument>
           <argument key="hu" type="collection">
             <argument>D:\MyProject\php_project\edusoho\vendor\symfony\symfony\src\Symfony\Component\Validator/Resources/translations\validators.hu.xlf</argument>
             <argument>D:\MyProject\php_project\edusoho\vendor\symfony\symfony\src\Symfony\Component\Form/Resources/translations\validators.hu.xlf</argument>
-            <argument>D:\MyProject\php_project\edusoho\vendor\symfony\symfony\src\Symfony\Component\Security\Core\Exception/../Resources/translations\security.hu.xlf</argument>
+            <argument>D:\MyProject\php_project\edusoho\vendor\symfony\symfony\src\Symfony\Component\Security\Core/Resources/translations\security.hu.xlf</argument>
           </argument>
           <argument key="hy" type="collection">
             <argument>D:\MyProject\php_project\edusoho\vendor\symfony\symfony\src\Symfony\Component\Validator/Resources/translations\validators.hy.xlf</argument>
@@ -1386,32 +1594,32 @@
           <argument key="id" type="collection">
             <argument>D:\MyProject\php_project\edusoho\vendor\symfony\symfony\src\Symfony\Component\Validator/Resources/translations\validators.id.xlf</argument>
             <argument>D:\MyProject\php_project\edusoho\vendor\symfony\symfony\src\Symfony\Component\Form/Resources/translations\validators.id.xlf</argument>
-            <argument>D:\MyProject\php_project\edusoho\vendor\symfony\symfony\src\Symfony\Component\Security\Core\Exception/../Resources/translations\security.id.xlf</argument>
+            <argument>D:\MyProject\php_project\edusoho\vendor\symfony\symfony\src\Symfony\Component\Security\Core/Resources/translations\security.id.xlf</argument>
           </argument>
           <argument key="it" type="collection">
             <argument>D:\MyProject\php_project\edusoho\vendor\symfony\symfony\src\Symfony\Component\Validator/Resources/translations\validators.it.xlf</argument>
             <argument>D:\MyProject\php_project\edusoho\vendor\symfony\symfony\src\Symfony\Component\Form/Resources/translations\validators.it.xlf</argument>
-            <argument>D:\MyProject\php_project\edusoho\vendor\symfony\symfony\src\Symfony\Component\Security\Core\Exception/../Resources/translations\security.it.xlf</argument>
+            <argument>D:\MyProject\php_project\edusoho\vendor\symfony\symfony\src\Symfony\Component\Security\Core/Resources/translations\security.it.xlf</argument>
           </argument>
           <argument key="ja" type="collection">
             <argument>D:\MyProject\php_project\edusoho\vendor\symfony\symfony\src\Symfony\Component\Validator/Resources/translations\validators.ja.xlf</argument>
             <argument>D:\MyProject\php_project\edusoho\vendor\symfony\symfony\src\Symfony\Component\Form/Resources/translations\validators.ja.xlf</argument>
-            <argument>D:\MyProject\php_project\edusoho\vendor\symfony\symfony\src\Symfony\Component\Security\Core\Exception/../Resources/translations\security.ja.xlf</argument>
+            <argument>D:\MyProject\php_project\edusoho\vendor\symfony\symfony\src\Symfony\Component\Security\Core/Resources/translations\security.ja.xlf</argument>
           </argument>
           <argument key="lb" type="collection">
             <argument>D:\MyProject\php_project\edusoho\vendor\symfony\symfony\src\Symfony\Component\Validator/Resources/translations\validators.lb.xlf</argument>
             <argument>D:\MyProject\php_project\edusoho\vendor\symfony\symfony\src\Symfony\Component\Form/Resources/translations\validators.lb.xlf</argument>
-            <argument>D:\MyProject\php_project\edusoho\vendor\symfony\symfony\src\Symfony\Component\Security\Core\Exception/../Resources/translations\security.lb.xlf</argument>
+            <argument>D:\MyProject\php_project\edusoho\vendor\symfony\symfony\src\Symfony\Component\Security\Core/Resources/translations\security.lb.xlf</argument>
           </argument>
           <argument key="lt" type="collection">
             <argument>D:\MyProject\php_project\edusoho\vendor\symfony\symfony\src\Symfony\Component\Validator/Resources/translations\validators.lt.xlf</argument>
             <argument>D:\MyProject\php_project\edusoho\vendor\symfony\symfony\src\Symfony\Component\Form/Resources/translations\validators.lt.xlf</argument>
-            <argument>D:\MyProject\php_project\edusoho\vendor\symfony\symfony\src\Symfony\Component\Security\Core\Exception/../Resources/translations\security.lt.xlf</argument>
+            <argument>D:\MyProject\php_project\edusoho\vendor\symfony\symfony\src\Symfony\Component\Security\Core/Resources/translations\security.lt.xlf</argument>
           </argument>
           <argument key="lv" type="collection">
             <argument>D:\MyProject\php_project\edusoho\vendor\symfony\symfony\src\Symfony\Component\Validator/Resources/translations\validators.lv.xlf</argument>
             <argument>D:\MyProject\php_project\edusoho\vendor\symfony\symfony\src\Symfony\Component\Form/Resources/translations\validators.lv.xlf</argument>
-            <argument>D:\MyProject\php_project\edusoho\vendor\symfony\symfony\src\Symfony\Component\Security\Core\Exception/../Resources/translations\security.lv.xlf</argument>
+            <argument>D:\MyProject\php_project\edusoho\vendor\symfony\symfony\src\Symfony\Component\Security\Core/Resources/translations\security.lv.xlf</argument>
           </argument>
           <argument key="mn" type="collection">
             <argument>D:\MyProject\php_project\edusoho\vendor\symfony\symfony\src\Symfony\Component\Validator/Resources/translations\validators.mn.xlf</argument>
@@ -1420,7 +1628,7 @@
           <argument key="nl" type="collection">
             <argument>D:\MyProject\php_project\edusoho\vendor\symfony\symfony\src\Symfony\Component\Validator/Resources/translations\validators.nl.xlf</argument>
             <argument>D:\MyProject\php_project\edusoho\vendor\symfony\symfony\src\Symfony\Component\Form/Resources/translations\validators.nl.xlf</argument>
-            <argument>D:\MyProject\php_project\edusoho\vendor\symfony\symfony\src\Symfony\Component\Security\Core\Exception/../Resources/translations\security.nl.xlf</argument>
+            <argument>D:\MyProject\php_project\edusoho\vendor\symfony\symfony\src\Symfony\Component\Security\Core/Resources/translations\security.nl.xlf</argument>
           </argument>
           <argument key="nn" type="collection">
             <argument>D:\MyProject\php_project\edusoho\vendor\symfony\symfony\src\Symfony\Component\Validator/Resources/translations\validators.nn.xlf</argument>
@@ -1428,12 +1636,12 @@
           <argument key="no" type="collection">
             <argument>D:\MyProject\php_project\edusoho\vendor\symfony\symfony\src\Symfony\Component\Validator/Resources/translations\validators.no.xlf</argument>
             <argument>D:\MyProject\php_project\edusoho\vendor\symfony\symfony\src\Symfony\Component\Form/Resources/translations\validators.no.xlf</argument>
-            <argument>D:\MyProject\php_project\edusoho\vendor\symfony\symfony\src\Symfony\Component\Security\Core\Exception/../Resources/translations\security.no.xlf</argument>
+            <argument>D:\MyProject\php_project\edusoho\vendor\symfony\symfony\src\Symfony\Component\Security\Core/Resources/translations\security.no.xlf</argument>
           </argument>
           <argument key="pl" type="collection">
             <argument>D:\MyProject\php_project\edusoho\vendor\symfony\symfony\src\Symfony\Component\Validator/Resources/translations\validators.pl.xlf</argument>
             <argument>D:\MyProject\php_project\edusoho\vendor\symfony\symfony\src\Symfony\Component\Form/Resources/translations\validators.pl.xlf</argument>
-            <argument>D:\MyProject\php_project\edusoho\vendor\symfony\symfony\src\Symfony\Component\Security\Core\Exception/../Resources/translations\security.pl.xlf</argument>
+            <argument>D:\MyProject\php_project\edusoho\vendor\symfony\symfony\src\Symfony\Component\Security\Core/Resources/translations\security.pl.xlf</argument>
           </argument>
           <argument key="pt" type="collection">
             <argument>D:\MyProject\php_project\edusoho\vendor\symfony\symfony\src\Symfony\Component\Validator/Resources/translations\validators.pt.xlf</argument>
@@ -1442,27 +1650,27 @@
           <argument key="pt_BR" type="collection">
             <argument>D:\MyProject\php_project\edusoho\vendor\symfony\symfony\src\Symfony\Component\Validator/Resources/translations\validators.pt_BR.xlf</argument>
             <argument>D:\MyProject\php_project\edusoho\vendor\symfony\symfony\src\Symfony\Component\Form/Resources/translations\validators.pt_BR.xlf</argument>
-            <argument>D:\MyProject\php_project\edusoho\vendor\symfony\symfony\src\Symfony\Component\Security\Core\Exception/../Resources/translations\security.pt_BR.xlf</argument>
+            <argument>D:\MyProject\php_project\edusoho\vendor\symfony\symfony\src\Symfony\Component\Security\Core/Resources/translations\security.pt_BR.xlf</argument>
           </argument>
           <argument key="ro" type="collection">
             <argument>D:\MyProject\php_project\edusoho\vendor\symfony\symfony\src\Symfony\Component\Validator/Resources/translations\validators.ro.xlf</argument>
             <argument>D:\MyProject\php_project\edusoho\vendor\symfony\symfony\src\Symfony\Component\Form/Resources/translations\validators.ro.xlf</argument>
-            <argument>D:\MyProject\php_project\edusoho\vendor\symfony\symfony\src\Symfony\Component\Security\Core\Exception/../Resources/translations\security.ro.xlf</argument>
+            <argument>D:\MyProject\php_project\edusoho\vendor\symfony\symfony\src\Symfony\Component\Security\Core/Resources/translations\security.ro.xlf</argument>
           </argument>
           <argument key="ru" type="collection">
             <argument>D:\MyProject\php_project\edusoho\vendor\symfony\symfony\src\Symfony\Component\Validator/Resources/translations\validators.ru.xlf</argument>
             <argument>D:\MyProject\php_project\edusoho\vendor\symfony\symfony\src\Symfony\Component\Form/Resources/translations\validators.ru.xlf</argument>
-            <argument>D:\MyProject\php_project\edusoho\vendor\symfony\symfony\src\Symfony\Component\Security\Core\Exception/../Resources/translations\security.ru.xlf</argument>
+            <argument>D:\MyProject\php_project\edusoho\vendor\symfony\symfony\src\Symfony\Component\Security\Core/Resources/translations\security.ru.xlf</argument>
           </argument>
           <argument key="sk" type="collection">
             <argument>D:\MyProject\php_project\edusoho\vendor\symfony\symfony\src\Symfony\Component\Validator/Resources/translations\validators.sk.xlf</argument>
             <argument>D:\MyProject\php_project\edusoho\vendor\symfony\symfony\src\Symfony\Component\Form/Resources/translations\validators.sk.xlf</argument>
-            <argument>D:\MyProject\php_project\edusoho\vendor\symfony\symfony\src\Symfony\Component\Security\Core\Exception/../Resources/translations\security.sk.xlf</argument>
+            <argument>D:\MyProject\php_project\edusoho\vendor\symfony\symfony\src\Symfony\Component\Security\Core/Resources/translations\security.sk.xlf</argument>
           </argument>
           <argument key="sl" type="collection">
             <argument>D:\MyProject\php_project\edusoho\vendor\symfony\symfony\src\Symfony\Component\Validator/Resources/translations\validators.sl.xlf</argument>
             <argument>D:\MyProject\php_project\edusoho\vendor\symfony\symfony\src\Symfony\Component\Form/Resources/translations\validators.sl.xlf</argument>
-            <argument>D:\MyProject\php_project\edusoho\vendor\symfony\symfony\src\Symfony\Component\Security\Core\Exception/../Resources/translations\security.sl.xlf</argument>
+            <argument>D:\MyProject\php_project\edusoho\vendor\symfony\symfony\src\Symfony\Component\Security\Core/Resources/translations\security.sl.xlf</argument>
           </argument>
           <argument key="sq" type="collection">
             <argument>D:\MyProject\php_project\edusoho\vendor\symfony\symfony\src\Symfony\Component\Validator/Resources/translations\validators.sq.xlf</argument>
@@ -1470,25 +1678,25 @@
           <argument key="sr_Cyrl" type="collection">
             <argument>D:\MyProject\php_project\edusoho\vendor\symfony\symfony\src\Symfony\Component\Validator/Resources/translations\validators.sr_Cyrl.xlf</argument>
             <argument>D:\MyProject\php_project\edusoho\vendor\symfony\symfony\src\Symfony\Component\Form/Resources/translations\validators.sr_Cyrl.xlf</argument>
-            <argument>D:\MyProject\php_project\edusoho\vendor\symfony\symfony\src\Symfony\Component\Security\Core\Exception/../Resources/translations\security.sr_Cyrl.xlf</argument>
+            <argument>D:\MyProject\php_project\edusoho\vendor\symfony\symfony\src\Symfony\Component\Security\Core/Resources/translations\security.sr_Cyrl.xlf</argument>
           </argument>
           <argument key="sr_Latn" type="collection">
             <argument>D:\MyProject\php_project\edusoho\vendor\symfony\symfony\src\Symfony\Component\Validator/Resources/translations\validators.sr_Latn.xlf</argument>
             <argument>D:\MyProject\php_project\edusoho\vendor\symfony\symfony\src\Symfony\Component\Form/Resources/translations\validators.sr_Latn.xlf</argument>
-            <argument>D:\MyProject\php_project\edusoho\vendor\symfony\symfony\src\Symfony\Component\Security\Core\Exception/../Resources/translations\security.sr_Latn.xlf</argument>
+            <argument>D:\MyProject\php_project\edusoho\vendor\symfony\symfony\src\Symfony\Component\Security\Core/Resources/translations\security.sr_Latn.xlf</argument>
           </argument>
           <argument key="sv" type="collection">
             <argument>D:\MyProject\php_project\edusoho\vendor\symfony\symfony\src\Symfony\Component\Validator/Resources/translations\validators.sv.xlf</argument>
             <argument>D:\MyProject\php_project\edusoho\vendor\symfony\symfony\src\Symfony\Component\Form/Resources/translations\validators.sv.xlf</argument>
-            <argument>D:\MyProject\php_project\edusoho\vendor\symfony\symfony\src\Symfony\Component\Security\Core\Exception/../Resources/translations\security.sv.xlf</argument>
+            <argument>D:\MyProject\php_project\edusoho\vendor\symfony\symfony\src\Symfony\Component\Security\Core/Resources/translations\security.sv.xlf</argument>
           </argument>
           <argument key="th" type="collection">
             <argument>D:\MyProject\php_project\edusoho\vendor\symfony\symfony\src\Symfony\Component\Validator/Resources/translations\validators.th.xlf</argument>
-            <argument>D:\MyProject\php_project\edusoho\vendor\symfony\symfony\src\Symfony\Component\Security\Core\Exception/../Resources/translations\security.th.xlf</argument>
+            <argument>D:\MyProject\php_project\edusoho\vendor\symfony\symfony\src\Symfony\Component\Security\Core/Resources/translations\security.th.xlf</argument>
           </argument>
           <argument key="tr" type="collection">
             <argument>D:\MyProject\php_project\edusoho\vendor\symfony\symfony\src\Symfony\Component\Validator/Resources/translations\validators.tr.xlf</argument>
-            <argument>D:\MyProject\php_project\edusoho\vendor\symfony\symfony\src\Symfony\Component\Security\Core\Exception/../Resources/translations\security.tr.xlf</argument>
+            <argument>D:\MyProject\php_project\edusoho\vendor\symfony\symfony\src\Symfony\Component\Security\Core/Resources/translations\security.tr.xlf</argument>
           </argument>
           <argument key="uk" type="collection">
             <argument>D:\MyProject\php_project\edusoho\vendor\symfony\symfony\src\Symfony\Component\Validator/Resources/translations\validators.uk.xlf</argument>
@@ -1496,12 +1704,12 @@
           </argument>
           <argument key="vi" type="collection">
             <argument>D:\MyProject\php_project\edusoho\vendor\symfony\symfony\src\Symfony\Component\Validator/Resources/translations\validators.vi.xlf</argument>
-            <argument>D:\MyProject\php_project\edusoho\vendor\symfony\symfony\src\Symfony\Component\Security\Core\Exception/../Resources/translations\security.vi.xlf</argument>
+            <argument>D:\MyProject\php_project\edusoho\vendor\symfony\symfony\src\Symfony\Component\Security\Core/Resources/translations\security.vi.xlf</argument>
           </argument>
           <argument key="zh_CN" type="collection">
             <argument>D:\MyProject\php_project\edusoho\vendor\symfony\symfony\src\Symfony\Component\Validator/Resources/translations\validators.zh_CN.xlf</argument>
             <argument>D:\MyProject\php_project\edusoho\vendor\symfony\symfony\src\Symfony\Component\Form/Resources/translations\validators.zh_CN.xlf</argument>
-            <argument>D:\MyProject\php_project\edusoho\vendor\symfony\symfony\src\Symfony\Component\Security\Core\Exception/../Resources/translations\security.zh_CN.xlf</argument>
+            <argument>D:\MyProject\php_project\edusoho\vendor\symfony\symfony\src\Symfony\Component\Security\Core/Resources/translations\security.zh_CN.xlf</argument>
             <argument>D:\MyProject\php_project\edusoho\src\Topxia\WebBundle/Resources/translations\messages.zh_CN.yml</argument>
             <argument>D:\MyProject\php_project\edusoho\app/Resources/translations\messages.zh_CN.yml</argument>
           </argument>
@@ -1509,10 +1717,10 @@
             <argument>D:\MyProject\php_project\edusoho\vendor\symfony\symfony\src\Symfony\Component\Validator/Resources/translations\validators.zh_TW.xlf</argument>
           </argument>
           <argument key="pt_PT" type="collection">
-            <argument>D:\MyProject\php_project\edusoho\vendor\symfony\symfony\src\Symfony\Component\Security\Core\Exception/../Resources/translations\security.pt_PT.xlf</argument>
+            <argument>D:\MyProject\php_project\edusoho\vendor\symfony\symfony\src\Symfony\Component\Security\Core/Resources/translations\security.pt_PT.xlf</argument>
           </argument>
           <argument key="ua" type="collection">
-            <argument>D:\MyProject\php_project\edusoho\vendor\symfony\symfony\src\Symfony\Component\Security\Core\Exception/../Resources/translations\security.ua.xlf</argument>
+            <argument>D:\MyProject\php_project\edusoho\vendor\symfony\symfony\src\Symfony\Component\Security\Core/Resources/translations\security.ua.xlf</argument>
           </argument>
           <argument key="ug_CN" type="collection">
             <argument>D:\MyProject\php_project\edusoho\src\Topxia\WebBundle/Resources/translations\messages.ug_CN.yml</argument>
@@ -2186,6 +2394,9 @@
         </argument>
       </call>
       <call method="add">
+        <argument type="service" id="gos_web_socket.data_collector"/>
+      </call>
+      <call method="add">
         <argument type="service">
           <service class="Symfony\Component\HttpKernel\DataCollector\ConfigDataCollector" public="false">
             <tag name="data_collector" template="@WebProfiler/Collector/config.html.twig" id="config" priority="-255"/>
@@ -2265,6 +2476,15 @@
               <service class="Symfony\Component\Routing\Loader\DependencyInjection\ServiceRouterLoader" public="false">
                 <tag name="routing.loader"/>
                 <argument type="service" id="service_container"/>
+              </service>
+            </argument>
+          </call>
+          <call method="addLoader">
+            <argument type="service">
+              <service class="Symfony\Bundle\AsseticBundle\Routing\AsseticLoader" public="false">
+                <tag name="routing.loader"/>
+                <argument type="service" id="assetic.asset_manager"/>
+                <argument type="collection"/>
               </service>
             </argument>
           </call>
@@ -2424,6 +2644,14 @@
         <argument>0</argument>
       </call>
       <call method="addListenerService">
+        <argument>kernel.request</argument>
+        <argument type="collection">
+          <argument>assetic.request_listener</argument>
+          <argument>onKernelRequest</argument>
+        </argument>
+        <argument>0</argument>
+      </call>
+      <call method="addListenerService">
         <argument>kernel.controller</argument>
         <argument type="collection">
           <argument>kernel.controller.permission_listener</argument>
@@ -2438,6 +2666,46 @@
           <argument>onKernelResponse</argument>
         </argument>
         <argument>255</argument>
+      </call>
+      <call method="addListenerService">
+        <argument>gos_web_socket.client_connected</argument>
+        <argument type="collection">
+          <argument>gos_web_socket.client_event.listener</argument>
+          <argument>onClientConnect</argument>
+        </argument>
+        <argument>0</argument>
+      </call>
+      <call method="addListenerService">
+        <argument>gos_web_socket.client_disconnected</argument>
+        <argument type="collection">
+          <argument>gos_web_socket.client_event.listener</argument>
+          <argument>onClientDisconnect</argument>
+        </argument>
+        <argument>0</argument>
+      </call>
+      <call method="addListenerService">
+        <argument>gos_web_socket.client_error</argument>
+        <argument type="collection">
+          <argument>gos_web_socket.client_event.listener</argument>
+          <argument>onClientError</argument>
+        </argument>
+        <argument>0</argument>
+      </call>
+      <call method="addListenerService">
+        <argument>gos_web_socket.client_rejected</argument>
+        <argument type="collection">
+          <argument>gos_web_socket.client_event.listener</argument>
+          <argument>onClientRejected</argument>
+        </argument>
+        <argument>0</argument>
+      </call>
+      <call method="addListenerService">
+        <argument>gos_web_socket.server_launched</argument>
+        <argument type="collection">
+          <argument>gos_web_socket.pnctl_event.listener</argument>
+          <argument>bindPnctlEvent</argument>
+        </argument>
+        <argument>0</argument>
       </call>
       <call method="addSubscriberService">
         <argument>app.locale_listener</argument>
@@ -2502,6 +2770,10 @@
       <call method="addSubscriberService">
         <argument>twig.exception_listener</argument>
         <argument>Symfony\Component\HttpKernel\EventListener\ExceptionListener</argument>
+      </call>
+      <call method="addSubscriberService">
+        <argument>monolog.handler.websocket</argument>
+        <argument>Symfony\Bridge\Monolog\Handler\ConsoleHandler</argument>
       </call>
       <call method="addSubscriberService">
         <argument>swiftmailer.email_sender.listener</argument>
@@ -2569,13 +2841,13 @@
         <argument type="service">
           <service class="Symfony\Component\Security\Core\Authentication\Provider\RememberMeAuthenticationProvider" public="false">
             <argument type="service" id="security.user_checker.main"/>
-            <argument>cogqavup1m8s0sgkkc0ko8gkokkw0ks</argument>
+            <argument>ThisTokenIsNotSoSecretChangeIt</argument>
             <argument>main</argument>
           </service>
         </argument>
         <argument type="service">
           <service class="Symfony\Component\Security\Core\Authentication\Provider\AnonymousAuthenticationProvider" public="false">
-            <argument>58c53584477656.66814805</argument>
+            <argument>58d5129f672c48.42791264</argument>
           </service>
         </argument>
       </argument>
@@ -2599,8 +2871,15 @@
       <call method="setVoters">
         <argument type="collection">
           <argument type="service">
-            <service class="Permission\PermissionBundle\Security\AdminVoter" public="false">
-              <tag name="security.voter"/>
+            <service class="Symfony\Component\Security\Core\Authorization\Voter\AuthenticatedVoter" public="false">
+              <tag name="security.voter" priority="250"/>
+              <argument type="service" id="security.authentication.trust_resolver"/>
+            </service>
+          </argument>
+          <argument type="service">
+            <service class="Symfony\Component\Security\Core\Authorization\Voter\RoleHierarchyVoter" public="false">
+              <tag name="security.voter" priority="245"/>
+              <argument type="service" id="security.role_hierarchy"/>
             </service>
           </argument>
           <argument type="service">
@@ -2614,15 +2893,8 @@
             </service>
           </argument>
           <argument type="service">
-            <service class="Symfony\Component\Security\Core\Authorization\Voter\RoleHierarchyVoter" public="false">
-              <tag name="security.voter" priority="245"/>
-              <argument type="service" id="security.role_hierarchy"/>
-            </service>
-          </argument>
-          <argument type="service">
-            <service class="Symfony\Component\Security\Core\Authorization\Voter\AuthenticatedVoter" public="false">
-              <tag name="security.voter" priority="250"/>
-              <argument type="service" id="security.authentication.trust_resolver"/>
+            <service class="Permission\PermissionBundle\Security\AdminVoter" public="false">
+              <tag name="security.voter"/>
             </service>
           </argument>
         </argument>
@@ -2911,7 +3183,7 @@
                   <argument type="collection">
                     <argument type="service" id="topxia.user_provider"/>
                   </argument>
-                  <argument>cogqavup1m8s0sgkkc0ko8gkokkw0ks</argument>
+                  <argument>ThisTokenIsNotSoSecretChangeIt</argument>
                   <argument>main</argument>
                   <argument type="collection">
                     <argument key="lifetime">31536000</argument>
@@ -3011,7 +3283,7 @@
                   <argument type="collection">
                     <argument type="service" id="topxia.user_provider"/>
                   </argument>
-                  <argument>cogqavup1m8s0sgkkc0ko8gkokkw0ks</argument>
+                  <argument>ThisTokenIsNotSoSecretChangeIt</argument>
                   <argument>main</argument>
                   <argument type="collection">
                     <argument key="lifetime">31536000</argument>
@@ -3037,7 +3309,7 @@
                 <argument type="collection">
                   <argument type="service" id="topxia.user_provider"/>
                 </argument>
-                <argument>cogqavup1m8s0sgkkc0ko8gkokkw0ks</argument>
+                <argument>ThisTokenIsNotSoSecretChangeIt</argument>
                 <argument>main</argument>
                 <argument type="collection">
                   <argument key="lifetime">31536000</argument>
@@ -3066,7 +3338,7 @@
         <argument type="service">
           <service class="Symfony\Component\Security\Http\Firewall\AnonymousAuthenticationListener" public="false">
             <argument type="service" id="security.token_storage"/>
-            <argument>58c53584477656.66814805</argument>
+            <argument>58d5129f672c48.42791264</argument>
             <argument type="service" id="monolog.logger.security" on-invalid="null"/>
             <argument type="service" id="security.authentication.manager"/>
           </service>
@@ -3273,7 +3545,7 @@
         <argument key="form_themes" type="collection">
           <argument>form_div_layout.html.twig</argument>
         </argument>
-        <argument key="autoescape">filename</argument>
+        <argument key="autoescape">name</argument>
         <argument key="cache">D:\MyProject\php_project\edusoho\app\cache\dev\Jianmo/twig</argument>
         <argument key="charset">UTF-8</argument>
         <argument key="date" type="collection">
@@ -3430,6 +3702,13 @@
       </call>
       <call method="addExtension">
         <argument type="service">
+          <service class="Twig_Extension_Debug" public="false">
+            <tag name="twig.extension"/>
+          </service>
+        </argument>
+      </call>
+      <call method="addExtension">
+        <argument type="service">
           <service class="Symfony\Bridge\Twig\Extension\FormExtension" public="false">
             <tag name="twig.extension"/>
             <argument type="service">
@@ -3449,8 +3728,21 @@
       </call>
       <call method="addExtension">
         <argument type="service">
-          <service class="Twig_Extension_Debug" public="false">
+          <service class="Symfony\Bundle\AsseticBundle\Twig\AsseticExtension" public="false">
             <tag name="twig.extension"/>
+            <tag name="assetic.templating.twig"/>
+            <argument type="service" id="assetic.asset_factory"/>
+            <argument type="service" id="templating.name_parser"/>
+            <argument>true</argument>
+            <argument type="collection"/>
+            <argument type="collection">
+              <argument>GosWebSocketBundle</argument>
+            </argument>
+            <argument type="service">
+              <service class="Symfony\Bundle\AsseticBundle\DefaultValueSupplier" public="false">
+                <argument type="service" id="service_container"/>
+              </service>
+            </argument>
           </service>
         </argument>
       </call>
@@ -3477,6 +3769,9 @@
       </call>
       <call method="addExtension">
         <argument type="service" id="codeages_plugin.dict_twig_extension"/>
+      </call>
+      <call method="addExtension">
+        <argument type="service" id="gos_web_socket.twig.extension"/>
       </call>
       <call method="addExtension">
         <argument type="service">
@@ -3506,6 +3801,14 @@
             </call>
           </service>
         </argument>
+      </call>
+      <call method="addGlobal">
+        <argument>gos_web_socket_server_host</argument>
+        <argument>127.0.0.1</argument>
+      </call>
+      <call method="addGlobal">
+        <argument>gos_web_socket_server_port</argument>
+        <argument>1337</argument>
       </call>
       <call method="addGlobal">
         <argument>disabled_features</argument>
@@ -3545,6 +3848,17 @@
       <argument type="service" id="http_kernel"/>
       <argument>twig.controller.exception:showAction</argument>
     </service>
+    <service id="monolog.handler.websocket" class="Symfony\Bridge\Monolog\Handler\ConsoleHandler">
+      <tag name="kernel.event_subscriber"/>
+      <argument>null</argument>
+      <argument>true</argument>
+      <argument type="collection">
+        <argument key="32">100</argument>
+        <argument key="64">250</argument>
+        <argument key="128">200</argument>
+        <argument key="256">100</argument>
+      </argument>
+    </service>
     <service id="monolog.handler.main" class="Monolog\Handler\StreamHandler">
       <argument>D:\MyProject\php_project\edusoho\app\logs/dev.log</argument>
       <argument>100</argument>
@@ -3571,6 +3885,106 @@
     </service>
     <service id="swiftmailer.mailer.default.plugin.messagelogger" class="Swift_Plugins_MessageLogger">
       <tag name="swiftmailer.default.plugin"/>
+    </service>
+    <service id="assetic.filter_manager" class="Symfony\Bundle\AsseticBundle\FilterManager">
+      <argument type="service" id="service_container"/>
+      <argument type="collection"/>
+    </service>
+    <service id="assetic.asset_manager" class="Assetic\Factory\LazyAssetManager">
+      <argument type="service" id="assetic.asset_factory"/>
+      <argument type="collection">
+        <argument key="twig" type="service">
+          <service class="Assetic\Factory\Loader\CachedFormulaLoader" public="false">
+            <tag name="assetic.formula_loader" alias="twig"/>
+            <tag name="assetic.templating.twig"/>
+            <argument type="service">
+              <service class="Assetic\Extension\Twig\TwigFormulaLoader" public="false">
+                <tag name="assetic.templating.twig"/>
+                <tag name="monolog.logger" channel="assetic"/>
+                <argument type="service" id="twig"/>
+                <argument type="service" id="monolog.logger.assetic" on-invalid="ignore"/>
+              </service>
+            </argument>
+            <argument type="service">
+              <service class="Assetic\Cache\ConfigCache" public="false">
+                <argument>D:\MyProject\php_project\edusoho\app\cache\dev\Jianmo/assetic/config</argument>
+              </service>
+            </argument>
+            <argument>true</argument>
+          </service>
+        </argument>
+      </argument>
+      <call method="addResource">
+        <argument type="service">
+          <service class="Symfony\Bundle\AsseticBundle\Factory\Resource\CoalescingDirectoryResource" public="false">
+            <tag name="assetic.templating.twig"/>
+            <tag name="assetic.formula_resource" loader="twig"/>
+            <argument type="collection">
+              <argument type="service">
+                <service class="%assetic.directory_resource.class%" public="false">
+                  <argument type="service" id="templating.loader"/>
+                  <argument>GosWebSocketBundle</argument>
+                  <argument>D:\MyProject\php_project\edusoho\app/Resources/GosWebSocketBundle/views</argument>
+                  <argument>/\.[^.]+\.twig$/</argument>
+                </service>
+              </argument>
+              <argument type="service">
+                <service class="%assetic.directory_resource.class%" public="false">
+                  <argument type="service" id="templating.loader"/>
+                  <argument>GosWebSocketBundle</argument>
+                  <argument>D:\MyProject\php_project\edusoho\vendor\gos\web-socket-bundle/Resources/views</argument>
+                  <argument>/\.[^.]+\.twig$/</argument>
+                </service>
+              </argument>
+            </argument>
+          </service>
+        </argument>
+        <argument>twig</argument>
+      </call>
+      <call method="addResource">
+        <argument type="service">
+          <service class="Symfony\Bundle\AsseticBundle\Factory\Resource\DirectoryResource" public="false">
+            <tag name="assetic.templating.twig"/>
+            <tag name="assetic.formula_resource" loader="twig"/>
+            <argument type="service" id="templating.loader"/>
+            <argument></argument>
+            <argument>D:\MyProject\php_project\edusoho\app/Resources/views</argument>
+            <argument>/\.[^.]+\.twig$/</argument>
+          </service>
+        </argument>
+        <argument>twig</argument>
+      </call>
+    </service>
+    <service id="assetic.asset_factory" class="Symfony\Bundle\AsseticBundle\Factory\AssetFactory" public="false">
+      <argument type="service" id="kernel"/>
+      <argument type="service" id="service_container"/>
+      <argument type="service">
+        <service class="Symfony\Component\DependencyInjection\ParameterBag\ParameterBag" public="false">
+          <factory service="service_container" method="getParameterBag"/>
+        </service>
+      </argument>
+      <argument>D:\MyProject\php_project\edusoho\app/../web</argument>
+      <argument>true</argument>
+      <call method="addWorker">
+        <argument type="service">
+          <service class="Symfony\Bundle\AsseticBundle\Factory\Worker\UseControllerWorker" public="false">
+            <tag name="assetic.factory_worker"/>
+          </service>
+        </argument>
+      </call>
+    </service>
+    <service id="assetic.controller" class="Symfony\Bundle\AsseticBundle\Controller\AsseticController">
+      <argument type="service" id="assetic.asset_manager"/>
+      <argument type="service">
+        <service class="Assetic\Cache\FilesystemCache" public="false">
+          <argument>D:\MyProject\php_project\edusoho\app\cache\dev\Jianmo/assetic/assets</argument>
+        </service>
+      </argument>
+      <argument>false</argument>
+      <argument type="service" id="profiler" on-invalid="null"/>
+    </service>
+    <service id="assetic.request_listener" class="Symfony\Bundle\AsseticBundle\EventListener\RequestListener">
+      <tag name="kernel.event_listener" event="kernel.request" method="onKernelRequest"/>
     </service>
     <service id="sensio_framework_extra.view.guesser" class="Sensio\Bundle\FrameworkExtraBundle\Templating\TemplateGuesser">
       <argument type="service" id="kernel"/>
@@ -3647,6 +4061,12 @@
     </service>
     <service id="topxia.target_helper" class="Topxia\WebBundle\Util\TargetHelper">
       <argument type="service" id="service_container"/>
+    </service>
+    <service id="acme_hello.topic_sample_service" class="Topxia\WebBundle\Topic\AcmeTopic">
+      <tag name="gos_web_socket.topic"/>
+    </service>
+    <service id="acme_hello.rpc_sample_service" class="Topxia\WebBundle\Rpc\AcmeRpc">
+      <tag name="gos_web_socket.rpc"/>
     </service>
     <service id="permission.twig.permission_extension" class="Permission\PermissionBundle\TwigExtension\PermissionExtension">
       <tag name="twig.extension"/>
@@ -3867,12 +4287,200 @@
       <argument type="service" id="kernel"/>
       <argument>D:\MyProject\php_project\edusoho\app/Resources</argument>
     </service>
+    <service id="codeages_plugin.theme.twig_loader" class="Codeages\PluginBundle\Loader\ThemeTwigLoader">
+      <tag name="twig.loader" priority="255"/>
+      <argument type="service" id="kernel"/>
+    </service>
     <service id="codeages_plugin.theme.templating.locator" class="Symfony\Bundle\FrameworkBundle\Templating\Loader\TemplateLocator">
       <argument type="service" id="codeages_plugin.theme.file_locator"/>
       <argument>D:\MyProject\php_project\edusoho\app\cache\dev\Jianmo</argument>
     </service>
     <service id="codeags_plugin.event.lazy_subscribers" class="Codeages\PluginBundle\Event\LazySubscribers">
       <argument type="service" id="service_container"/>
+    </service>
+    <service id="gos_web_socket.twig.extension" class="Gos\Bundle\WebSocketBundle\Twig\GosWebSocketServerExtension">
+      <tag name="twig.extension"/>
+    </service>
+    <service id="gos_web_socket.entry_point" class="Gos\Bundle\WebSocketBundle\Server\EntryPoint">
+      <argument type="service" id="gos_web_socket.server.registry"/>
+    </service>
+    <service id="gos_web_socket.server_command" class="Gos\Bundle\WebSocketBundle\Command\ServerCommand">
+      <tag name="console.command"/>
+      <argument type="service" id="gos_web_socket.entry_point"/>
+      <argument>127.0.0.1</argument>
+      <argument>1337</argument>
+      <argument type="service" id="monolog.logger.websocket" on-invalid="ignore"/>
+    </service>
+    <service id="gos_web_socket.websocket_server.command" class="Gos\Bundle\WebSocketBundle\Command\WebsocketServerCommand">
+      <tag name="console.command"/>
+      <argument type="service" id="gos_web_socket.entry_point"/>
+      <argument>127.0.0.1</argument>
+      <argument>1337</argument>
+      <argument type="service" id="monolog.logger.websocket" on-invalid="ignore"/>
+    </service>
+    <service id="gos_web_socket.ws.client" class="Gos\Component\WebSocketClient\Wamp\Client">
+      <argument>127.0.0.1</argument>
+      <argument>1337</argument>
+      <call method="setLogger">
+        <argument type="service" id="monolog.logger.websocket" on-invalid="ignore"/>
+      </call>
+    </service>
+    <service id="gos_web_socket.ws.server" class="Gos\Bundle\WebSocketBundle\Server\Type\WebSocketServer" public="false" lazy="true">
+      <tag name="gos_web_socket.server"/>
+      <argument type="service" id="gos_web_socket.server.event_loop"/>
+      <argument type="service" id="debug.event_dispatcher"/>
+      <argument type="service" id="gos_web_socket.periodic.registry"/>
+      <argument type="service" id="gos_web_socket_server.wamp_application"/>
+      <argument type="service" id="gos_web_socket.origins.registry"/>
+      <argument>false</argument>
+      <argument type="service" id="gos_web_socket.wamp.topic_manager"/>
+      <argument type="service" id="gos_web_socket.server_push_handler.registry"/>
+      <argument type="service" id="monolog.logger.websocket" on-invalid="ignore"/>
+    </service>
+    <service id="gos_web_socket.server.registry" class="Gos\Bundle\WebSocketBundle\Server\App\Registry\ServerRegistry">
+      <call method="addServer">
+        <argument type="service" id="gos_web_socket.ws.server"/>
+      </call>
+    </service>
+    <service id="gos_web_socket.rpc.dispatcher" class="Gos\Bundle\WebSocketBundle\Server\App\Dispatcher\RpcDispatcher">
+      <argument type="service" id="gos_web_socket.rpc.registry"/>
+    </service>
+    <service id="gos_web_socket.rpc.registry" class="Gos\Bundle\WebSocketBundle\Server\App\Registry\RpcRegistry">
+      <call method="addRpc">
+        <argument type="service" id="acme_hello.rpc_sample_service"/>
+      </call>
+    </service>
+    <service id="gos_web_socket.topic.dispatcher" class="Gos\Bundle\WebSocketBundle\Server\App\Dispatcher\TopicDispatcher" lazy="true">
+      <argument type="service" id="gos_web_socket.topic.registry"/>
+      <argument type="service" id="gos_web_socket.router.wamp"/>
+      <argument type="service" id="gos_web_socket.topic.periodic_timer"/>
+      <argument type="service" id="gos_web_socket.wamp.topic_manager"/>
+      <argument type="service" id="monolog.logger.websocket" on-invalid="ignore"/>
+    </service>
+    <service id="gos_web_socket.topic.registry" class="Gos\Bundle\WebSocketBundle\Server\App\Registry\TopicRegistry">
+      <call method="addTopic">
+        <argument type="service" id="acme_hello.topic_sample_service"/>
+      </call>
+    </service>
+    <service id="gos_web_socket.periodic.registry" class="Gos\Bundle\WebSocketBundle\Server\App\Registry\PeriodicRegistry"/>
+    <service id="gos_web_socket.origins.registry" class="Gos\Bundle\WebSocketBundle\Server\App\Registry\OriginRegistry"/>
+    <service id="gos_web_socket_server.wamp_application" class="Gos\Bundle\WebSocketBundle\Server\App\WampApplication" public="false" lazy="true">
+      <argument type="service" id="gos_web_socket.rpc.dispatcher"/>
+      <argument type="service" id="gos_web_socket.topic.dispatcher"/>
+      <argument type="service" id="debug.event_dispatcher"/>
+      <argument type="service" id="gos_web_socket.client_storage"/>
+      <argument type="service" id="gos_web_socket.router.wamp"/>
+      <argument type="service" id="monolog.logger.websocket" on-invalid="ignore"/>
+    </service>
+    <service id="gos_web_socket.client_storage" class="Gos\Bundle\WebSocketBundle\Client\ClientStorage">
+      <argument>900</argument>
+      <argument type="service" id="monolog.logger.websocket" on-invalid="ignore"/>
+      <call method="setStorageDriver">
+        <argument type="service" id="gos_web_socket.server.in_memory.client_storage.driver"/>
+      </call>
+    </service>
+    <service id="gos_web_socket.client_event.listener" class="Gos\Bundle\WebSocketBundle\Event\ClientEventListener" lazy="true">
+      <tag name="kernel.event_listener" event="gos_web_socket.client_connected" method="onClientConnect"/>
+      <tag name="kernel.event_listener" event="gos_web_socket.client_disconnected" method="onClientDisconnect"/>
+      <tag name="kernel.event_listener" event="gos_web_socket.client_error" method="onClientError"/>
+      <tag name="kernel.event_listener" event="gos_web_socket.client_rejected" method="onClientRejected"/>
+      <argument type="service" id="gos_web_socket.client_storage"/>
+      <argument type="service" id="gos_web_socket.websocket_authentification.provider"/>
+      <argument type="service" id="monolog.logger.websocket" on-invalid="ignore"/>
+    </service>
+    <service id="gos_web_socket.server.in_memory.client_storage.driver" class="Gos\Bundle\WebSocketBundle\Client\Driver\InMemoryDriver"/>
+    <service id="gos_web_socket.null.pubsub.router" class="Gos\Bundle\WebSocketBundle\Router\NullPubSubRouter"/>
+    <service id="gos_web_socket.router.wamp" class="Gos\Bundle\WebSocketBundle\Router\WampRouter" lazy="true">
+      <argument type="service" id="gos_pubsub_router.websocket"/>
+      <argument>true</argument>
+      <argument type="service" id="monolog.logger.websocket" on-invalid="ignore"/>
+    </service>
+    <service id="gos_web_socket.pdo.periodic_ping" class="Gos\Bundle\WebSocketBundle\Periodic\PdoPeriodicPing" lazy="true">
+      <argument>null</argument>
+      <argument type="service" id="monolog.logger.websocket" on-invalid="ignore"/>
+    </service>
+    <service id="gos_web_socket.memory_usage.periodic" class="Gos\Bundle\WebSocketBundle\Periodic\PeriodicMemoryUsage" lazy="true">
+      <argument type="service" id="monolog.logger.websocket" on-invalid="ignore"/>
+    </service>
+    <service id="gos_web_socket.pnctl_event.listener" class="Gos\Bundle\WebSocketBundle\Event\StartServerListener" lazy="true">
+      <tag name="kernel.event_listener" event="gos_web_socket.server_launched" method="bindPnctlEvent"/>
+      <argument type="service" id="gos_web_socket.periodic.registry"/>
+      <argument type="service" id="gos_web_socket.server_push_handler.registry"/>
+      <argument type="service" id="monolog.logger.websocket" on-invalid="ignore"/>
+    </service>
+    <service id="gos_web_socket.server.event_loop" class="React\EventLoop\Factory">
+      <factory class="React\EventLoop\Factory" method="create"/>
+    </service>
+    <service id="gos_web_socket.topic.periodic_timer" class="Gos\Bundle\WebSocketBundle\Topic\TopicPeriodicTimer">
+      <argument type="service" id="gos_web_socket.server.event_loop"/>
+    </service>
+    <service id="gos_web_socket.websocket_authentification.provider" class="Gos\Bundle\WebSocketBundle\Client\Auth\WebsocketAuthenticationProvider">
+      <argument type="service" id="security.token_storage"/>
+      <argument type="collection">
+        <argument>ws_firewall</argument>
+      </argument>
+      <argument type="service" id="gos_web_socket.client_storage"/>
+      <argument type="service" id="monolog.logger.websocket" on-invalid="ignore"/>
+    </service>
+    <service id="gos_web_socket.websocket.client_manipulator" class="Gos\Bundle\WebSocketBundle\Client\ClientManipulator">
+      <argument type="service" id="gos_web_socket.client_storage"/>
+      <argument type="service" id="gos_web_socket.websocket_authentification.provider"/>
+    </service>
+    <service id="gos_web_socket.abstract.pusher" class="Gos\Bundle\WebSocketBundle\Pusher\AbstractPusher">
+      <call method="setRouter">
+        <argument type="service" id="gos_web_socket.router.wamp"/>
+      </call>
+      <call method="setSerializer">
+        <argument type="service" id="gos_web_socket.push_message.serializer"/>
+      </call>
+    </service>
+    <service id="gos_web_socket.zmq.server_push_handler" class="Gos\Bundle\WebSocketBundle\Pusher\Zmq\ZmqServerPushHandler">
+      <tag name="gos_web_socket.push_handler" alias="zmq"/>
+      <argument type="service" id="gos_web_socket.zmq.pusher"/>
+      <argument type="service" id="gos_web_socket.router.wamp"/>
+      <argument type="service" id="gos_web_socket.push_message.serializer"/>
+      <argument type="service" id="debug.event_dispatcher"/>
+      <argument type="service" id="monolog.logger.websocket" on-invalid="ignore"/>
+    </service>
+    <service id="gos_web_socket.amqp.server_push_handler" class="Gos\Bundle\WebSocketBundle\Pusher\Amqp\AmqpServerPushHandler">
+      <tag name="gos_web_socket.push_handler" alias="amqp"/>
+      <argument type="service" id="gos_web_socket.amqp.pusher"/>
+      <argument type="service" id="gos_web_socket.router.wamp"/>
+      <argument type="service" id="gos_web_socket.push_message.serializer"/>
+      <argument type="service" id="debug.event_dispatcher"/>
+      <argument type="service" id="monolog.logger.websocket" on-invalid="ignore"/>
+    </service>
+    <service id="gos_web_socket.wamp.topic_manager" class="Ratchet\Wamp\TopicManager"/>
+    <service id="gos_web_socket.kernel_event.terminate" class="Gos\Bundle\WebSocketBundle\Event\KernelTerminateListener">
+      <argument type="service" id="gos_web_socket.pusher_registry"/>
+    </service>
+    <service id="gos_web_socket.push_message.serializer" class="Gos\Bundle\WebSocketBundle\Pusher\Serializer\MessageSerializer"/>
+    <service id="gos_web_socket.pusher_registry" class="Gos\Bundle\WebSocketBundle\Pusher\PusherRegistry"/>
+    <service id="gos_web_socket.server_push_handler.registry" class="Gos\Bundle\WebSocketBundle\Pusher\ServerPushHandlerRegistry"/>
+    <service id="gos_web_socket.data_collector" class="Gos\Bundle\WebSocketBundle\DataCollector\WebsocketDataCollector">
+      <tag name="data_collector" template="GosWebSocketBundle:Collector:websocket.html.twig" id="websocket"/>
+    </service>
+    <service id="gos_pubsub_router.debug.command" class="Gos\Bundle\PubSubRouterBundle\Command\DebugRouterCommand">
+      <tag name="console.command"/>
+      <call method="addRouter">
+        <argument type="service" id="gos_pubsub_router.websocket"/>
+      </call>
+    </service>
+    <service id="gos_pubsub_router.matcher" class="Gos\Bundle\PubSubRouterBundle\Matcher\Matcher">
+      <argument type="service" id="gos_pubsub_router.tokenizer"/>
+      <call method="setCollection">
+        <argument type="service" id="gos_pubsub_router.collection.websocket"/>
+      </call>
+    </service>
+    <service id="gos_pubsub_router.generator" class="Gos\Bundle\PubSubRouterBundle\Generator\Generator">
+      <argument type="service" id="gos_pubsub_router.tokenizer"/>
+      <call method="setCollection">
+        <argument type="service" id="gos_pubsub_router.collection.websocket"/>
+      </call>
+    </service>
+    <service id="gos_pubsub_router.php_file.cache" class="Gos\Bundle\PubSubRouterBundle\Cache\PhpFileCacheDecorator" public="false">
+      <argument>D:\MyProject\php_project\edusoho\app\cache\dev\Jianmo</argument>
+      <argument>true</argument>
     </service>
     <service id="web_profiler.controller.profiler" class="Symfony\Bundle\WebProfilerBundle\Controller\ProfilerController">
       <argument type="service" id="router" on-invalid="null"/>
@@ -3930,6 +4538,10 @@
         <argument key="swiftmailer.data_collector" type="collection">
           <argument>swiftmailer</argument>
           <argument>@Swiftmailer/Collector/swiftmailer.html.twig</argument>
+        </argument>
+        <argument key="gos_web_socket.data_collector" type="collection">
+          <argument>websocket</argument>
+          <argument>GosWebSocketBundle:Collector:websocket.html.twig</argument>
         </argument>
         <argument key="data_collector.config" type="collection">
           <argument>config</argument>
@@ -4082,9 +4694,119 @@
         <argument type="service" id="monolog.handler.debug"/>
       </call>
     </service>
+    <service id="monolog.logger.assetic" class="Symfony\Bridge\Monolog\Logger">
+      <argument>assetic</argument>
+      <call method="pushHandler">
+        <argument type="service" id="monolog.handler.chromephp"/>
+      </call>
+      <call method="pushHandler">
+        <argument type="service" id="monolog.handler.firephp"/>
+      </call>
+      <call method="pushHandler">
+        <argument type="service" id="monolog.handler.main"/>
+      </call>
+      <call method="pushHandler">
+        <argument type="service" id="monolog.handler.debug"/>
+      </call>
+    </service>
+    <service id="monolog.logger.websocket" class="Symfony\Bridge\Monolog\Logger">
+      <argument>websocket</argument>
+      <call method="pushHandler">
+        <argument type="service" id="monolog.handler.chromephp"/>
+      </call>
+      <call method="pushHandler">
+        <argument type="service" id="monolog.handler.firephp"/>
+      </call>
+      <call method="pushHandler">
+        <argument type="service" id="monolog.handler.main"/>
+      </call>
+      <call method="pushHandler">
+        <argument type="service" id="monolog.handler.websocket"/>
+      </call>
+      <call method="pushHandler">
+        <argument type="service" id="monolog.handler.debug"/>
+      </call>
+    </service>
     <service id="monolog.handler.debug" class="Symfony\Bridge\Monolog\Handler\DebugHandler">
       <argument>100</argument>
       <argument>true</argument>
+    </service>
+    <service id="monolog.handler.null_internal" class="Monolog\Handler\NullHandler"/>
+    <service id="gos_web_socket.zmq.pusher" class="Gos\Bundle\WebSocketBundle\DataCollector\PusherDecorator">
+      <tag name="gos_web_socket.pusher" alias="zmq"/>
+      <argument type="service">
+        <service class="Gos\Bundle\WebSocketBundle\Pusher\Zmq\ZmqPusher" public="false">
+          <call method="setRouter">
+            <argument type="service" id="gos_web_socket.router.wamp"/>
+          </call>
+          <call method="setSerializer">
+            <argument type="service" id="gos_web_socket.push_message.serializer"/>
+          </call>
+        </service>
+      </argument>
+      <argument type="service" id="debug.stopwatch"/>
+      <argument type="service" id="gos_web_socket.data_collector"/>
+    </service>
+    <service id="gos_web_socket.amqp.pusher" class="Gos\Bundle\WebSocketBundle\DataCollector\PusherDecorator">
+      <tag name="gos_web_socket.pusher" alias="amqp"/>
+      <argument type="service">
+        <service class="Gos\Bundle\WebSocketBundle\Pusher\Amqp\AmqpPusher" public="false">
+          <call method="setRouter">
+            <argument type="service" id="gos_web_socket.router.wamp"/>
+          </call>
+          <call method="setSerializer">
+            <argument type="service" id="gos_web_socket.push_message.serializer"/>
+          </call>
+        </service>
+      </argument>
+      <argument type="service" id="debug.stopwatch"/>
+      <argument type="service" id="gos_web_socket.data_collector"/>
+    </service>
+    <service id="gos_web_socket.wamp.pusher" class="Gos\Bundle\WebSocketBundle\DataCollector\PusherDecorator">
+      <tag name="gos_web_socket.pusher" alias="wamp"/>
+      <argument type="service">
+        <service class="Gos\Bundle\WebSocketBundle\Pusher\Wamp\WampPusher" public="false">
+          <call method="setRouter">
+            <argument type="service" id="gos_web_socket.router.wamp"/>
+          </call>
+          <call method="setSerializer">
+            <argument type="service" id="gos_web_socket.push_message.serializer"/>
+          </call>
+        </service>
+      </argument>
+      <argument type="service" id="debug.stopwatch"/>
+      <argument type="service" id="gos_web_socket.data_collector"/>
+    </service>
+    <service id="gos_pubsub_router.collection.websocket" class="Gos\Bundle\PubSubRouterBundle\Router\RouteCollection"/>
+    <service id="gos_pubsub_router.loader.websocket" class="Gos\Bundle\PubSubRouterBundle\Loader\RouteLoader">
+      <argument type="service" id="gos_pubsub_router.collection.websocket"/>
+      <argument type="service" id="gos_pubsub_router.php_file.cache"/>
+      <argument>websocket</argument>
+      <call method="addResource">
+        <argument>@TopxiaWebBundle/Resources/config/pubsub/routing.yml</argument>
+      </call>
+      <call method="addLoader">
+        <argument type="service">
+          <service class="Gos\Bundle\PubSubRouterBundle\Loader\YamlFileLoader" public="false">
+            <argument type="service" id="file_locator"/>
+          </service>
+        </argument>
+      </call>
+    </service>
+    <service id="gos_pubsub_router.context.websocket" class="Gos\Bundle\PubSubRouterBundle\Router\RouterContext">
+      <call method="setTokenSeparator">
+        <argument>/</argument>
+      </call>
+    </service>
+    <service id="gos_pubsub_router.websocket" class="Gos\Bundle\PubSubRouterBundle\Router\Router">
+      <argument type="service" id="gos_pubsub_router.collection.websocket"/>
+      <argument type="service" id="gos_pubsub_router.matcher"/>
+      <argument type="service" id="gos_pubsub_router.generator"/>
+      <argument type="service" id="gos_pubsub_router.loader.websocket"/>
+      <argument>websocket</argument>
+      <call method="setContext">
+        <argument type="service" id="gos_pubsub_router.context.websocket"/>
+      </call>
     </service>
     <service id="session.storage.filesystem" class="Symfony\Component\HttpFoundation\Session\Storage\MockFileSessionStorage">
       <argument>D:\MyProject\php_project\edusoho\app\cache\dev\Jianmo/sessions</argument>
@@ -4105,19 +4827,20 @@
     <service id="router" class="Symfony\Bundle\FrameworkBundle\Routing\Router">
       <tag name="monolog.logger" channel="router"/>
       <argument type="service" id="service_container"/>
-      <argument>D:\MyProject\php_project\edusoho\app/config/routing_dev.yml</argument>
+      <argument>D:\MyProject\php_project\edusoho\app\cache\dev\Jianmo/assetic/routing.yml</argument>
       <argument type="collection">
         <argument key="cache_dir">D:\MyProject\php_project\edusoho\app\cache\dev\Jianmo</argument>
         <argument key="debug">true</argument>
         <argument key="generator_class">Symfony\Component\Routing\Generator\UrlGenerator</argument>
         <argument key="generator_base_class">Symfony\Component\Routing\Generator\UrlGenerator</argument>
         <argument key="generator_dumper_class">Symfony\Component\Routing\Generator\Dumper\PhpGeneratorDumper</argument>
-        <argument key="generator_cache_class">appDevUrlGenerator</argument>
+        <argument key="generator_cache_class">appDevDebugProjectContainerUrlGenerator</argument>
         <argument key="matcher_class">Symfony\Bundle\FrameworkBundle\Routing\RedirectableUrlMatcher</argument>
         <argument key="matcher_base_class">Symfony\Bundle\FrameworkBundle\Routing\RedirectableUrlMatcher</argument>
         <argument key="matcher_dumper_class">Permission\Dumper\PhpMatcherDumper</argument>
-        <argument key="matcher_cache_class">appDevUrlMatcher</argument>
+        <argument key="matcher_cache_class">appDevDebugProjectContainerUrlMatcher</argument>
         <argument key="strict_requirements">true</argument>
+        <argument key="resource_type">yaml</argument>
       </argument>
       <argument type="service" id="router.request_context" on-invalid="ignore"/>
       <argument type="service" id="monolog.logger.router" on-invalid="ignore"/>
@@ -4152,105 +4875,6 @@
       <argument type="service" id="security.encoder_factory"/>
     </service>
     <service id="security.user_checker.main" class="Symfony\Component\Security\Core\User\UserChecker"/>
-    <service id="twig.loader" class="Symfony\Bundle\TwigBundle\Loader\FilesystemLoader">
-      <tag name="twig.loader"/>
-      <argument type="service" id="codeages_plugin.theme.templating.locator"/>
-      <argument type="service" id="templating.name_parser"/>
-      <call method="addPath">
-        <argument>D:\MyProject\php_project\edusoho\app/../web/customize</argument>
-        <argument>customize</argument>
-      </call>
-      <call method="addPath">
-        <argument>D:\MyProject\php_project\edusoho\app/../src/Topxia/WebBundle/Resources/views</argument>
-        <argument>topxiaweb</argument>
-      </call>
-      <call method="addPath">
-        <argument>D:\MyProject\php_project\edusoho\app/../web/themes</argument>
-        <argument>theme</argument>
-      </call>
-      <call method="addPath">
-        <argument>D:\MyProject\php_project\edusoho\app/../</argument>
-        <argument>root</argument>
-      </call>
-      <call method="addPath">
-        <argument>D:\MyProject\php_project\edusoho\vendor\symfony\symfony\src\Symfony\Bundle\SecurityBundle/Resources/views</argument>
-        <argument>Security</argument>
-      </call>
-      <call method="addPath">
-        <argument>D:\MyProject\php_project\edusoho\app/Resources/TwigBundle/views</argument>
-        <argument>Twig</argument>
-      </call>
-      <call method="addPath">
-        <argument>D:\MyProject\php_project\edusoho\vendor\symfony\symfony\src\Symfony\Bundle\TwigBundle/Resources/views</argument>
-        <argument>Twig</argument>
-      </call>
-      <call method="addPath">
-        <argument>D:\MyProject\php_project\edusoho\vendor\symfony\swiftmailer-bundle/Resources/views</argument>
-        <argument>Swiftmailer</argument>
-      </call>
-      <call method="addPath">
-        <argument>D:\MyProject\php_project\edusoho\src\Topxia\WebBundle/Resources/views</argument>
-        <argument>TopxiaWeb</argument>
-      </call>
-      <call method="addPath">
-        <argument>D:\MyProject\php_project\edusoho\src\Topxia\AdminBundle/Resources/views</argument>
-        <argument>TopxiaAdmin</argument>
-      </call>
-      <call method="addPath">
-        <argument>D:\MyProject\php_project\edusoho\src\Topxia\MobileBundle/Resources/views</argument>
-        <argument>TopxiaMobile</argument>
-      </call>
-      <call method="addPath">
-        <argument>D:\MyProject\php_project\edusoho\src\Topxia\MobileBundleV2/Resources/views</argument>
-        <argument>TopxiaMobileBundleV2</argument>
-      </call>
-      <call method="addPath">
-        <argument>D:\MyProject\php_project\edusoho\src\Classroom\ClassroomBundle/Resources/views</argument>
-        <argument>Classroom</argument>
-      </call>
-      <call method="addPath">
-        <argument>D:\MyProject\php_project\edusoho\src\MaterialLib\MaterialLibBundle/Resources/views</argument>
-        <argument>MaterialLib</argument>
-      </call>
-      <call method="addPath">
-        <argument>D:\MyProject\php_project\edusoho\src\SensitiveWord\SensitiveWordBundle/Resources/views</argument>
-        <argument>SensitiveWord</argument>
-      </call>
-      <call method="addPath">
-        <argument>D:\MyProject\php_project\edusoho\src\Org\OrgBundle/Resources/views</argument>
-        <argument>Org</argument>
-      </call>
-      <call method="addPath">
-        <argument>D:\MyProject\php_project\edusoho\src\Permission\PermissionBundle/Resources/views</argument>
-        <argument>Permission</argument>
-      </call>
-      <call method="addPath">
-        <argument>D:\MyProject\php_project\edusoho\vendor\willdurand\js-translation-bundle\Bazinga\Bundle\JsTranslationBundle/Resources/views</argument>
-        <argument>BazingaJsTranslation</argument>
-      </call>
-      <call method="addPath">
-        <argument>D:\MyProject\php_project\edusoho\vendor\bshaffer\oauth2-server-bundle\OAuth2\ServerBundle/Resources/views</argument>
-        <argument>OAuth2Server</argument>
-      </call>
-      <call method="addPath">
-        <argument>D:\MyProject\php_project\edusoho\src\Custom\WebBundle/Resources/views</argument>
-        <argument>CustomWeb</argument>
-      </call>
-      <call method="addPath">
-        <argument>D:\MyProject\php_project\edusoho\src\Custom\AdminBundle/Resources/views</argument>
-        <argument>CustomAdmin</argument>
-      </call>
-      <call method="addPath">
-        <argument>D:\MyProject\php_project\edusoho\vendor\symfony\symfony\src\Symfony\Bundle\WebProfilerBundle/Resources/views</argument>
-        <argument>WebProfiler</argument>
-      </call>
-      <call method="addPath">
-        <argument>D:\MyProject\php_project\edusoho\app/Resources/views</argument>
-      </call>
-      <call method="addPath">
-        <argument>D:\MyProject\php_project\edusoho\vendor\symfony\symfony\src\Symfony\Bridge\Twig/Resources/views/Form</argument>
-      </call>
-    </service>
     <service id="logger" class="Symfony\Bridge\Monolog\Logger">
       <argument>app</argument>
       <call method="useMicrosecondTimestamps">
@@ -4326,6 +4950,128 @@
         <argument type="service" id="swiftmailer.mailer.default.plugin.messagelogger"/>
       </call>
     </service>
+    <service id="twig.loader" class="Twig_Loader_Chain">
+      <call method="addLoader">
+        <argument type="service" id="codeages_plugin.theme.twig_loader"/>
+      </call>
+      <call method="addLoader">
+        <argument type="service">
+          <service class="Symfony\Bundle\TwigBundle\Loader\FilesystemLoader" public="false">
+            <tag name="twig.loader"/>
+            <argument type="service" id="codeages_plugin.theme.templating.locator"/>
+            <argument type="service" id="templating.name_parser"/>
+            <call method="addPath">
+              <argument>D:\MyProject\php_project\edusoho\app/../web/customize</argument>
+              <argument>customize</argument>
+            </call>
+            <call method="addPath">
+              <argument>D:\MyProject\php_project\edusoho\app/../src/Topxia/WebBundle/Resources/views</argument>
+              <argument>topxiaweb</argument>
+            </call>
+            <call method="addPath">
+              <argument>D:\MyProject\php_project\edusoho\app/../web/themes</argument>
+              <argument>theme</argument>
+            </call>
+            <call method="addPath">
+              <argument>D:\MyProject\php_project\edusoho\app/../</argument>
+              <argument>root</argument>
+            </call>
+            <call method="addPath">
+              <argument>D:\MyProject\php_project\edusoho\vendor\symfony\symfony\src\Symfony\Bundle\FrameworkBundle/Resources/views</argument>
+              <argument>Framework</argument>
+            </call>
+            <call method="addPath">
+              <argument>D:\MyProject\php_project\edusoho\vendor\symfony\symfony\src\Symfony\Bundle\SecurityBundle/Resources/views</argument>
+              <argument>Security</argument>
+            </call>
+            <call method="addPath">
+              <argument>D:\MyProject\php_project\edusoho\app/Resources/TwigBundle/views</argument>
+              <argument>Twig</argument>
+            </call>
+            <call method="addPath">
+              <argument>D:\MyProject\php_project\edusoho\vendor\symfony\symfony\src\Symfony\Bundle\TwigBundle/Resources/views</argument>
+              <argument>Twig</argument>
+            </call>
+            <call method="addPath">
+              <argument>D:\MyProject\php_project\edusoho\vendor\symfony\swiftmailer-bundle/Resources/views</argument>
+              <argument>Swiftmailer</argument>
+            </call>
+            <call method="addPath">
+              <argument>D:\MyProject\php_project\edusoho\src\Topxia\WebBundle/Resources/views</argument>
+              <argument>TopxiaWeb</argument>
+            </call>
+            <call method="addPath">
+              <argument>D:\MyProject\php_project\edusoho\src\Topxia\AdminBundle/Resources/views</argument>
+              <argument>TopxiaAdmin</argument>
+            </call>
+            <call method="addPath">
+              <argument>D:\MyProject\php_project\edusoho\src\Topxia\MobileBundle/Resources/views</argument>
+              <argument>TopxiaMobile</argument>
+            </call>
+            <call method="addPath">
+              <argument>D:\MyProject\php_project\edusoho\src\Topxia\MobileBundleV2/Resources/views</argument>
+              <argument>TopxiaMobileBundleV2</argument>
+            </call>
+            <call method="addPath">
+              <argument>D:\MyProject\php_project\edusoho\src\Classroom\ClassroomBundle/Resources/views</argument>
+              <argument>Classroom</argument>
+            </call>
+            <call method="addPath">
+              <argument>D:\MyProject\php_project\edusoho\src\MaterialLib\MaterialLibBundle/Resources/views</argument>
+              <argument>MaterialLib</argument>
+            </call>
+            <call method="addPath">
+              <argument>D:\MyProject\php_project\edusoho\src\SensitiveWord\SensitiveWordBundle/Resources/views</argument>
+              <argument>SensitiveWord</argument>
+            </call>
+            <call method="addPath">
+              <argument>D:\MyProject\php_project\edusoho\src\Org\OrgBundle/Resources/views</argument>
+              <argument>Org</argument>
+            </call>
+            <call method="addPath">
+              <argument>D:\MyProject\php_project\edusoho\src\Permission\PermissionBundle/Resources/views</argument>
+              <argument>Permission</argument>
+            </call>
+            <call method="addPath">
+              <argument>D:\MyProject\php_project\edusoho\vendor\willdurand\js-translation-bundle\Bazinga\Bundle\JsTranslationBundle/Resources/views</argument>
+              <argument>BazingaJsTranslation</argument>
+            </call>
+            <call method="addPath">
+              <argument>D:\MyProject\php_project\edusoho\vendor\bshaffer\oauth2-server-bundle\OAuth2\ServerBundle/Resources/views</argument>
+              <argument>OAuth2Server</argument>
+            </call>
+            <call method="addPath">
+              <argument>D:\MyProject\php_project\edusoho\vendor\gos\web-socket-bundle/Resources/views</argument>
+              <argument>GosWebSocket</argument>
+            </call>
+            <call method="addPath">
+              <argument>D:\MyProject\php_project\edusoho\src\Custom\WebBundle/Resources/views</argument>
+              <argument>CustomWeb</argument>
+            </call>
+            <call method="addPath">
+              <argument>D:\MyProject\php_project\edusoho\src\Custom\AdminBundle/Resources/views</argument>
+              <argument>CustomAdmin</argument>
+            </call>
+            <call method="addPath">
+              <argument>D:\MyProject\php_project\edusoho\vendor\symfony\symfony\src\Symfony\Bundle\WebProfilerBundle/Resources/views</argument>
+              <argument>WebProfiler</argument>
+            </call>
+            <call method="addPath">
+              <argument>D:\MyProject\php_project\edusoho\app/Resources/views</argument>
+            </call>
+            <call method="addPath">
+              <argument>D:\MyProject\php_project\edusoho\vendor\symfony\symfony\src\Symfony\Bridge\Twig/Resources/views/Form</argument>
+            </call>
+          </service>
+        </argument>
+      </call>
+    </service>
+    <service id="gos_pubsub_router.tokenizer" class="Gos\Bundle\PubSubRouterBundle\Tokenizer\TokenizerCacheDecorator">
+      <argument type="service">
+        <service class="Gos\Bundle\PubSubRouterBundle\Tokenizer\Tokenizer" public="false"/>
+      </argument>
+      <argument type="service" id="gos_pubsub_router.php_file.cache"/>
+    </service>
     <service id="session.storage" alias="session.storage.native"/>
     <service id="session.handler" alias="session.handler.factory"/>
     <service id="event_dispatcher" alias="debug.event_dispatcher"/>
@@ -4334,6 +5080,12 @@
     <service id="swiftmailer.transport" alias="swiftmailer.mailer.default.transport"/>
     <service id="mailer" alias="swiftmailer.mailer.default"/>
     <service id="templating.locator" alias="codeages_plugin.theme.templating.locator"/>
+    <service id="console.command.gos_bundle_websocketbundle_command_servercommand" alias="gos_web_socket.server_command"/>
+    <service id="console.command.gos_bundle_websocketbundle_command_websocketservercommand" alias="gos_web_socket.websocket_server.command"/>
+    <service id="console.command.gos_bundle_pubsubrouterbundle_command_debugroutercommand" alias="gos_pubsub_router.debug.command"/>
     <service id="console.command.sensiolabs_security_command_securitycheckercommand" alias="sensio_distribution.security_checker.command"/>
+    <service id="gos_web_socket.zmq.pusher.base" alias="gos_web_socket.zmq.pusher"/>
+    <service id="gos_web_socket.amqp.pusher.base" alias="gos_web_socket.amqp.pusher"/>
+    <service id="gos_web_socket.wamp.pusher.base" alias="gos_web_socket.wamp.pusher"/>
   </services>
 </container>

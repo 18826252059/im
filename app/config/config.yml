@@ -51,6 +51,15 @@ twig:
 #    secure_controllers:  true
 #    secure_all_services: false
 
+# Web Socket Configuration
+gos_web_socket:
+    server:
+        port: 1337        #The port the socket server will listen on
+        host: 127.0.0.1   #The host ip to bind to
+        router:
+                resources:
+                        - @TopxiaWebBundle/Resources/config/pubsub/routing.yml
+
 parameters:
     session.handler.pdo.options:
          db_table:    sessions

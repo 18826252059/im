@@ -36,9 +36,16 @@ class appDevDebugProjectContainer extends Container
         $this->scopes = array('request' => 'container');
         $this->scopeChildren = array('request' => array());
         $this->methodMap = array(
+            'acme_hello.rpc_sample_service' => 'getAcmeHello_RpcSampleServiceService',
+            'acme_hello.topic_sample_service' => 'getAcmeHello_TopicSampleServiceService',
             'annotation_reader' => 'getAnnotationReaderService',
             'app.locale_listener' => 'getApp_LocaleListenerService',
             'app.user_locale_listener' => 'getApp_UserLocaleListenerService',
+            'assetic.asset_factory' => 'getAssetic_AssetFactoryService',
+            'assetic.asset_manager' => 'getAssetic_AssetManagerService',
+            'assetic.controller' => 'getAssetic_ControllerService',
+            'assetic.filter_manager' => 'getAssetic_FilterManagerService',
+            'assetic.request_listener' => 'getAssetic_RequestListenerService',
             'assets._version__default' => 'getAssets_VersionDefaultService',
             'assets.context' => 'getAssets_ContextService',
             'assets.packages' => 'getAssets_PackagesService',
@@ -56,6 +63,7 @@ class appDevDebugProjectContainer extends Container
             'codeages_plugin.slot_manager' => 'getCodeagesPlugin_SlotManagerService',
             'codeages_plugin.theme.file_locator' => 'getCodeagesPlugin_Theme_FileLocatorService',
             'codeages_plugin.theme.templating.locator' => 'getCodeagesPlugin_Theme_Templating_LocatorService',
+            'codeages_plugin.theme.twig_loader' => 'getCodeagesPlugin_Theme_TwigLoaderService',
             'codeags_plugin.event.lazy_subscribers' => 'getCodeagsPlugin_Event_LazySubscribersService',
             'config_cache_factory' => 'getConfigCacheFactoryService',
             'controller_name_converter' => 'getControllerNameConverterService',
@@ -128,6 +136,53 @@ class appDevDebugProjectContainer extends Container
             'fragment.renderer.hinclude' => 'getFragment_Renderer_HincludeService',
             'fragment.renderer.inline' => 'getFragment_Renderer_InlineService',
             'fragment.renderer.ssi' => 'getFragment_Renderer_SsiService',
+            'gos_pubsub_router.collection.websocket' => 'getGosPubsubRouter_Collection_WebsocketService',
+            'gos_pubsub_router.context.websocket' => 'getGosPubsubRouter_Context_WebsocketService',
+            'gos_pubsub_router.debug.command' => 'getGosPubsubRouter_Debug_CommandService',
+            'gos_pubsub_router.generator' => 'getGosPubsubRouter_GeneratorService',
+            'gos_pubsub_router.loader.websocket' => 'getGosPubsubRouter_Loader_WebsocketService',
+            'gos_pubsub_router.matcher' => 'getGosPubsubRouter_MatcherService',
+            'gos_pubsub_router.php_file.cache' => 'getGosPubsubRouter_PhpFile_CacheService',
+            'gos_pubsub_router.tokenizer' => 'getGosPubsubRouter_TokenizerService',
+            'gos_pubsub_router.websocket' => 'getGosPubsubRouter_WebsocketService',
+            'gos_web_socket.abstract.pusher' => 'getGosWebSocket_Abstract_PusherService',
+            'gos_web_socket.amqp.pusher' => 'getGosWebSocket_Amqp_PusherService',
+            'gos_web_socket.amqp.server_push_handler' => 'getGosWebSocket_Amqp_ServerPushHandlerService',
+            'gos_web_socket.client_event.listener' => 'getGosWebSocket_ClientEvent_ListenerService',
+            'gos_web_socket.client_storage' => 'getGosWebSocket_ClientStorageService',
+            'gos_web_socket.data_collector' => 'getGosWebSocket_DataCollectorService',
+            'gos_web_socket.entry_point' => 'getGosWebSocket_EntryPointService',
+            'gos_web_socket.kernel_event.terminate' => 'getGosWebSocket_KernelEvent_TerminateService',
+            'gos_web_socket.memory_usage.periodic' => 'getGosWebSocket_MemoryUsage_PeriodicService',
+            'gos_web_socket.null.pubsub.router' => 'getGosWebSocket_Null_Pubsub_RouterService',
+            'gos_web_socket.origins.registry' => 'getGosWebSocket_Origins_RegistryService',
+            'gos_web_socket.pdo.periodic_ping' => 'getGosWebSocket_Pdo_PeriodicPingService',
+            'gos_web_socket.periodic.registry' => 'getGosWebSocket_Periodic_RegistryService',
+            'gos_web_socket.pnctl_event.listener' => 'getGosWebSocket_PnctlEvent_ListenerService',
+            'gos_web_socket.push_message.serializer' => 'getGosWebSocket_PushMessage_SerializerService',
+            'gos_web_socket.pusher_registry' => 'getGosWebSocket_PusherRegistryService',
+            'gos_web_socket.router.wamp' => 'getGosWebSocket_Router_WampService',
+            'gos_web_socket.rpc.dispatcher' => 'getGosWebSocket_Rpc_DispatcherService',
+            'gos_web_socket.rpc.registry' => 'getGosWebSocket_Rpc_RegistryService',
+            'gos_web_socket.server.event_loop' => 'getGosWebSocket_Server_EventLoopService',
+            'gos_web_socket.server.in_memory.client_storage.driver' => 'getGosWebSocket_Server_InMemory_ClientStorage_DriverService',
+            'gos_web_socket.server.registry' => 'getGosWebSocket_Server_RegistryService',
+            'gos_web_socket.server_command' => 'getGosWebSocket_ServerCommandService',
+            'gos_web_socket.server_push_handler.registry' => 'getGosWebSocket_ServerPushHandler_RegistryService',
+            'gos_web_socket.topic.dispatcher' => 'getGosWebSocket_Topic_DispatcherService',
+            'gos_web_socket.topic.periodic_timer' => 'getGosWebSocket_Topic_PeriodicTimerService',
+            'gos_web_socket.topic.registry' => 'getGosWebSocket_Topic_RegistryService',
+            'gos_web_socket.twig.extension' => 'getGosWebSocket_Twig_ExtensionService',
+            'gos_web_socket.wamp.pusher' => 'getGosWebSocket_Wamp_PusherService',
+            'gos_web_socket.wamp.topic_manager' => 'getGosWebSocket_Wamp_TopicManagerService',
+            'gos_web_socket.websocket.client_manipulator' => 'getGosWebSocket_Websocket_ClientManipulatorService',
+            'gos_web_socket.websocket_authentification.provider' => 'getGosWebSocket_WebsocketAuthentification_ProviderService',
+            'gos_web_socket.websocket_server.command' => 'getGosWebSocket_WebsocketServer_CommandService',
+            'gos_web_socket.ws.client' => 'getGosWebSocket_Ws_ClientService',
+            'gos_web_socket.ws.server' => 'getGosWebSocket_Ws_ServerService',
+            'gos_web_socket.zmq.pusher' => 'getGosWebSocket_Zmq_PusherService',
+            'gos_web_socket.zmq.server_push_handler' => 'getGosWebSocket_Zmq_ServerPushHandlerService',
+            'gos_web_socket_server.wamp_application' => 'getGosWebSocketServer_WampApplicationService',
             'http_kernel' => 'getHttpKernelService',
             'kernel' => 'getKernelService',
             'kernel.class_cache.cache_warmer' => 'getKernel_ClassCache_CacheWarmerService',
@@ -143,6 +198,9 @@ class appDevDebugProjectContainer extends Container
             'monolog.handler.debug' => 'getMonolog_Handler_DebugService',
             'monolog.handler.firephp' => 'getMonolog_Handler_FirephpService',
             'monolog.handler.main' => 'getMonolog_Handler_MainService',
+            'monolog.handler.null_internal' => 'getMonolog_Handler_NullInternalService',
+            'monolog.handler.websocket' => 'getMonolog_Handler_WebsocketService',
+            'monolog.logger.assetic' => 'getMonolog_Logger_AsseticService',
             'monolog.logger.event' => 'getMonolog_Logger_EventService',
             'monolog.logger.php' => 'getMonolog_Logger_PhpService',
             'monolog.logger.profiler' => 'getMonolog_Logger_ProfilerService',
@@ -151,6 +209,7 @@ class appDevDebugProjectContainer extends Container
             'monolog.logger.security' => 'getMonolog_Logger_SecurityService',
             'monolog.logger.templating' => 'getMonolog_Logger_TemplatingService',
             'monolog.logger.translation' => 'getMonolog_Logger_TranslationService',
+            'monolog.logger.websocket' => 'getMonolog_Logger_WebsocketService',
             'oauth2.client_manager' => 'getOauth2_ClientManagerService',
             'oauth2.grant_type.authorization_code' => 'getOauth2_GrantType_AuthorizationCodeService',
             'oauth2.grant_type.client_credentials' => 'getOauth2_GrantType_ClientCredentialsService',
@@ -302,8 +361,14 @@ class appDevDebugProjectContainer extends Container
             'web_profiler.debug_toolbar' => 'getWebProfiler_DebugToolbarService',
         );
         $this->aliases = array(
+            'console.command.gos_bundle_pubsubrouterbundle_command_debugroutercommand' => 'gos_pubsub_router.debug.command',
+            'console.command.gos_bundle_websocketbundle_command_servercommand' => 'gos_web_socket.server_command',
+            'console.command.gos_bundle_websocketbundle_command_websocketservercommand' => 'gos_web_socket.websocket_server.command',
             'console.command.sensiolabs_security_command_securitycheckercommand' => 'sensio_distribution.security_checker.command',
             'event_dispatcher' => 'debug.event_dispatcher',
+            'gos_web_socket.amqp.pusher.base' => 'gos_web_socket.amqp.pusher',
+            'gos_web_socket.wamp.pusher.base' => 'gos_web_socket.wamp.pusher',
+            'gos_web_socket.zmq.pusher.base' => 'gos_web_socket.zmq.pusher',
             'mailer' => 'swiftmailer.mailer.default',
             'session.handler' => 'session.handler.factory',
             'session.storage' => 'session.storage.native',
@@ -328,6 +393,32 @@ class appDevDebugProjectContainer extends Container
     public function isFrozen()
     {
         return true;
+    }
+
+    /**
+     * Gets the 'acme_hello.rpc_sample_service' service.
+     *
+     * This service is shared.
+     * This method always returns the same instance of the service.
+     *
+     * @return \Topxia\WebBundle\Rpc\AcmeRpc A Topxia\WebBundle\Rpc\AcmeRpc instance
+     */
+    protected function getAcmeHello_RpcSampleServiceService()
+    {
+        return $this->services['acme_hello.rpc_sample_service'] = new \Topxia\WebBundle\Rpc\AcmeRpc();
+    }
+
+    /**
+     * Gets the 'acme_hello.topic_sample_service' service.
+     *
+     * This service is shared.
+     * This method always returns the same instance of the service.
+     *
+     * @return \Topxia\WebBundle\Topic\AcmeTopic A Topxia\WebBundle\Topic\AcmeTopic instance
+     */
+    protected function getAcmeHello_TopicSampleServiceService()
+    {
+        return $this->services['acme_hello.topic_sample_service'] = new \Topxia\WebBundle\Topic\AcmeTopic();
     }
 
     /**
@@ -367,6 +458,65 @@ class appDevDebugProjectContainer extends Container
     protected function getApp_UserLocaleListenerService()
     {
         return $this->services['app.user_locale_listener'] = new \Topxia\WebBundle\Listener\UserLocaleListener($this->get('session'));
+    }
+
+    /**
+     * Gets the 'assetic.asset_manager' service.
+     *
+     * This service is shared.
+     * This method always returns the same instance of the service.
+     *
+     * @return \Assetic\Factory\LazyAssetManager A Assetic\Factory\LazyAssetManager instance
+     */
+    protected function getAssetic_AssetManagerService()
+    {
+        $a = $this->get('templating.loader');
+
+        $this->services['assetic.asset_manager'] = $instance = new \Assetic\Factory\LazyAssetManager($this->get('assetic.asset_factory'), array('twig' => new \Assetic\Factory\Loader\CachedFormulaLoader(new \Assetic\Extension\Twig\TwigFormulaLoader($this->get('twig'), $this->get('monolog.logger.assetic', ContainerInterface::NULL_ON_INVALID_REFERENCE)), new \Assetic\Cache\ConfigCache((__DIR__.'/assetic/config')), true)));
+
+        $instance->addResource(new \Symfony\Bundle\AsseticBundle\Factory\Resource\CoalescingDirectoryResource(array(0 => new \Symfony\Bundle\AsseticBundle\Factory\Resource\DirectoryResource($a, 'GosWebSocketBundle', ($this->targetDirs[3].'/Resources/GosWebSocketBundle/views'), '/\\.[^.]+\\.twig$/'), 1 => new \Symfony\Bundle\AsseticBundle\Factory\Resource\DirectoryResource($a, 'GosWebSocketBundle', ($this->targetDirs[4].'\\vendor\\gos\\web-socket-bundle/Resources/views'), '/\\.[^.]+\\.twig$/'))), 'twig');
+        $instance->addResource(new \Symfony\Bundle\AsseticBundle\Factory\Resource\DirectoryResource($a, '', ($this->targetDirs[3].'/Resources/views'), '/\\.[^.]+\\.twig$/'), 'twig');
+
+        return $instance;
+    }
+
+    /**
+     * Gets the 'assetic.controller' service.
+     *
+     * This service is shared.
+     * This method always returns the same instance of the service.
+     *
+     * @return \Symfony\Bundle\AsseticBundle\Controller\AsseticController A Symfony\Bundle\AsseticBundle\Controller\AsseticController instance
+     */
+    protected function getAssetic_ControllerService()
+    {
+        return $this->services['assetic.controller'] = new \Symfony\Bundle\AsseticBundle\Controller\AsseticController($this->get('assetic.asset_manager'), new \Assetic\Cache\FilesystemCache((__DIR__.'/assetic/assets')), false, $this->get('profiler', ContainerInterface::NULL_ON_INVALID_REFERENCE));
+    }
+
+    /**
+     * Gets the 'assetic.filter_manager' service.
+     *
+     * This service is shared.
+     * This method always returns the same instance of the service.
+     *
+     * @return \Symfony\Bundle\AsseticBundle\FilterManager A Symfony\Bundle\AsseticBundle\FilterManager instance
+     */
+    protected function getAssetic_FilterManagerService()
+    {
+        return $this->services['assetic.filter_manager'] = new \Symfony\Bundle\AsseticBundle\FilterManager($this, array());
+    }
+
+    /**
+     * Gets the 'assetic.request_listener' service.
+     *
+     * This service is shared.
+     * This method always returns the same instance of the service.
+     *
+     * @return \Symfony\Bundle\AsseticBundle\EventListener\RequestListener A Symfony\Bundle\AsseticBundle\EventListener\RequestListener instance
+     */
+    protected function getAssetic_RequestListenerService()
+    {
+        return $this->services['assetic.request_listener'] = new \Symfony\Bundle\AsseticBundle\EventListener\RequestListener();
     }
 
     /**
@@ -548,7 +698,7 @@ class appDevDebugProjectContainer extends Container
 
         $c = new \Symfony\Bundle\FrameworkBundle\CacheWarmer\TemplateFinder($a, $b, ($this->targetDirs[3].'/Resources'));
 
-        return $this->services['cache_warmer'] = new \Symfony\Component\HttpKernel\CacheWarmer\CacheWarmerAggregate(array(0 => new \Symfony\Bundle\FrameworkBundle\CacheWarmer\TemplatePathsCacheWarmer($c, $this->get('codeages_plugin.theme.templating.locator')), 1 => $this->get('kernel.class_cache.cache_warmer'), 2 => new \Symfony\Bundle\FrameworkBundle\CacheWarmer\TranslationsCacheWarmer($this->get('translator')), 3 => new \Symfony\Bundle\FrameworkBundle\CacheWarmer\RouterCacheWarmer($this->get('router')), 4 => new \Symfony\Bundle\TwigBundle\CacheWarmer\TemplateCacheCacheWarmer($this, $c, array(($this->targetDirs[3].'/../web/customize') => 'customize', ($this->targetDirs[3].'/../src/Topxia/WebBundle/Resources/views') => 'topxiaweb', ($this->targetDirs[3].'/../web/themes') => 'theme', ($this->targetDirs[3].'/../') => 'root')), 5 => new \Symfony\Bundle\TwigBundle\CacheWarmer\TemplateCacheWarmer($this->get('twig'), new \Symfony\Bundle\TwigBundle\TemplateIterator($a, $this->targetDirs[3], array(($this->targetDirs[3].'/../web/customize') => 'customize', ($this->targetDirs[3].'/../src/Topxia/WebBundle/Resources/views') => 'topxiaweb', ($this->targetDirs[3].'/../web/themes') => 'theme', ($this->targetDirs[3].'/../') => 'root')))));
+        return $this->services['cache_warmer'] = new \Symfony\Component\HttpKernel\CacheWarmer\CacheWarmerAggregate(array(0 => new \Symfony\Bundle\FrameworkBundle\CacheWarmer\TemplatePathsCacheWarmer($c, $this->get('codeages_plugin.theme.templating.locator')), 1 => new \Symfony\Bundle\AsseticBundle\CacheWarmer\AssetManagerCacheWarmer($this), 2 => $this->get('kernel.class_cache.cache_warmer'), 3 => new \Symfony\Bundle\FrameworkBundle\CacheWarmer\TranslationsCacheWarmer($this->get('translator')), 4 => new \Symfony\Bundle\FrameworkBundle\CacheWarmer\RouterCacheWarmer($this->get('router')), 5 => new \Symfony\Bundle\TwigBundle\CacheWarmer\TemplateCacheCacheWarmer($this, $c, array(($this->targetDirs[3].'/../web/customize') => 'customize', ($this->targetDirs[3].'/../src/Topxia/WebBundle/Resources/views') => 'topxiaweb', ($this->targetDirs[3].'/../web/themes') => 'theme', ($this->targetDirs[3].'/../') => 'root')), 6 => new \Symfony\Bundle\TwigBundle\CacheWarmer\TemplateCacheWarmer($this->get('twig'), new \Symfony\Bundle\TwigBundle\TemplateIterator($a, $this->targetDirs[3], array(($this->targetDirs[3].'/../web/customize') => 'customize', ($this->targetDirs[3].'/../src/Topxia/WebBundle/Resources/views') => 'topxiaweb', ($this->targetDirs[3].'/../web/themes') => 'theme', ($this->targetDirs[3].'/../') => 'root')))));
     }
 
     /**
@@ -627,6 +777,19 @@ class appDevDebugProjectContainer extends Container
     protected function getCodeagesPlugin_Theme_Templating_LocatorService()
     {
         return $this->services['codeages_plugin.theme.templating.locator'] = new \Symfony\Bundle\FrameworkBundle\Templating\Loader\TemplateLocator($this->get('codeages_plugin.theme.file_locator'), __DIR__);
+    }
+
+    /**
+     * Gets the 'codeages_plugin.theme.twig_loader' service.
+     *
+     * This service is shared.
+     * This method always returns the same instance of the service.
+     *
+     * @return \Codeages\PluginBundle\Loader\ThemeTwigLoader A Codeages\PluginBundle\Loader\ThemeTwigLoader instance
+     */
+    protected function getCodeagesPlugin_Theme_TwigLoaderService()
+    {
+        return $this->services['codeages_plugin.theme.twig_loader'] = new \Codeages\PluginBundle\Loader\ThemeTwigLoader($this->get('kernel'));
     }
 
     /**
@@ -768,8 +931,14 @@ class appDevDebugProjectContainer extends Container
         $instance->addListenerService('kernel.controller', array(0 => 'data_collector.router', 1 => 'onKernelController'), 0);
         $instance->addListenerService('kernel.response', array(0 => 'monolog.handler.firephp', 1 => 'onKernelResponse'), 0);
         $instance->addListenerService('kernel.response', array(0 => 'monolog.handler.chromephp', 1 => 'onKernelResponse'), 0);
+        $instance->addListenerService('kernel.request', array(0 => 'assetic.request_listener', 1 => 'onKernelRequest'), 0);
         $instance->addListenerService('kernel.controller', array(0 => 'kernel.controller.permission_listener', 1 => 'onKernelController'), 255);
         $instance->addListenerService('kernel.response', array(0 => 'kernel.response.permission_listener', 1 => 'onKernelResponse'), 255);
+        $instance->addListenerService('gos_web_socket.client_connected', array(0 => 'gos_web_socket.client_event.listener', 1 => 'onClientConnect'), 0);
+        $instance->addListenerService('gos_web_socket.client_disconnected', array(0 => 'gos_web_socket.client_event.listener', 1 => 'onClientDisconnect'), 0);
+        $instance->addListenerService('gos_web_socket.client_error', array(0 => 'gos_web_socket.client_event.listener', 1 => 'onClientError'), 0);
+        $instance->addListenerService('gos_web_socket.client_rejected', array(0 => 'gos_web_socket.client_event.listener', 1 => 'onClientRejected'), 0);
+        $instance->addListenerService('gos_web_socket.server_launched', array(0 => 'gos_web_socket.pnctl_event.listener', 1 => 'bindPnctlEvent'), 0);
         $instance->addSubscriberService('app.locale_listener', 'Topxia\\WebBundle\\Listener\\LocaleListener');
         $instance->addSubscriberService('response_listener', 'Symfony\\Component\\HttpKernel\\EventListener\\ResponseListener');
         $instance->addSubscriberService('streamed_response_listener', 'Symfony\\Component\\HttpKernel\\EventListener\\StreamedResponseListener');
@@ -786,6 +955,7 @@ class appDevDebugProjectContainer extends Container
         $instance->addSubscriberService('security.firewall', 'Symfony\\Component\\Security\\Http\\Firewall');
         $instance->addSubscriberService('security.rememberme.response_listener', 'Symfony\\Component\\Security\\Http\\RememberMe\\ResponseListener');
         $instance->addSubscriberService('twig.exception_listener', 'Symfony\\Component\\HttpKernel\\EventListener\\ExceptionListener');
+        $instance->addSubscriberService('monolog.handler.websocket', 'Symfony\\Bridge\\Monolog\\Handler\\ConsoleHandler');
         $instance->addSubscriberService('swiftmailer.email_sender.listener', 'Symfony\\Bundle\\SwiftmailerBundle\\EventListener\\EmailSenderListener');
         $instance->addSubscriberService('sensio_framework_extra.controller.listener', 'Sensio\\Bundle\\FrameworkExtraBundle\\EventListener\\ControllerListener');
         $instance->addSubscriberService('sensio_framework_extra.converter.listener', 'Sensio\\Bundle\\FrameworkExtraBundle\\EventListener\\ParamConverterListener');
@@ -1615,6 +1785,654 @@ class appDevDebugProjectContainer extends Container
     }
 
     /**
+     * Gets the 'gos_pubsub_router.collection.websocket' service.
+     *
+     * This service is shared.
+     * This method always returns the same instance of the service.
+     *
+     * @return \Gos\Bundle\PubSubRouterBundle\Router\RouteCollection A Gos\Bundle\PubSubRouterBundle\Router\RouteCollection instance
+     */
+    protected function getGosPubsubRouter_Collection_WebsocketService()
+    {
+        return $this->services['gos_pubsub_router.collection.websocket'] = new \Gos\Bundle\PubSubRouterBundle\Router\RouteCollection();
+    }
+
+    /**
+     * Gets the 'gos_pubsub_router.context.websocket' service.
+     *
+     * This service is shared.
+     * This method always returns the same instance of the service.
+     *
+     * @return \Gos\Bundle\PubSubRouterBundle\Router\RouterContext A Gos\Bundle\PubSubRouterBundle\Router\RouterContext instance
+     */
+    protected function getGosPubsubRouter_Context_WebsocketService()
+    {
+        $this->services['gos_pubsub_router.context.websocket'] = $instance = new \Gos\Bundle\PubSubRouterBundle\Router\RouterContext();
+
+        $instance->setTokenSeparator('/');
+
+        return $instance;
+    }
+
+    /**
+     * Gets the 'gos_pubsub_router.debug.command' service.
+     *
+     * This service is shared.
+     * This method always returns the same instance of the service.
+     *
+     * @return \Gos\Bundle\PubSubRouterBundle\Command\DebugRouterCommand A Gos\Bundle\PubSubRouterBundle\Command\DebugRouterCommand instance
+     */
+    protected function getGosPubsubRouter_Debug_CommandService()
+    {
+        $this->services['gos_pubsub_router.debug.command'] = $instance = new \Gos\Bundle\PubSubRouterBundle\Command\DebugRouterCommand();
+
+        $instance->addRouter($this->get('gos_pubsub_router.websocket'));
+
+        return $instance;
+    }
+
+    /**
+     * Gets the 'gos_pubsub_router.generator' service.
+     *
+     * This service is shared.
+     * This method always returns the same instance of the service.
+     *
+     * @return \Gos\Bundle\PubSubRouterBundle\Generator\Generator A Gos\Bundle\PubSubRouterBundle\Generator\Generator instance
+     */
+    protected function getGosPubsubRouter_GeneratorService()
+    {
+        $this->services['gos_pubsub_router.generator'] = $instance = new \Gos\Bundle\PubSubRouterBundle\Generator\Generator($this->get('gos_pubsub_router.tokenizer'));
+
+        $instance->setCollection($this->get('gos_pubsub_router.collection.websocket'));
+
+        return $instance;
+    }
+
+    /**
+     * Gets the 'gos_pubsub_router.loader.websocket' service.
+     *
+     * This service is shared.
+     * This method always returns the same instance of the service.
+     *
+     * @return \Gos\Bundle\PubSubRouterBundle\Loader\RouteLoader A Gos\Bundle\PubSubRouterBundle\Loader\RouteLoader instance
+     */
+    protected function getGosPubsubRouter_Loader_WebsocketService()
+    {
+        $this->services['gos_pubsub_router.loader.websocket'] = $instance = new \Gos\Bundle\PubSubRouterBundle\Loader\RouteLoader($this->get('gos_pubsub_router.collection.websocket'), $this->get('gos_pubsub_router.php_file.cache'), 'websocket');
+
+        $instance->addResource('@TopxiaWebBundle/Resources/config/pubsub/routing.yml');
+        $instance->addLoader(new \Gos\Bundle\PubSubRouterBundle\Loader\YamlFileLoader($this->get('file_locator')));
+
+        return $instance;
+    }
+
+    /**
+     * Gets the 'gos_pubsub_router.matcher' service.
+     *
+     * This service is shared.
+     * This method always returns the same instance of the service.
+     *
+     * @return \Gos\Bundle\PubSubRouterBundle\Matcher\Matcher A Gos\Bundle\PubSubRouterBundle\Matcher\Matcher instance
+     */
+    protected function getGosPubsubRouter_MatcherService()
+    {
+        $this->services['gos_pubsub_router.matcher'] = $instance = new \Gos\Bundle\PubSubRouterBundle\Matcher\Matcher($this->get('gos_pubsub_router.tokenizer'));
+
+        $instance->setCollection($this->get('gos_pubsub_router.collection.websocket'));
+
+        return $instance;
+    }
+
+    /**
+     * Gets the 'gos_pubsub_router.tokenizer' service.
+     *
+     * This service is shared.
+     * This method always returns the same instance of the service.
+     *
+     * @return \Gos\Bundle\PubSubRouterBundle\Tokenizer\TokenizerCacheDecorator A Gos\Bundle\PubSubRouterBundle\Tokenizer\TokenizerCacheDecorator instance
+     */
+    protected function getGosPubsubRouter_TokenizerService()
+    {
+        return $this->services['gos_pubsub_router.tokenizer'] = new \Gos\Bundle\PubSubRouterBundle\Tokenizer\TokenizerCacheDecorator(new \Gos\Bundle\PubSubRouterBundle\Tokenizer\Tokenizer(), $this->get('gos_pubsub_router.php_file.cache'));
+    }
+
+    /**
+     * Gets the 'gos_pubsub_router.websocket' service.
+     *
+     * This service is shared.
+     * This method always returns the same instance of the service.
+     *
+     * @return \Gos\Bundle\PubSubRouterBundle\Router\Router A Gos\Bundle\PubSubRouterBundle\Router\Router instance
+     */
+    protected function getGosPubsubRouter_WebsocketService()
+    {
+        $this->services['gos_pubsub_router.websocket'] = $instance = new \Gos\Bundle\PubSubRouterBundle\Router\Router($this->get('gos_pubsub_router.collection.websocket'), $this->get('gos_pubsub_router.matcher'), $this->get('gos_pubsub_router.generator'), $this->get('gos_pubsub_router.loader.websocket'), 'websocket');
+
+        $instance->setContext($this->get('gos_pubsub_router.context.websocket'));
+
+        return $instance;
+    }
+
+    /**
+     * Gets the 'gos_web_socket.abstract.pusher' service.
+     *
+     * This service is shared.
+     * This method always returns the same instance of the service.
+     *
+     * @return \Gos\Bundle\WebSocketBundle\Pusher\AbstractPusher A Gos\Bundle\WebSocketBundle\Pusher\AbstractPusher instance
+     */
+    protected function getGosWebSocket_Abstract_PusherService()
+    {
+        $this->services['gos_web_socket.abstract.pusher'] = $instance = new \Gos\Bundle\WebSocketBundle\Pusher\AbstractPusher();
+
+        $instance->setRouter($this->get('gos_web_socket.router.wamp'));
+        $instance->setSerializer($this->get('gos_web_socket.push_message.serializer'));
+
+        return $instance;
+    }
+
+    /**
+     * Gets the 'gos_web_socket.amqp.pusher' service.
+     *
+     * This service is shared.
+     * This method always returns the same instance of the service.
+     *
+     * @return \Gos\Bundle\WebSocketBundle\DataCollector\PusherDecorator A Gos\Bundle\WebSocketBundle\DataCollector\PusherDecorator instance
+     */
+    protected function getGosWebSocket_Amqp_PusherService()
+    {
+        $a = new \Gos\Bundle\WebSocketBundle\Pusher\Amqp\AmqpPusher();
+        $a->setRouter($this->get('gos_web_socket.router.wamp'));
+        $a->setSerializer($this->get('gos_web_socket.push_message.serializer'));
+
+        return $this->services['gos_web_socket.amqp.pusher'] = new \Gos\Bundle\WebSocketBundle\DataCollector\PusherDecorator($a, $this->get('debug.stopwatch'), $this->get('gos_web_socket.data_collector'));
+    }
+
+    /**
+     * Gets the 'gos_web_socket.amqp.server_push_handler' service.
+     *
+     * This service is shared.
+     * This method always returns the same instance of the service.
+     *
+     * @return \Gos\Bundle\WebSocketBundle\Pusher\Amqp\AmqpServerPushHandler A Gos\Bundle\WebSocketBundle\Pusher\Amqp\AmqpServerPushHandler instance
+     */
+    protected function getGosWebSocket_Amqp_ServerPushHandlerService()
+    {
+        return $this->services['gos_web_socket.amqp.server_push_handler'] = new \Gos\Bundle\WebSocketBundle\Pusher\Amqp\AmqpServerPushHandler($this->get('gos_web_socket.amqp.pusher'), $this->get('gos_web_socket.router.wamp'), $this->get('gos_web_socket.push_message.serializer'), $this->get('debug.event_dispatcher'), $this->get('monolog.logger.websocket', ContainerInterface::NULL_ON_INVALID_REFERENCE));
+    }
+
+    /**
+     * Gets the 'gos_web_socket.client_event.listener' service.
+     *
+     * This service is shared.
+     * This method always returns the same instance of the service.
+     *
+     * @param bool    $lazyLoad whether to try lazy-loading the service with a proxy
+     *
+     * @return \Gos\Bundle\WebSocketBundle\Event\ClientEventListener A Gos\Bundle\WebSocketBundle\Event\ClientEventListener instance
+     */
+    protected function getGosWebSocket_ClientEvent_ListenerService($lazyLoad = true)
+    {
+        return $this->services['gos_web_socket.client_event.listener'] = new \Gos\Bundle\WebSocketBundle\Event\ClientEventListener($this->get('gos_web_socket.client_storage'), $this->get('gos_web_socket.websocket_authentification.provider'), $this->get('monolog.logger.websocket', ContainerInterface::NULL_ON_INVALID_REFERENCE));
+    }
+
+    /**
+     * Gets the 'gos_web_socket.client_storage' service.
+     *
+     * This service is shared.
+     * This method always returns the same instance of the service.
+     *
+     * @return \Gos\Bundle\WebSocketBundle\Client\ClientStorage A Gos\Bundle\WebSocketBundle\Client\ClientStorage instance
+     */
+    protected function getGosWebSocket_ClientStorageService()
+    {
+        $this->services['gos_web_socket.client_storage'] = $instance = new \Gos\Bundle\WebSocketBundle\Client\ClientStorage(900, $this->get('monolog.logger.websocket', ContainerInterface::NULL_ON_INVALID_REFERENCE));
+
+        $instance->setStorageDriver($this->get('gos_web_socket.server.in_memory.client_storage.driver'));
+
+        return $instance;
+    }
+
+    /**
+     * Gets the 'gos_web_socket.data_collector' service.
+     *
+     * This service is shared.
+     * This method always returns the same instance of the service.
+     *
+     * @return \Gos\Bundle\WebSocketBundle\DataCollector\WebsocketDataCollector A Gos\Bundle\WebSocketBundle\DataCollector\WebsocketDataCollector instance
+     */
+    protected function getGosWebSocket_DataCollectorService()
+    {
+        return $this->services['gos_web_socket.data_collector'] = new \Gos\Bundle\WebSocketBundle\DataCollector\WebsocketDataCollector();
+    }
+
+    /**
+     * Gets the 'gos_web_socket.entry_point' service.
+     *
+     * This service is shared.
+     * This method always returns the same instance of the service.
+     *
+     * @return \Gos\Bundle\WebSocketBundle\Server\EntryPoint A Gos\Bundle\WebSocketBundle\Server\EntryPoint instance
+     */
+    protected function getGosWebSocket_EntryPointService()
+    {
+        return $this->services['gos_web_socket.entry_point'] = new \Gos\Bundle\WebSocketBundle\Server\EntryPoint($this->get('gos_web_socket.server.registry'));
+    }
+
+    /**
+     * Gets the 'gos_web_socket.kernel_event.terminate' service.
+     *
+     * This service is shared.
+     * This method always returns the same instance of the service.
+     *
+     * @return \Gos\Bundle\WebSocketBundle\Event\KernelTerminateListener A Gos\Bundle\WebSocketBundle\Event\KernelTerminateListener instance
+     */
+    protected function getGosWebSocket_KernelEvent_TerminateService()
+    {
+        return $this->services['gos_web_socket.kernel_event.terminate'] = new \Gos\Bundle\WebSocketBundle\Event\KernelTerminateListener($this->get('gos_web_socket.pusher_registry'));
+    }
+
+    /**
+     * Gets the 'gos_web_socket.memory_usage.periodic' service.
+     *
+     * This service is shared.
+     * This method always returns the same instance of the service.
+     *
+     * @param bool    $lazyLoad whether to try lazy-loading the service with a proxy
+     *
+     * @return \Gos\Bundle\WebSocketBundle\Periodic\PeriodicMemoryUsage A Gos\Bundle\WebSocketBundle\Periodic\PeriodicMemoryUsage instance
+     */
+    protected function getGosWebSocket_MemoryUsage_PeriodicService($lazyLoad = true)
+    {
+        return $this->services['gos_web_socket.memory_usage.periodic'] = new \Gos\Bundle\WebSocketBundle\Periodic\PeriodicMemoryUsage($this->get('monolog.logger.websocket', ContainerInterface::NULL_ON_INVALID_REFERENCE));
+    }
+
+    /**
+     * Gets the 'gos_web_socket.null.pubsub.router' service.
+     *
+     * This service is shared.
+     * This method always returns the same instance of the service.
+     *
+     * @return \Gos\Bundle\WebSocketBundle\Router\NullPubSubRouter A Gos\Bundle\WebSocketBundle\Router\NullPubSubRouter instance
+     */
+    protected function getGosWebSocket_Null_Pubsub_RouterService()
+    {
+        return $this->services['gos_web_socket.null.pubsub.router'] = new \Gos\Bundle\WebSocketBundle\Router\NullPubSubRouter();
+    }
+
+    /**
+     * Gets the 'gos_web_socket.origins.registry' service.
+     *
+     * This service is shared.
+     * This method always returns the same instance of the service.
+     *
+     * @return \Gos\Bundle\WebSocketBundle\Server\App\Registry\OriginRegistry A Gos\Bundle\WebSocketBundle\Server\App\Registry\OriginRegistry instance
+     */
+    protected function getGosWebSocket_Origins_RegistryService()
+    {
+        return $this->services['gos_web_socket.origins.registry'] = new \Gos\Bundle\WebSocketBundle\Server\App\Registry\OriginRegistry();
+    }
+
+    /**
+     * Gets the 'gos_web_socket.pdo.periodic_ping' service.
+     *
+     * This service is shared.
+     * This method always returns the same instance of the service.
+     *
+     * @param bool    $lazyLoad whether to try lazy-loading the service with a proxy
+     *
+     * @return \Gos\Bundle\WebSocketBundle\Periodic\PdoPeriodicPing A Gos\Bundle\WebSocketBundle\Periodic\PdoPeriodicPing instance
+     */
+    protected function getGosWebSocket_Pdo_PeriodicPingService($lazyLoad = true)
+    {
+        return $this->services['gos_web_socket.pdo.periodic_ping'] = new \Gos\Bundle\WebSocketBundle\Periodic\PdoPeriodicPing(NULL, $this->get('monolog.logger.websocket', ContainerInterface::NULL_ON_INVALID_REFERENCE));
+    }
+
+    /**
+     * Gets the 'gos_web_socket.periodic.registry' service.
+     *
+     * This service is shared.
+     * This method always returns the same instance of the service.
+     *
+     * @return \Gos\Bundle\WebSocketBundle\Server\App\Registry\PeriodicRegistry A Gos\Bundle\WebSocketBundle\Server\App\Registry\PeriodicRegistry instance
+     */
+    protected function getGosWebSocket_Periodic_RegistryService()
+    {
+        return $this->services['gos_web_socket.periodic.registry'] = new \Gos\Bundle\WebSocketBundle\Server\App\Registry\PeriodicRegistry();
+    }
+
+    /**
+     * Gets the 'gos_web_socket.pnctl_event.listener' service.
+     *
+     * This service is shared.
+     * This method always returns the same instance of the service.
+     *
+     * @param bool    $lazyLoad whether to try lazy-loading the service with a proxy
+     *
+     * @return \Gos\Bundle\WebSocketBundle\Event\StartServerListener A Gos\Bundle\WebSocketBundle\Event\StartServerListener instance
+     */
+    protected function getGosWebSocket_PnctlEvent_ListenerService($lazyLoad = true)
+    {
+        return $this->services['gos_web_socket.pnctl_event.listener'] = new \Gos\Bundle\WebSocketBundle\Event\StartServerListener($this->get('gos_web_socket.periodic.registry'), $this->get('gos_web_socket.server_push_handler.registry'), $this->get('monolog.logger.websocket', ContainerInterface::NULL_ON_INVALID_REFERENCE));
+    }
+
+    /**
+     * Gets the 'gos_web_socket.push_message.serializer' service.
+     *
+     * This service is shared.
+     * This method always returns the same instance of the service.
+     *
+     * @return \Gos\Bundle\WebSocketBundle\Pusher\Serializer\MessageSerializer A Gos\Bundle\WebSocketBundle\Pusher\Serializer\MessageSerializer instance
+     */
+    protected function getGosWebSocket_PushMessage_SerializerService()
+    {
+        return $this->services['gos_web_socket.push_message.serializer'] = new \Gos\Bundle\WebSocketBundle\Pusher\Serializer\MessageSerializer();
+    }
+
+    /**
+     * Gets the 'gos_web_socket.pusher_registry' service.
+     *
+     * This service is shared.
+     * This method always returns the same instance of the service.
+     *
+     * @return \Gos\Bundle\WebSocketBundle\Pusher\PusherRegistry A Gos\Bundle\WebSocketBundle\Pusher\PusherRegistry instance
+     */
+    protected function getGosWebSocket_PusherRegistryService()
+    {
+        return $this->services['gos_web_socket.pusher_registry'] = new \Gos\Bundle\WebSocketBundle\Pusher\PusherRegistry();
+    }
+
+    /**
+     * Gets the 'gos_web_socket.router.wamp' service.
+     *
+     * This service is shared.
+     * This method always returns the same instance of the service.
+     *
+     * @param bool    $lazyLoad whether to try lazy-loading the service with a proxy
+     *
+     * @return \Gos\Bundle\WebSocketBundle\Router\WampRouter A Gos\Bundle\WebSocketBundle\Router\WampRouter instance
+     */
+    protected function getGosWebSocket_Router_WampService($lazyLoad = true)
+    {
+        return $this->services['gos_web_socket.router.wamp'] = new \Gos\Bundle\WebSocketBundle\Router\WampRouter($this->get('gos_pubsub_router.websocket'), true, $this->get('monolog.logger.websocket', ContainerInterface::NULL_ON_INVALID_REFERENCE));
+    }
+
+    /**
+     * Gets the 'gos_web_socket.rpc.dispatcher' service.
+     *
+     * This service is shared.
+     * This method always returns the same instance of the service.
+     *
+     * @return \Gos\Bundle\WebSocketBundle\Server\App\Dispatcher\RpcDispatcher A Gos\Bundle\WebSocketBundle\Server\App\Dispatcher\RpcDispatcher instance
+     */
+    protected function getGosWebSocket_Rpc_DispatcherService()
+    {
+        return $this->services['gos_web_socket.rpc.dispatcher'] = new \Gos\Bundle\WebSocketBundle\Server\App\Dispatcher\RpcDispatcher($this->get('gos_web_socket.rpc.registry'));
+    }
+
+    /**
+     * Gets the 'gos_web_socket.rpc.registry' service.
+     *
+     * This service is shared.
+     * This method always returns the same instance of the service.
+     *
+     * @return \Gos\Bundle\WebSocketBundle\Server\App\Registry\RpcRegistry A Gos\Bundle\WebSocketBundle\Server\App\Registry\RpcRegistry instance
+     */
+    protected function getGosWebSocket_Rpc_RegistryService()
+    {
+        $this->services['gos_web_socket.rpc.registry'] = $instance = new \Gos\Bundle\WebSocketBundle\Server\App\Registry\RpcRegistry();
+
+        $instance->addRpc($this->get('acme_hello.rpc_sample_service'));
+
+        return $instance;
+    }
+
+    /**
+     * Gets the 'gos_web_socket.server.event_loop' service.
+     *
+     * This service is shared.
+     * This method always returns the same instance of the service.
+     *
+     * @return \React\EventLoop\Factory A React\EventLoop\Factory instance
+     */
+    protected function getGosWebSocket_Server_EventLoopService()
+    {
+        return $this->services['gos_web_socket.server.event_loop'] = \React\EventLoop\Factory::create();
+    }
+
+    /**
+     * Gets the 'gos_web_socket.server.in_memory.client_storage.driver' service.
+     *
+     * This service is shared.
+     * This method always returns the same instance of the service.
+     *
+     * @return \Gos\Bundle\WebSocketBundle\Client\Driver\InMemoryDriver A Gos\Bundle\WebSocketBundle\Client\Driver\InMemoryDriver instance
+     */
+    protected function getGosWebSocket_Server_InMemory_ClientStorage_DriverService()
+    {
+        return $this->services['gos_web_socket.server.in_memory.client_storage.driver'] = new \Gos\Bundle\WebSocketBundle\Client\Driver\InMemoryDriver();
+    }
+
+    /**
+     * Gets the 'gos_web_socket.server.registry' service.
+     *
+     * This service is shared.
+     * This method always returns the same instance of the service.
+     *
+     * @return \Gos\Bundle\WebSocketBundle\Server\App\Registry\ServerRegistry A Gos\Bundle\WebSocketBundle\Server\App\Registry\ServerRegistry instance
+     */
+    protected function getGosWebSocket_Server_RegistryService()
+    {
+        $this->services['gos_web_socket.server.registry'] = $instance = new \Gos\Bundle\WebSocketBundle\Server\App\Registry\ServerRegistry();
+
+        $instance->addServer($this->get('gos_web_socket.ws.server'));
+
+        return $instance;
+    }
+
+    /**
+     * Gets the 'gos_web_socket.server_command' service.
+     *
+     * This service is shared.
+     * This method always returns the same instance of the service.
+     *
+     * @return \Gos\Bundle\WebSocketBundle\Command\ServerCommand A Gos\Bundle\WebSocketBundle\Command\ServerCommand instance
+     */
+    protected function getGosWebSocket_ServerCommandService()
+    {
+        return $this->services['gos_web_socket.server_command'] = new \Gos\Bundle\WebSocketBundle\Command\ServerCommand($this->get('gos_web_socket.entry_point'), '127.0.0.1', 1337, $this->get('monolog.logger.websocket', ContainerInterface::NULL_ON_INVALID_REFERENCE));
+    }
+
+    /**
+     * Gets the 'gos_web_socket.server_push_handler.registry' service.
+     *
+     * This service is shared.
+     * This method always returns the same instance of the service.
+     *
+     * @return \Gos\Bundle\WebSocketBundle\Pusher\ServerPushHandlerRegistry A Gos\Bundle\WebSocketBundle\Pusher\ServerPushHandlerRegistry instance
+     */
+    protected function getGosWebSocket_ServerPushHandler_RegistryService()
+    {
+        return $this->services['gos_web_socket.server_push_handler.registry'] = new \Gos\Bundle\WebSocketBundle\Pusher\ServerPushHandlerRegistry();
+    }
+
+    /**
+     * Gets the 'gos_web_socket.topic.dispatcher' service.
+     *
+     * This service is shared.
+     * This method always returns the same instance of the service.
+     *
+     * @param bool    $lazyLoad whether to try lazy-loading the service with a proxy
+     *
+     * @return \Gos\Bundle\WebSocketBundle\Server\App\Dispatcher\TopicDispatcher A Gos\Bundle\WebSocketBundle\Server\App\Dispatcher\TopicDispatcher instance
+     */
+    protected function getGosWebSocket_Topic_DispatcherService($lazyLoad = true)
+    {
+        return $this->services['gos_web_socket.topic.dispatcher'] = new \Gos\Bundle\WebSocketBundle\Server\App\Dispatcher\TopicDispatcher($this->get('gos_web_socket.topic.registry'), $this->get('gos_web_socket.router.wamp'), $this->get('gos_web_socket.topic.periodic_timer'), $this->get('gos_web_socket.wamp.topic_manager'), $this->get('monolog.logger.websocket', ContainerInterface::NULL_ON_INVALID_REFERENCE));
+    }
+
+    /**
+     * Gets the 'gos_web_socket.topic.periodic_timer' service.
+     *
+     * This service is shared.
+     * This method always returns the same instance of the service.
+     *
+     * @return \Gos\Bundle\WebSocketBundle\Topic\TopicPeriodicTimer A Gos\Bundle\WebSocketBundle\Topic\TopicPeriodicTimer instance
+     */
+    protected function getGosWebSocket_Topic_PeriodicTimerService()
+    {
+        return $this->services['gos_web_socket.topic.periodic_timer'] = new \Gos\Bundle\WebSocketBundle\Topic\TopicPeriodicTimer($this->get('gos_web_socket.server.event_loop'));
+    }
+
+    /**
+     * Gets the 'gos_web_socket.topic.registry' service.
+     *
+     * This service is shared.
+     * This method always returns the same instance of the service.
+     *
+     * @return \Gos\Bundle\WebSocketBundle\Server\App\Registry\TopicRegistry A Gos\Bundle\WebSocketBundle\Server\App\Registry\TopicRegistry instance
+     */
+    protected function getGosWebSocket_Topic_RegistryService()
+    {
+        $this->services['gos_web_socket.topic.registry'] = $instance = new \Gos\Bundle\WebSocketBundle\Server\App\Registry\TopicRegistry();
+
+        $instance->addTopic($this->get('acme_hello.topic_sample_service'));
+
+        return $instance;
+    }
+
+    /**
+     * Gets the 'gos_web_socket.twig.extension' service.
+     *
+     * This service is shared.
+     * This method always returns the same instance of the service.
+     *
+     * @return \Gos\Bundle\WebSocketBundle\Twig\GosWebSocketServerExtension A Gos\Bundle\WebSocketBundle\Twig\GosWebSocketServerExtension instance
+     */
+    protected function getGosWebSocket_Twig_ExtensionService()
+    {
+        return $this->services['gos_web_socket.twig.extension'] = new \Gos\Bundle\WebSocketBundle\Twig\GosWebSocketServerExtension();
+    }
+
+    /**
+     * Gets the 'gos_web_socket.wamp.pusher' service.
+     *
+     * This service is shared.
+     * This method always returns the same instance of the service.
+     *
+     * @return \Gos\Bundle\WebSocketBundle\DataCollector\PusherDecorator A Gos\Bundle\WebSocketBundle\DataCollector\PusherDecorator instance
+     */
+    protected function getGosWebSocket_Wamp_PusherService()
+    {
+        $a = new \Gos\Bundle\WebSocketBundle\Pusher\Wamp\WampPusher();
+        $a->setRouter($this->get('gos_web_socket.router.wamp'));
+        $a->setSerializer($this->get('gos_web_socket.push_message.serializer'));
+
+        return $this->services['gos_web_socket.wamp.pusher'] = new \Gos\Bundle\WebSocketBundle\DataCollector\PusherDecorator($a, $this->get('debug.stopwatch'), $this->get('gos_web_socket.data_collector'));
+    }
+
+    /**
+     * Gets the 'gos_web_socket.wamp.topic_manager' service.
+     *
+     * This service is shared.
+     * This method always returns the same instance of the service.
+     *
+     * @return \Ratchet\Wamp\TopicManager A Ratchet\Wamp\TopicManager instance
+     */
+    protected function getGosWebSocket_Wamp_TopicManagerService()
+    {
+        return $this->services['gos_web_socket.wamp.topic_manager'] = new \Ratchet\Wamp\TopicManager();
+    }
+
+    /**
+     * Gets the 'gos_web_socket.websocket.client_manipulator' service.
+     *
+     * This service is shared.
+     * This method always returns the same instance of the service.
+     *
+     * @return \Gos\Bundle\WebSocketBundle\Client\ClientManipulator A Gos\Bundle\WebSocketBundle\Client\ClientManipulator instance
+     */
+    protected function getGosWebSocket_Websocket_ClientManipulatorService()
+    {
+        return $this->services['gos_web_socket.websocket.client_manipulator'] = new \Gos\Bundle\WebSocketBundle\Client\ClientManipulator($this->get('gos_web_socket.client_storage'), $this->get('gos_web_socket.websocket_authentification.provider'));
+    }
+
+    /**
+     * Gets the 'gos_web_socket.websocket_authentification.provider' service.
+     *
+     * This service is shared.
+     * This method always returns the same instance of the service.
+     *
+     * @return \Gos\Bundle\WebSocketBundle\Client\Auth\WebsocketAuthenticationProvider A Gos\Bundle\WebSocketBundle\Client\Auth\WebsocketAuthenticationProvider instance
+     */
+    protected function getGosWebSocket_WebsocketAuthentification_ProviderService()
+    {
+        return $this->services['gos_web_socket.websocket_authentification.provider'] = new \Gos\Bundle\WebSocketBundle\Client\Auth\WebsocketAuthenticationProvider($this->get('security.token_storage'), array(0 => 'ws_firewall'), $this->get('gos_web_socket.client_storage'), $this->get('monolog.logger.websocket', ContainerInterface::NULL_ON_INVALID_REFERENCE));
+    }
+
+    /**
+     * Gets the 'gos_web_socket.websocket_server.command' service.
+     *
+     * This service is shared.
+     * This method always returns the same instance of the service.
+     *
+     * @return \Gos\Bundle\WebSocketBundle\Command\WebsocketServerCommand A Gos\Bundle\WebSocketBundle\Command\WebsocketServerCommand instance
+     */
+    protected function getGosWebSocket_WebsocketServer_CommandService()
+    {
+        return $this->services['gos_web_socket.websocket_server.command'] = new \Gos\Bundle\WebSocketBundle\Command\WebsocketServerCommand($this->get('gos_web_socket.entry_point'), '127.0.0.1', 1337, $this->get('monolog.logger.websocket', ContainerInterface::NULL_ON_INVALID_REFERENCE));
+    }
+
+    /**
+     * Gets the 'gos_web_socket.ws.client' service.
+     *
+     * This service is shared.
+     * This method always returns the same instance of the service.
+     *
+     * @return \Gos\Component\WebSocketClient\Wamp\Client A Gos\Component\WebSocketClient\Wamp\Client instance
+     */
+    protected function getGosWebSocket_Ws_ClientService()
+    {
+        $this->services['gos_web_socket.ws.client'] = $instance = new \Gos\Component\WebSocketClient\Wamp\Client('127.0.0.1', 1337);
+
+        if ($this->has('monolog.logger.websocket')) {
+            $instance->setLogger($this->get('monolog.logger.websocket', ContainerInterface::NULL_ON_INVALID_REFERENCE));
+        }
+
+        return $instance;
+    }
+
+    /**
+     * Gets the 'gos_web_socket.zmq.pusher' service.
+     *
+     * This service is shared.
+     * This method always returns the same instance of the service.
+     *
+     * @return \Gos\Bundle\WebSocketBundle\DataCollector\PusherDecorator A Gos\Bundle\WebSocketBundle\DataCollector\PusherDecorator instance
+     */
+    protected function getGosWebSocket_Zmq_PusherService()
+    {
+        $a = new \Gos\Bundle\WebSocketBundle\Pusher\Zmq\ZmqPusher();
+        $a->setRouter($this->get('gos_web_socket.router.wamp'));
+        $a->setSerializer($this->get('gos_web_socket.push_message.serializer'));
+
+        return $this->services['gos_web_socket.zmq.pusher'] = new \Gos\Bundle\WebSocketBundle\DataCollector\PusherDecorator($a, $this->get('debug.stopwatch'), $this->get('gos_web_socket.data_collector'));
+    }
+
+    /**
+     * Gets the 'gos_web_socket.zmq.server_push_handler' service.
+     *
+     * This service is shared.
+     * This method always returns the same instance of the service.
+     *
+     * @return \Gos\Bundle\WebSocketBundle\Pusher\Zmq\ZmqServerPushHandler A Gos\Bundle\WebSocketBundle\Pusher\Zmq\ZmqServerPushHandler instance
+     */
+    protected function getGosWebSocket_Zmq_ServerPushHandlerService()
+    {
+        return $this->services['gos_web_socket.zmq.server_push_handler'] = new \Gos\Bundle\WebSocketBundle\Pusher\Zmq\ZmqServerPushHandler($this->get('gos_web_socket.zmq.pusher'), $this->get('gos_web_socket.router.wamp'), $this->get('gos_web_socket.push_message.serializer'), $this->get('debug.event_dispatcher'), $this->get('monolog.logger.websocket', ContainerInterface::NULL_ON_INVALID_REFERENCE));
+    }
+
+    /**
      * Gets the 'http_kernel' service.
      *
      * This service is shared.
@@ -1818,6 +2636,52 @@ class appDevDebugProjectContainer extends Container
     }
 
     /**
+     * Gets the 'monolog.handler.null_internal' service.
+     *
+     * This service is shared.
+     * This method always returns the same instance of the service.
+     *
+     * @return \Monolog\Handler\NullHandler A Monolog\Handler\NullHandler instance
+     */
+    protected function getMonolog_Handler_NullInternalService()
+    {
+        return $this->services['monolog.handler.null_internal'] = new \Monolog\Handler\NullHandler();
+    }
+
+    /**
+     * Gets the 'monolog.handler.websocket' service.
+     *
+     * This service is shared.
+     * This method always returns the same instance of the service.
+     *
+     * @return \Symfony\Bridge\Monolog\Handler\ConsoleHandler A Symfony\Bridge\Monolog\Handler\ConsoleHandler instance
+     */
+    protected function getMonolog_Handler_WebsocketService()
+    {
+        return $this->services['monolog.handler.websocket'] = new \Symfony\Bridge\Monolog\Handler\ConsoleHandler(NULL, true, array(32 => 100, 64 => 250, 128 => 200, 256 => 100));
+    }
+
+    /**
+     * Gets the 'monolog.logger.assetic' service.
+     *
+     * This service is shared.
+     * This method always returns the same instance of the service.
+     *
+     * @return \Symfony\Bridge\Monolog\Logger A Symfony\Bridge\Monolog\Logger instance
+     */
+    protected function getMonolog_Logger_AsseticService()
+    {
+        $this->services['monolog.logger.assetic'] = $instance = new \Symfony\Bridge\Monolog\Logger('assetic');
+
+        $instance->pushHandler($this->get('monolog.handler.chromephp'));
+        $instance->pushHandler($this->get('monolog.handler.firephp'));
+        $instance->pushHandler($this->get('monolog.handler.main'));
+        $instance->pushHandler($this->get('monolog.handler.debug'));
+
+        return $instance;
+    }
+
+    /**
      * Gets the 'monolog.logger.event' service.
      *
      * This service is shared.
@@ -1972,6 +2836,27 @@ class appDevDebugProjectContainer extends Container
         $instance->pushHandler($this->get('monolog.handler.chromephp'));
         $instance->pushHandler($this->get('monolog.handler.firephp'));
         $instance->pushHandler($this->get('monolog.handler.main'));
+        $instance->pushHandler($this->get('monolog.handler.debug'));
+
+        return $instance;
+    }
+
+    /**
+     * Gets the 'monolog.logger.websocket' service.
+     *
+     * This service is shared.
+     * This method always returns the same instance of the service.
+     *
+     * @return \Symfony\Bridge\Monolog\Logger A Symfony\Bridge\Monolog\Logger instance
+     */
+    protected function getMonolog_Logger_WebsocketService()
+    {
+        $this->services['monolog.logger.websocket'] = $instance = new \Symfony\Bridge\Monolog\Logger('websocket');
+
+        $instance->pushHandler($this->get('monolog.handler.chromephp'));
+        $instance->pushHandler($this->get('monolog.handler.firephp'));
+        $instance->pushHandler($this->get('monolog.handler.main'));
+        $instance->pushHandler($this->get('monolog.handler.websocket'));
         $instance->pushHandler($this->get('monolog.handler.debug'));
 
         return $instance;
@@ -2237,6 +3122,7 @@ class appDevDebugProjectContainer extends Container
         $instance->add(new \Symfony\Bundle\SecurityBundle\DataCollector\SecurityDataCollector($this->get('security.token_storage', ContainerInterface::NULL_ON_INVALID_REFERENCE), $this->get('security.role_hierarchy'), $this->get('security.logout_url_generator')));
         $instance->add(new \Symfony\Bridge\Twig\DataCollector\TwigDataCollector($this->get('twig.profile')));
         $instance->add(new \Symfony\Bundle\SwiftmailerBundle\DataCollector\MessageDataCollector($this));
+        $instance->add($this->get('gos_web_socket.data_collector'));
         $instance->add($c);
 
         return $instance;
@@ -2323,7 +3209,7 @@ class appDevDebugProjectContainer extends Container
      */
     protected function getRouterService()
     {
-        $this->services['router'] = $instance = new \Symfony\Bundle\FrameworkBundle\Routing\Router($this, ($this->targetDirs[3].'/config/routing_dev.yml'), array('cache_dir' => __DIR__, 'debug' => true, 'generator_class' => 'Symfony\\Component\\Routing\\Generator\\UrlGenerator', 'generator_base_class' => 'Symfony\\Component\\Routing\\Generator\\UrlGenerator', 'generator_dumper_class' => 'Symfony\\Component\\Routing\\Generator\\Dumper\\PhpGeneratorDumper', 'generator_cache_class' => 'appDevUrlGenerator', 'matcher_class' => 'Symfony\\Bundle\\FrameworkBundle\\Routing\\RedirectableUrlMatcher', 'matcher_base_class' => 'Symfony\\Bundle\\FrameworkBundle\\Routing\\RedirectableUrlMatcher', 'matcher_dumper_class' => 'Permission\\Dumper\\PhpMatcherDumper', 'matcher_cache_class' => 'appDevUrlMatcher', 'strict_requirements' => true), $this->get('router.request_context', ContainerInterface::NULL_ON_INVALID_REFERENCE), $this->get('monolog.logger.router', ContainerInterface::NULL_ON_INVALID_REFERENCE));
+        $this->services['router'] = $instance = new \Symfony\Bundle\FrameworkBundle\Routing\Router($this, (__DIR__.'/assetic/routing.yml'), array('cache_dir' => __DIR__, 'debug' => true, 'generator_class' => 'Symfony\\Component\\Routing\\Generator\\UrlGenerator', 'generator_base_class' => 'Symfony\\Component\\Routing\\Generator\\UrlGenerator', 'generator_dumper_class' => 'Symfony\\Component\\Routing\\Generator\\Dumper\\PhpGeneratorDumper', 'generator_cache_class' => 'appDevDebugProjectContainerUrlGenerator', 'matcher_class' => 'Symfony\\Bundle\\FrameworkBundle\\Routing\\RedirectableUrlMatcher', 'matcher_base_class' => 'Symfony\\Bundle\\FrameworkBundle\\Routing\\RedirectableUrlMatcher', 'matcher_dumper_class' => 'Permission\\Dumper\\PhpMatcherDumper', 'matcher_cache_class' => 'appDevDebugProjectContainerUrlMatcher', 'strict_requirements' => true, 'resource_type' => 'yaml'), $this->get('router.request_context', ContainerInterface::NULL_ON_INVALID_REFERENCE), $this->get('monolog.logger.router', ContainerInterface::NULL_ON_INVALID_REFERENCE));
 
         $instance->setConfigCacheFactory($this->get('config_cache_factory'));
 
@@ -2364,6 +3250,7 @@ class appDevDebugProjectContainer extends Container
         $d->addLoader(new \Symfony\Component\Routing\Loader\PhpFileLoader($a));
         $d->addLoader(new \Symfony\Component\Routing\Loader\DirectoryLoader($a));
         $d->addLoader(new \Symfony\Component\Routing\Loader\DependencyInjection\ServiceRouterLoader($this));
+        $d->addLoader(new \Symfony\Bundle\AsseticBundle\Routing\AsseticLoader($this->get('assetic.asset_manager'), array()));
         $d->addLoader(new \Symfony\Component\Routing\Loader\AnnotationDirectoryLoader($a, $c));
         $d->addLoader(new \Symfony\Component\Routing\Loader\AnnotationFileLoader($a, $c));
         $d->addLoader($c);
@@ -2553,7 +3440,7 @@ class appDevDebugProjectContainer extends Container
 
         $v = new \Symfony\Component\Security\Http\HttpUtils($e, $e);
 
-        $w = new \Symfony\Component\Security\Http\RememberMe\TokenBasedRememberMeServices(array(0 => $c), 'cogqavup1m8s0sgkkc0ko8gkokkw0ks', 'main', array('lifetime' => 31536000, 'path' => '/', 'domain' => NULL, 'name' => 'REMEMBERME', 'secure' => false, 'httponly' => true, 'always_remember_me' => false, 'remember_me_parameter' => '_remember_me'), $a);
+        $w = new \Symfony\Component\Security\Http\RememberMe\TokenBasedRememberMeServices(array(0 => $c), 'ThisTokenIsNotSoSecretChangeIt', 'main', array('lifetime' => 31536000, 'path' => '/', 'domain' => NULL, 'name' => 'REMEMBERME', 'secure' => false, 'httponly' => true, 'always_remember_me' => false, 'remember_me_parameter' => '_remember_me'), $a);
 
         $x = new \Symfony\Component\Security\Http\Firewall\LogoutListener($b, $v, new \Topxia\WebBundle\Handler\LogoutSuccessHandler($v, '/'), array('csrf_parameter' => '_csrf_token', 'csrf_token_id' => 'logout', 'logout_path' => 'logout'));
         $x->addHandler(new \Symfony\Component\Security\Http\Logout\SessionLogoutHandler());
@@ -2564,7 +3451,7 @@ class appDevDebugProjectContainer extends Container
         $z = new \Symfony\Component\Security\Http\Firewall\UsernamePasswordFormAuthenticationListener($b, $g, $y, $v, 'main', new \Symfony\Component\Security\Http\Authentication\CustomAuthenticationSuccessHandler(new \Topxia\WebBundle\Handler\AuthenticationSuccessHandler($v, array()), array('login_path' => 'login', 'use_referer' => true, 'always_use_default_target_path' => false, 'default_target_path' => '/', 'target_path_parameter' => '_target_path'), 'main'), new \Symfony\Component\Security\Http\Authentication\CustomAuthenticationFailureHandler(new \Topxia\WebBundle\Handler\AuthenticationFailureHandler($f, $v, array(), $a), array('login_path' => 'login', 'failure_path' => NULL, 'failure_forward' => false, 'failure_path_parameter' => '_failure_path')), array('check_path' => 'login_check', 'use_forward' => false, 'require_previous_session' => true, 'username_parameter' => '_username', 'password_parameter' => '_password', 'csrf_parameter' => '_csrf_token', 'csrf_token_id' => 'authenticate', 'post_only' => true), $a, $d, NULL);
         $z->setRememberMeServices($w);
 
-        return $this->services['security.firewall.map.context.main'] = new \Symfony\Bundle\SecurityBundle\Security\FirewallContext(array(0 => new \Symfony\Component\Security\Http\Firewall\ChannelListener($u, new \Symfony\Component\Security\Http\EntryPoint\RetryAuthenticationEntryPoint(80, 443), $a), 1 => new \Symfony\Component\Security\Http\Firewall\ContextListener($b, array(0 => $c), 'main', $a, $d), 2 => $x, 3 => $z, 4 => new \Symfony\Component\Security\Http\Firewall\RememberMeListener($b, $w, $g, $a, $d, true, $y), 5 => new \Symfony\Component\Security\Http\Firewall\AnonymousAuthenticationListener($b, '58c53584477656.66814805', $a, $g), 6 => new \Symfony\Component\Security\Http\Firewall\AccessListener($b, $this->get('security.access.decision_manager'), $u, $g)), new \Symfony\Component\Security\Http\Firewall\ExceptionListener($b, $this->get('security.authentication.trust_resolver'), $v, 'main', new \Symfony\Component\Security\Http\EntryPoint\FormAuthenticationEntryPoint($f, $v, 'login', false), NULL, NULL, $a, false));
+        return $this->services['security.firewall.map.context.main'] = new \Symfony\Bundle\SecurityBundle\Security\FirewallContext(array(0 => new \Symfony\Component\Security\Http\Firewall\ChannelListener($u, new \Symfony\Component\Security\Http\EntryPoint\RetryAuthenticationEntryPoint(80, 443), $a), 1 => new \Symfony\Component\Security\Http\Firewall\ContextListener($b, array(0 => $c), 'main', $a, $d), 2 => $x, 3 => $z, 4 => new \Symfony\Component\Security\Http\Firewall\RememberMeListener($b, $w, $g, $a, $d, true, $y), 5 => new \Symfony\Component\Security\Http\Firewall\AnonymousAuthenticationListener($b, '58d5129f672c48.42791264', $a, $g), 6 => new \Symfony\Component\Security\Http\Firewall\AccessListener($b, $this->get('security.access.decision_manager'), $u, $g)), new \Symfony\Component\Security\Http\Firewall\ExceptionListener($b, $this->get('security.authentication.trust_resolver'), $v, 'main', new \Symfony\Component\Security\Http\EntryPoint\FormAuthenticationEntryPoint($f, $v, 'login', false), NULL, NULL, $a, false));
     }
 
     /**
@@ -3744,7 +4631,7 @@ class appDevDebugProjectContainer extends Container
      */
     protected function getTranslator_DefaultService()
     {
-        $this->services['translator.default'] = $instance = new \Symfony\Bundle\FrameworkBundle\Translation\Translator($this, new \Symfony\Component\Translation\MessageSelector(), array('translation.loader.php' => array(0 => 'php'), 'translation.loader.yml' => array(0 => 'yml'), 'translation.loader.xliff' => array(0 => 'xlf', 1 => 'xliff'), 'translation.loader.po' => array(0 => 'po'), 'translation.loader.mo' => array(0 => 'mo'), 'translation.loader.qt' => array(0 => 'ts'), 'translation.loader.csv' => array(0 => 'csv'), 'translation.loader.res' => array(0 => 'res'), 'translation.loader.dat' => array(0 => 'dat'), 'translation.loader.ini' => array(0 => 'ini'), 'translation.loader.json' => array(0 => 'json')), array('cache_dir' => (__DIR__.'/translations'), 'debug' => true, 'resource_files' => array('af' => array(0 => ($this->targetDirs[4].'\\vendor\\symfony\\symfony\\src\\Symfony\\Component\\Validator/Resources/translations\\validators.af.xlf')), 'ar' => array(0 => ($this->targetDirs[4].'\\vendor\\symfony\\symfony\\src\\Symfony\\Component\\Validator/Resources/translations\\validators.ar.xlf'), 1 => ($this->targetDirs[4].'\\vendor\\symfony\\symfony\\src\\Symfony\\Component\\Form/Resources/translations\\validators.ar.xlf'), 2 => ($this->targetDirs[4].'\\vendor\\symfony\\symfony\\src\\Symfony\\Component\\Security\\Core\\Exception/../Resources/translations\\security.ar.xlf')), 'az' => array(0 => ($this->targetDirs[4].'\\vendor\\symfony\\symfony\\src\\Symfony\\Component\\Validator/Resources/translations\\validators.az.xlf'), 1 => ($this->targetDirs[4].'\\vendor\\symfony\\symfony\\src\\Symfony\\Component\\Form/Resources/translations\\validators.az.xlf'), 2 => ($this->targetDirs[4].'\\vendor\\symfony\\symfony\\src\\Symfony\\Component\\Security\\Core\\Exception/../Resources/translations\\security.az.xlf')), 'bg' => array(0 => ($this->targetDirs[4].'\\vendor\\symfony\\symfony\\src\\Symfony\\Component\\Validator/Resources/translations\\validators.bg.xlf'), 1 => ($this->targetDirs[4].'\\vendor\\symfony\\symfony\\src\\Symfony\\Component\\Form/Resources/translations\\validators.bg.xlf'), 2 => ($this->targetDirs[4].'\\vendor\\symfony\\symfony\\src\\Symfony\\Component\\Security\\Core\\Exception/../Resources/translations\\security.bg.xlf')), 'ca' => array(0 => ($this->targetDirs[4].'\\vendor\\symfony\\symfony\\src\\Symfony\\Component\\Validator/Resources/translations\\validators.ca.xlf'), 1 => ($this->targetDirs[4].'\\vendor\\symfony\\symfony\\src\\Symfony\\Component\\Form/Resources/translations\\validators.ca.xlf'), 2 => ($this->targetDirs[4].'\\vendor\\symfony\\symfony\\src\\Symfony\\Component\\Security\\Core\\Exception/../Resources/translations\\security.ca.xlf')), 'cs' => array(0 => ($this->targetDirs[4].'\\vendor\\symfony\\symfony\\src\\Symfony\\Component\\Validator/Resources/translations\\validators.cs.xlf'), 1 => ($this->targetDirs[4].'\\vendor\\symfony\\symfony\\src\\Symfony\\Component\\Form/Resources/translations\\validators.cs.xlf'), 2 => ($this->targetDirs[4].'\\vendor\\symfony\\symfony\\src\\Symfony\\Component\\Security\\Core\\Exception/../Resources/translations\\security.cs.xlf')), 'cy' => array(0 => ($this->targetDirs[4].'\\vendor\\symfony\\symfony\\src\\Symfony\\Component\\Validator/Resources/translations\\validators.cy.xlf')), 'da' => array(0 => ($this->targetDirs[4].'\\vendor\\symfony\\symfony\\src\\Symfony\\Component\\Validator/Resources/translations\\validators.da.xlf'), 1 => ($this->targetDirs[4].'\\vendor\\symfony\\symfony\\src\\Symfony\\Component\\Form/Resources/translations\\validators.da.xlf'), 2 => ($this->targetDirs[4].'\\vendor\\symfony\\symfony\\src\\Symfony\\Component\\Security\\Core\\Exception/../Resources/translations\\security.da.xlf')), 'de' => array(0 => ($this->targetDirs[4].'\\vendor\\symfony\\symfony\\src\\Symfony\\Component\\Validator/Resources/translations\\validators.de.xlf'), 1 => ($this->targetDirs[4].'\\vendor\\symfony\\symfony\\src\\Symfony\\Component\\Form/Resources/translations\\validators.de.xlf'), 2 => ($this->targetDirs[4].'\\vendor\\symfony\\symfony\\src\\Symfony\\Component\\Security\\Core\\Exception/../Resources/translations\\security.de.xlf')), 'el' => array(0 => ($this->targetDirs[4].'\\vendor\\symfony\\symfony\\src\\Symfony\\Component\\Validator/Resources/translations\\validators.el.xlf'), 1 => ($this->targetDirs[4].'\\vendor\\symfony\\symfony\\src\\Symfony\\Component\\Form/Resources/translations\\validators.el.xlf'), 2 => ($this->targetDirs[4].'\\vendor\\symfony\\symfony\\src\\Symfony\\Component\\Security\\Core\\Exception/../Resources/translations\\security.el.xlf')), 'en' => array(0 => ($this->targetDirs[4].'\\vendor\\symfony\\symfony\\src\\Symfony\\Component\\Validator/Resources/translations\\validators.en.xlf'), 1 => ($this->targetDirs[4].'\\vendor\\symfony\\symfony\\src\\Symfony\\Component\\Form/Resources/translations\\validators.en.xlf'), 2 => ($this->targetDirs[4].'\\vendor\\symfony\\symfony\\src\\Symfony\\Component\\Security\\Core\\Exception/../Resources/translations\\security.en.xlf'), 3 => ($this->targetDirs[4].'\\src\\Topxia\\WebBundle/Resources/translations\\messages.en.yml'), 4 => ($this->targetDirs[4].'\\src\\Topxia\\AdminBundle/Resources/translations\\messages.en.yml'), 5 => ($this->targetDirs[4].'\\src\\Classroom\\ClassroomBundle/Resources/translations\\messages.en.yml'), 6 => ($this->targetDirs[4].'\\src\\MaterialLib\\MaterialLibBundle/Resources/translations\\messages.en.yml'), 7 => ($this->targetDirs[4].'\\src\\SensitiveWord\\SensitiveWordBundle/Resources/translations\\messages.en.yml')), 'es' => array(0 => ($this->targetDirs[4].'\\vendor\\symfony\\symfony\\src\\Symfony\\Component\\Validator/Resources/translations\\validators.es.xlf'), 1 => ($this->targetDirs[4].'\\vendor\\symfony\\symfony\\src\\Symfony\\Component\\Form/Resources/translations\\validators.es.xlf'), 2 => ($this->targetDirs[4].'\\vendor\\symfony\\symfony\\src\\Symfony\\Component\\Security\\Core\\Exception/../Resources/translations\\security.es.xlf')), 'et' => array(0 => ($this->targetDirs[4].'\\vendor\\symfony\\symfony\\src\\Symfony\\Component\\Validator/Resources/translations\\validators.et.xlf'), 1 => ($this->targetDirs[4].'\\vendor\\symfony\\symfony\\src\\Symfony\\Component\\Form/Resources/translations\\validators.et.xlf')), 'eu' => array(0 => ($this->targetDirs[4].'\\vendor\\symfony\\symfony\\src\\Symfony\\Component\\Validator/Resources/translations\\validators.eu.xlf'), 1 => ($this->targetDirs[4].'\\vendor\\symfony\\symfony\\src\\Symfony\\Component\\Form/Resources/translations\\validators.eu.xlf')), 'fa' => array(0 => ($this->targetDirs[4].'\\vendor\\symfony\\symfony\\src\\Symfony\\Component\\Validator/Resources/translations\\validators.fa.xlf'), 1 => ($this->targetDirs[4].'\\vendor\\symfony\\symfony\\src\\Symfony\\Component\\Form/Resources/translations\\validators.fa.xlf'), 2 => ($this->targetDirs[4].'\\vendor\\symfony\\symfony\\src\\Symfony\\Component\\Security\\Core\\Exception/../Resources/translations\\security.fa.xlf')), 'fi' => array(0 => ($this->targetDirs[4].'\\vendor\\symfony\\symfony\\src\\Symfony\\Component\\Validator/Resources/translations\\validators.fi.xlf'), 1 => ($this->targetDirs[4].'\\vendor\\symfony\\symfony\\src\\Symfony\\Component\\Form/Resources/translations\\validators.fi.xlf')), 'fr' => array(0 => ($this->targetDirs[4].'\\vendor\\symfony\\symfony\\src\\Symfony\\Component\\Validator/Resources/translations\\validators.fr.xlf'), 1 => ($this->targetDirs[4].'\\vendor\\symfony\\symfony\\src\\Symfony\\Component\\Form/Resources/translations\\validators.fr.xlf'), 2 => ($this->targetDirs[4].'\\vendor\\symfony\\symfony\\src\\Symfony\\Component\\Security\\Core\\Exception/../Resources/translations\\security.fr.xlf'), 3 => ($this->targetDirs[4].'\\src\\Org\\OrgBundle/Resources/translations\\messages.fr.xlf'), 4 => ($this->targetDirs[4].'\\src\\Custom\\AdminBundle/Resources/translations\\messages.fr.xlf')), 'gl' => array(0 => ($this->targetDirs[4].'\\vendor\\symfony\\symfony\\src\\Symfony\\Component\\Validator/Resources/translations\\validators.gl.xlf'), 1 => ($this->targetDirs[4].'\\vendor\\symfony\\symfony\\src\\Symfony\\Component\\Form/Resources/translations\\validators.gl.xlf'), 2 => ($this->targetDirs[4].'\\vendor\\symfony\\symfony\\src\\Symfony\\Component\\Security\\Core\\Exception/../Resources/translations\\security.gl.xlf')), 'he' => array(0 => ($this->targetDirs[4].'\\vendor\\symfony\\symfony\\src\\Symfony\\Component\\Validator/Resources/translations\\validators.he.xlf'), 1 => ($this->targetDirs[4].'\\vendor\\symfony\\symfony\\src\\Symfony\\Component\\Form/Resources/translations\\validators.he.xlf'), 2 => ($this->targetDirs[4].'\\vendor\\symfony\\symfony\\src\\Symfony\\Component\\Security\\Core\\Exception/../Resources/translations\\security.he.xlf')), 'hr' => array(0 => ($this->targetDirs[4].'\\vendor\\symfony\\symfony\\src\\Symfony\\Component\\Validator/Resources/translations\\validators.hr.xlf'), 1 => ($this->targetDirs[4].'\\vendor\\symfony\\symfony\\src\\Symfony\\Component\\Form/Resources/translations\\validators.hr.xlf'), 2 => ($this->targetDirs[4].'\\vendor\\symfony\\symfony\\src\\Symfony\\Component\\Security\\Core\\Exception/../Resources/translations\\security.hr.xlf')), 'hu' => array(0 => ($this->targetDirs[4].'\\vendor\\symfony\\symfony\\src\\Symfony\\Component\\Validator/Resources/translations\\validators.hu.xlf'), 1 => ($this->targetDirs[4].'\\vendor\\symfony\\symfony\\src\\Symfony\\Component\\Form/Resources/translations\\validators.hu.xlf'), 2 => ($this->targetDirs[4].'\\vendor\\symfony\\symfony\\src\\Symfony\\Component\\Security\\Core\\Exception/../Resources/translations\\security.hu.xlf')), 'hy' => array(0 => ($this->targetDirs[4].'\\vendor\\symfony\\symfony\\src\\Symfony\\Component\\Validator/Resources/translations\\validators.hy.xlf'), 1 => ($this->targetDirs[4].'\\vendor\\symfony\\symfony\\src\\Symfony\\Component\\Form/Resources/translations\\validators.hy.xlf')), 'id' => array(0 => ($this->targetDirs[4].'\\vendor\\symfony\\symfony\\src\\Symfony\\Component\\Validator/Resources/translations\\validators.id.xlf'), 1 => ($this->targetDirs[4].'\\vendor\\symfony\\symfony\\src\\Symfony\\Component\\Form/Resources/translations\\validators.id.xlf'), 2 => ($this->targetDirs[4].'\\vendor\\symfony\\symfony\\src\\Symfony\\Component\\Security\\Core\\Exception/../Resources/translations\\security.id.xlf')), 'it' => array(0 => ($this->targetDirs[4].'\\vendor\\symfony\\symfony\\src\\Symfony\\Component\\Validator/Resources/translations\\validators.it.xlf'), 1 => ($this->targetDirs[4].'\\vendor\\symfony\\symfony\\src\\Symfony\\Component\\Form/Resources/translations\\validators.it.xlf'), 2 => ($this->targetDirs[4].'\\vendor\\symfony\\symfony\\src\\Symfony\\Component\\Security\\Core\\Exception/../Resources/translations\\security.it.xlf')), 'ja' => array(0 => ($this->targetDirs[4].'\\vendor\\symfony\\symfony\\src\\Symfony\\Component\\Validator/Resources/translations\\validators.ja.xlf'), 1 => ($this->targetDirs[4].'\\vendor\\symfony\\symfony\\src\\Symfony\\Component\\Form/Resources/translations\\validators.ja.xlf'), 2 => ($this->targetDirs[4].'\\vendor\\symfony\\symfony\\src\\Symfony\\Component\\Security\\Core\\Exception/../Resources/translations\\security.ja.xlf')), 'lb' => array(0 => ($this->targetDirs[4].'\\vendor\\symfony\\symfony\\src\\Symfony\\Component\\Validator/Resources/translations\\validators.lb.xlf'), 1 => ($this->targetDirs[4].'\\vendor\\symfony\\symfony\\src\\Symfony\\Component\\Form/Resources/translations\\validators.lb.xlf'), 2 => ($this->targetDirs[4].'\\vendor\\symfony\\symfony\\src\\Symfony\\Component\\Security\\Core\\Exception/../Resources/translations\\security.lb.xlf')), 'lt' => array(0 => ($this->targetDirs[4].'\\vendor\\symfony\\symfony\\src\\Symfony\\Component\\Validator/Resources/translations\\validators.lt.xlf'), 1 => ($this->targetDirs[4].'\\vendor\\symfony\\symfony\\src\\Symfony\\Component\\Form/Resources/translations\\validators.lt.xlf'), 2 => ($this->targetDirs[4].'\\vendor\\symfony\\symfony\\src\\Symfony\\Component\\Security\\Core\\Exception/../Resources/translations\\security.lt.xlf')), 'lv' => array(0 => ($this->targetDirs[4].'\\vendor\\symfony\\symfony\\src\\Symfony\\Component\\Validator/Resources/translations\\validators.lv.xlf'), 1 => ($this->targetDirs[4].'\\vendor\\symfony\\symfony\\src\\Symfony\\Component\\Form/Resources/translations\\validators.lv.xlf'), 2 => ($this->targetDirs[4].'\\vendor\\symfony\\symfony\\src\\Symfony\\Component\\Security\\Core\\Exception/../Resources/translations\\security.lv.xlf')), 'mn' => array(0 => ($this->targetDirs[4].'\\vendor\\symfony\\symfony\\src\\Symfony\\Component\\Validator/Resources/translations\\validators.mn.xlf'), 1 => ($this->targetDirs[4].'\\vendor\\symfony\\symfony\\src\\Symfony\\Component\\Form/Resources/translations\\validators.mn.xlf')), 'nl' => array(0 => ($this->targetDirs[4].'\\vendor\\symfony\\symfony\\src\\Symfony\\Component\\Validator/Resources/translations\\validators.nl.xlf'), 1 => ($this->targetDirs[4].'\\vendor\\symfony\\symfony\\src\\Symfony\\Component\\Form/Resources/translations\\validators.nl.xlf'), 2 => ($this->targetDirs[4].'\\vendor\\symfony\\symfony\\src\\Symfony\\Component\\Security\\Core\\Exception/../Resources/translations\\security.nl.xlf')), 'nn' => array(0 => ($this->targetDirs[4].'\\vendor\\symfony\\symfony\\src\\Symfony\\Component\\Validator/Resources/translations\\validators.nn.xlf')), 'no' => array(0 => ($this->targetDirs[4].'\\vendor\\symfony\\symfony\\src\\Symfony\\Component\\Validator/Resources/translations\\validators.no.xlf'), 1 => ($this->targetDirs[4].'\\vendor\\symfony\\symfony\\src\\Symfony\\Component\\Form/Resources/translations\\validators.no.xlf'), 2 => ($this->targetDirs[4].'\\vendor\\symfony\\symfony\\src\\Symfony\\Component\\Security\\Core\\Exception/../Resources/translations\\security.no.xlf')), 'pl' => array(0 => ($this->targetDirs[4].'\\vendor\\symfony\\symfony\\src\\Symfony\\Component\\Validator/Resources/translations\\validators.pl.xlf'), 1 => ($this->targetDirs[4].'\\vendor\\symfony\\symfony\\src\\Symfony\\Component\\Form/Resources/translations\\validators.pl.xlf'), 2 => ($this->targetDirs[4].'\\vendor\\symfony\\symfony\\src\\Symfony\\Component\\Security\\Core\\Exception/../Resources/translations\\security.pl.xlf')), 'pt' => array(0 => ($this->targetDirs[4].'\\vendor\\symfony\\symfony\\src\\Symfony\\Component\\Validator/Resources/translations\\validators.pt.xlf'), 1 => ($this->targetDirs[4].'\\vendor\\symfony\\symfony\\src\\Symfony\\Component\\Form/Resources/translations\\validators.pt.xlf')), 'pt_BR' => array(0 => ($this->targetDirs[4].'\\vendor\\symfony\\symfony\\src\\Symfony\\Component\\Validator/Resources/translations\\validators.pt_BR.xlf'), 1 => ($this->targetDirs[4].'\\vendor\\symfony\\symfony\\src\\Symfony\\Component\\Form/Resources/translations\\validators.pt_BR.xlf'), 2 => ($this->targetDirs[4].'\\vendor\\symfony\\symfony\\src\\Symfony\\Component\\Security\\Core\\Exception/../Resources/translations\\security.pt_BR.xlf')), 'ro' => array(0 => ($this->targetDirs[4].'\\vendor\\symfony\\symfony\\src\\Symfony\\Component\\Validator/Resources/translations\\validators.ro.xlf'), 1 => ($this->targetDirs[4].'\\vendor\\symfony\\symfony\\src\\Symfony\\Component\\Form/Resources/translations\\validators.ro.xlf'), 2 => ($this->targetDirs[4].'\\vendor\\symfony\\symfony\\src\\Symfony\\Component\\Security\\Core\\Exception/../Resources/translations\\security.ro.xlf')), 'ru' => array(0 => ($this->targetDirs[4].'\\vendor\\symfony\\symfony\\src\\Symfony\\Component\\Validator/Resources/translations\\validators.ru.xlf'), 1 => ($this->targetDirs[4].'\\vendor\\symfony\\symfony\\src\\Symfony\\Component\\Form/Resources/translations\\validators.ru.xlf'), 2 => ($this->targetDirs[4].'\\vendor\\symfony\\symfony\\src\\Symfony\\Component\\Security\\Core\\Exception/../Resources/translations\\security.ru.xlf')), 'sk' => array(0 => ($this->targetDirs[4].'\\vendor\\symfony\\symfony\\src\\Symfony\\Component\\Validator/Resources/translations\\validators.sk.xlf'), 1 => ($this->targetDirs[4].'\\vendor\\symfony\\symfony\\src\\Symfony\\Component\\Form/Resources/translations\\validators.sk.xlf'), 2 => ($this->targetDirs[4].'\\vendor\\symfony\\symfony\\src\\Symfony\\Component\\Security\\Core\\Exception/../Resources/translations\\security.sk.xlf')), 'sl' => array(0 => ($this->targetDirs[4].'\\vendor\\symfony\\symfony\\src\\Symfony\\Component\\Validator/Resources/translations\\validators.sl.xlf'), 1 => ($this->targetDirs[4].'\\vendor\\symfony\\symfony\\src\\Symfony\\Component\\Form/Resources/translations\\validators.sl.xlf'), 2 => ($this->targetDirs[4].'\\vendor\\symfony\\symfony\\src\\Symfony\\Component\\Security\\Core\\Exception/../Resources/translations\\security.sl.xlf')), 'sq' => array(0 => ($this->targetDirs[4].'\\vendor\\symfony\\symfony\\src\\Symfony\\Component\\Validator/Resources/translations\\validators.sq.xlf')), 'sr_Cyrl' => array(0 => ($this->targetDirs[4].'\\vendor\\symfony\\symfony\\src\\Symfony\\Component\\Validator/Resources/translations\\validators.sr_Cyrl.xlf'), 1 => ($this->targetDirs[4].'\\vendor\\symfony\\symfony\\src\\Symfony\\Component\\Form/Resources/translations\\validators.sr_Cyrl.xlf'), 2 => ($this->targetDirs[4].'\\vendor\\symfony\\symfony\\src\\Symfony\\Component\\Security\\Core\\Exception/../Resources/translations\\security.sr_Cyrl.xlf')), 'sr_Latn' => array(0 => ($this->targetDirs[4].'\\vendor\\symfony\\symfony\\src\\Symfony\\Component\\Validator/Resources/translations\\validators.sr_Latn.xlf'), 1 => ($this->targetDirs[4].'\\vendor\\symfony\\symfony\\src\\Symfony\\Component\\Form/Resources/translations\\validators.sr_Latn.xlf'), 2 => ($this->targetDirs[4].'\\vendor\\symfony\\symfony\\src\\Symfony\\Component\\Security\\Core\\Exception/../Resources/translations\\security.sr_Latn.xlf')), 'sv' => array(0 => ($this->targetDirs[4].'\\vendor\\symfony\\symfony\\src\\Symfony\\Component\\Validator/Resources/translations\\validators.sv.xlf'), 1 => ($this->targetDirs[4].'\\vendor\\symfony\\symfony\\src\\Symfony\\Component\\Form/Resources/translations\\validators.sv.xlf'), 2 => ($this->targetDirs[4].'\\vendor\\symfony\\symfony\\src\\Symfony\\Component\\Security\\Core\\Exception/../Resources/translations\\security.sv.xlf')), 'th' => array(0 => ($this->targetDirs[4].'\\vendor\\symfony\\symfony\\src\\Symfony\\Component\\Validator/Resources/translations\\validators.th.xlf'), 1 => ($this->targetDirs[4].'\\vendor\\symfony\\symfony\\src\\Symfony\\Component\\Security\\Core\\Exception/../Resources/translations\\security.th.xlf')), 'tr' => array(0 => ($this->targetDirs[4].'\\vendor\\symfony\\symfony\\src\\Symfony\\Component\\Validator/Resources/translations\\validators.tr.xlf'), 1 => ($this->targetDirs[4].'\\vendor\\symfony\\symfony\\src\\Symfony\\Component\\Security\\Core\\Exception/../Resources/translations\\security.tr.xlf')), 'uk' => array(0 => ($this->targetDirs[4].'\\vendor\\symfony\\symfony\\src\\Symfony\\Component\\Validator/Resources/translations\\validators.uk.xlf'), 1 => ($this->targetDirs[4].'\\vendor\\symfony\\symfony\\src\\Symfony\\Component\\Form/Resources/translations\\validators.uk.xlf')), 'vi' => array(0 => ($this->targetDirs[4].'\\vendor\\symfony\\symfony\\src\\Symfony\\Component\\Validator/Resources/translations\\validators.vi.xlf'), 1 => ($this->targetDirs[4].'\\vendor\\symfony\\symfony\\src\\Symfony\\Component\\Security\\Core\\Exception/../Resources/translations\\security.vi.xlf')), 'zh_CN' => array(0 => ($this->targetDirs[4].'\\vendor\\symfony\\symfony\\src\\Symfony\\Component\\Validator/Resources/translations\\validators.zh_CN.xlf'), 1 => ($this->targetDirs[4].'\\vendor\\symfony\\symfony\\src\\Symfony\\Component\\Form/Resources/translations\\validators.zh_CN.xlf'), 2 => ($this->targetDirs[4].'\\vendor\\symfony\\symfony\\src\\Symfony\\Component\\Security\\Core\\Exception/../Resources/translations\\security.zh_CN.xlf'), 3 => ($this->targetDirs[4].'\\src\\Topxia\\WebBundle/Resources/translations\\messages.zh_CN.yml'), 4 => ($this->targetDirs[3].'/Resources/translations\\messages.zh_CN.yml')), 'zh_TW' => array(0 => ($this->targetDirs[4].'\\vendor\\symfony\\symfony\\src\\Symfony\\Component\\Validator/Resources/translations\\validators.zh_TW.xlf')), 'pt_PT' => array(0 => ($this->targetDirs[4].'\\vendor\\symfony\\symfony\\src\\Symfony\\Component\\Security\\Core\\Exception/../Resources/translations\\security.pt_PT.xlf')), 'ua' => array(0 => ($this->targetDirs[4].'\\vendor\\symfony\\symfony\\src\\Symfony\\Component\\Security\\Core\\Exception/../Resources/translations\\security.ua.xlf')), 'ug_CN' => array(0 => ($this->targetDirs[4].'\\src\\Topxia\\WebBundle/Resources/translations\\messages.ug_CN.yml')))), array());
+        $this->services['translator.default'] = $instance = new \Symfony\Bundle\FrameworkBundle\Translation\Translator($this, new \Symfony\Component\Translation\MessageSelector(), array('translation.loader.php' => array(0 => 'php'), 'translation.loader.yml' => array(0 => 'yml'), 'translation.loader.xliff' => array(0 => 'xlf', 1 => 'xliff'), 'translation.loader.po' => array(0 => 'po'), 'translation.loader.mo' => array(0 => 'mo'), 'translation.loader.qt' => array(0 => 'ts'), 'translation.loader.csv' => array(0 => 'csv'), 'translation.loader.res' => array(0 => 'res'), 'translation.loader.dat' => array(0 => 'dat'), 'translation.loader.ini' => array(0 => 'ini'), 'translation.loader.json' => array(0 => 'json')), array('cache_dir' => (__DIR__.'/translations'), 'debug' => true, 'resource_files' => array('af' => array(0 => ($this->targetDirs[4].'\\vendor\\symfony\\symfony\\src\\Symfony\\Component\\Validator/Resources/translations\\validators.af.xlf')), 'ar' => array(0 => ($this->targetDirs[4].'\\vendor\\symfony\\symfony\\src\\Symfony\\Component\\Validator/Resources/translations\\validators.ar.xlf'), 1 => ($this->targetDirs[4].'\\vendor\\symfony\\symfony\\src\\Symfony\\Component\\Form/Resources/translations\\validators.ar.xlf'), 2 => ($this->targetDirs[4].'\\vendor\\symfony\\symfony\\src\\Symfony\\Component\\Security\\Core/Resources/translations\\security.ar.xlf')), 'az' => array(0 => ($this->targetDirs[4].'\\vendor\\symfony\\symfony\\src\\Symfony\\Component\\Validator/Resources/translations\\validators.az.xlf'), 1 => ($this->targetDirs[4].'\\vendor\\symfony\\symfony\\src\\Symfony\\Component\\Form/Resources/translations\\validators.az.xlf'), 2 => ($this->targetDirs[4].'\\vendor\\symfony\\symfony\\src\\Symfony\\Component\\Security\\Core/Resources/translations\\security.az.xlf')), 'bg' => array(0 => ($this->targetDirs[4].'\\vendor\\symfony\\symfony\\src\\Symfony\\Component\\Validator/Resources/translations\\validators.bg.xlf'), 1 => ($this->targetDirs[4].'\\vendor\\symfony\\symfony\\src\\Symfony\\Component\\Form/Resources/translations\\validators.bg.xlf'), 2 => ($this->targetDirs[4].'\\vendor\\symfony\\symfony\\src\\Symfony\\Component\\Security\\Core/Resources/translations\\security.bg.xlf')), 'ca' => array(0 => ($this->targetDirs[4].'\\vendor\\symfony\\symfony\\src\\Symfony\\Component\\Validator/Resources/translations\\validators.ca.xlf'), 1 => ($this->targetDirs[4].'\\vendor\\symfony\\symfony\\src\\Symfony\\Component\\Form/Resources/translations\\validators.ca.xlf'), 2 => ($this->targetDirs[4].'\\vendor\\symfony\\symfony\\src\\Symfony\\Component\\Security\\Core/Resources/translations\\security.ca.xlf')), 'cs' => array(0 => ($this->targetDirs[4].'\\vendor\\symfony\\symfony\\src\\Symfony\\Component\\Validator/Resources/translations\\validators.cs.xlf'), 1 => ($this->targetDirs[4].'\\vendor\\symfony\\symfony\\src\\Symfony\\Component\\Form/Resources/translations\\validators.cs.xlf'), 2 => ($this->targetDirs[4].'\\vendor\\symfony\\symfony\\src\\Symfony\\Component\\Security\\Core/Resources/translations\\security.cs.xlf')), 'cy' => array(0 => ($this->targetDirs[4].'\\vendor\\symfony\\symfony\\src\\Symfony\\Component\\Validator/Resources/translations\\validators.cy.xlf')), 'da' => array(0 => ($this->targetDirs[4].'\\vendor\\symfony\\symfony\\src\\Symfony\\Component\\Validator/Resources/translations\\validators.da.xlf'), 1 => ($this->targetDirs[4].'\\vendor\\symfony\\symfony\\src\\Symfony\\Component\\Form/Resources/translations\\validators.da.xlf'), 2 => ($this->targetDirs[4].'\\vendor\\symfony\\symfony\\src\\Symfony\\Component\\Security\\Core/Resources/translations\\security.da.xlf')), 'de' => array(0 => ($this->targetDirs[4].'\\vendor\\symfony\\symfony\\src\\Symfony\\Component\\Validator/Resources/translations\\validators.de.xlf'), 1 => ($this->targetDirs[4].'\\vendor\\symfony\\symfony\\src\\Symfony\\Component\\Form/Resources/translations\\validators.de.xlf'), 2 => ($this->targetDirs[4].'\\vendor\\symfony\\symfony\\src\\Symfony\\Component\\Security\\Core/Resources/translations\\security.de.xlf')), 'el' => array(0 => ($this->targetDirs[4].'\\vendor\\symfony\\symfony\\src\\Symfony\\Component\\Validator/Resources/translations\\validators.el.xlf'), 1 => ($this->targetDirs[4].'\\vendor\\symfony\\symfony\\src\\Symfony\\Component\\Form/Resources/translations\\validators.el.xlf'), 2 => ($this->targetDirs[4].'\\vendor\\symfony\\symfony\\src\\Symfony\\Component\\Security\\Core/Resources/translations\\security.el.xlf')), 'en' => array(0 => ($this->targetDirs[4].'\\vendor\\symfony\\symfony\\src\\Symfony\\Component\\Validator/Resources/translations\\validators.en.xlf'), 1 => ($this->targetDirs[4].'\\vendor\\symfony\\symfony\\src\\Symfony\\Component\\Form/Resources/translations\\validators.en.xlf'), 2 => ($this->targetDirs[4].'\\vendor\\symfony\\symfony\\src\\Symfony\\Component\\Security\\Core/Resources/translations\\security.en.xlf'), 3 => ($this->targetDirs[4].'\\src\\Topxia\\WebBundle/Resources/translations\\messages.en.yml'), 4 => ($this->targetDirs[4].'\\src\\Topxia\\AdminBundle/Resources/translations\\messages.en.yml'), 5 => ($this->targetDirs[4].'\\src\\Classroom\\ClassroomBundle/Resources/translations\\messages.en.yml'), 6 => ($this->targetDirs[4].'\\src\\MaterialLib\\MaterialLibBundle/Resources/translations\\messages.en.yml'), 7 => ($this->targetDirs[4].'\\src\\SensitiveWord\\SensitiveWordBundle/Resources/translations\\messages.en.yml')), 'es' => array(0 => ($this->targetDirs[4].'\\vendor\\symfony\\symfony\\src\\Symfony\\Component\\Validator/Resources/translations\\validators.es.xlf'), 1 => ($this->targetDirs[4].'\\vendor\\symfony\\symfony\\src\\Symfony\\Component\\Form/Resources/translations\\validators.es.xlf'), 2 => ($this->targetDirs[4].'\\vendor\\symfony\\symfony\\src\\Symfony\\Component\\Security\\Core/Resources/translations\\security.es.xlf')), 'et' => array(0 => ($this->targetDirs[4].'\\vendor\\symfony\\symfony\\src\\Symfony\\Component\\Validator/Resources/translations\\validators.et.xlf'), 1 => ($this->targetDirs[4].'\\vendor\\symfony\\symfony\\src\\Symfony\\Component\\Form/Resources/translations\\validators.et.xlf')), 'eu' => array(0 => ($this->targetDirs[4].'\\vendor\\symfony\\symfony\\src\\Symfony\\Component\\Validator/Resources/translations\\validators.eu.xlf'), 1 => ($this->targetDirs[4].'\\vendor\\symfony\\symfony\\src\\Symfony\\Component\\Form/Resources/translations\\validators.eu.xlf')), 'fa' => array(0 => ($this->targetDirs[4].'\\vendor\\symfony\\symfony\\src\\Symfony\\Component\\Validator/Resources/translations\\validators.fa.xlf'), 1 => ($this->targetDirs[4].'\\vendor\\symfony\\symfony\\src\\Symfony\\Component\\Form/Resources/translations\\validators.fa.xlf'), 2 => ($this->targetDirs[4].'\\vendor\\symfony\\symfony\\src\\Symfony\\Component\\Security\\Core/Resources/translations\\security.fa.xlf')), 'fi' => array(0 => ($this->targetDirs[4].'\\vendor\\symfony\\symfony\\src\\Symfony\\Component\\Validator/Resources/translations\\validators.fi.xlf'), 1 => ($this->targetDirs[4].'\\vendor\\symfony\\symfony\\src\\Symfony\\Component\\Form/Resources/translations\\validators.fi.xlf')), 'fr' => array(0 => ($this->targetDirs[4].'\\vendor\\symfony\\symfony\\src\\Symfony\\Component\\Validator/Resources/translations\\validators.fr.xlf'), 1 => ($this->targetDirs[4].'\\vendor\\symfony\\symfony\\src\\Symfony\\Component\\Form/Resources/translations\\validators.fr.xlf'), 2 => ($this->targetDirs[4].'\\vendor\\symfony\\symfony\\src\\Symfony\\Component\\Security\\Core/Resources/translations\\security.fr.xlf'), 3 => ($this->targetDirs[4].'\\src\\Org\\OrgBundle/Resources/translations\\messages.fr.xlf'), 4 => ($this->targetDirs[4].'\\src\\Custom\\AdminBundle/Resources/translations\\messages.fr.xlf')), 'gl' => array(0 => ($this->targetDirs[4].'\\vendor\\symfony\\symfony\\src\\Symfony\\Component\\Validator/Resources/translations\\validators.gl.xlf'), 1 => ($this->targetDirs[4].'\\vendor\\symfony\\symfony\\src\\Symfony\\Component\\Form/Resources/translations\\validators.gl.xlf'), 2 => ($this->targetDirs[4].'\\vendor\\symfony\\symfony\\src\\Symfony\\Component\\Security\\Core/Resources/translations\\security.gl.xlf')), 'he' => array(0 => ($this->targetDirs[4].'\\vendor\\symfony\\symfony\\src\\Symfony\\Component\\Validator/Resources/translations\\validators.he.xlf'), 1 => ($this->targetDirs[4].'\\vendor\\symfony\\symfony\\src\\Symfony\\Component\\Form/Resources/translations\\validators.he.xlf'), 2 => ($this->targetDirs[4].'\\vendor\\symfony\\symfony\\src\\Symfony\\Component\\Security\\Core/Resources/translations\\security.he.xlf')), 'hr' => array(0 => ($this->targetDirs[4].'\\vendor\\symfony\\symfony\\src\\Symfony\\Component\\Validator/Resources/translations\\validators.hr.xlf'), 1 => ($this->targetDirs[4].'\\vendor\\symfony\\symfony\\src\\Symfony\\Component\\Form/Resources/translations\\validators.hr.xlf'), 2 => ($this->targetDirs[4].'\\vendor\\symfony\\symfony\\src\\Symfony\\Component\\Security\\Core/Resources/translations\\security.hr.xlf')), 'hu' => array(0 => ($this->targetDirs[4].'\\vendor\\symfony\\symfony\\src\\Symfony\\Component\\Validator/Resources/translations\\validators.hu.xlf'), 1 => ($this->targetDirs[4].'\\vendor\\symfony\\symfony\\src\\Symfony\\Component\\Form/Resources/translations\\validators.hu.xlf'), 2 => ($this->targetDirs[4].'\\vendor\\symfony\\symfony\\src\\Symfony\\Component\\Security\\Core/Resources/translations\\security.hu.xlf')), 'hy' => array(0 => ($this->targetDirs[4].'\\vendor\\symfony\\symfony\\src\\Symfony\\Component\\Validator/Resources/translations\\validators.hy.xlf'), 1 => ($this->targetDirs[4].'\\vendor\\symfony\\symfony\\src\\Symfony\\Component\\Form/Resources/translations\\validators.hy.xlf')), 'id' => array(0 => ($this->targetDirs[4].'\\vendor\\symfony\\symfony\\src\\Symfony\\Component\\Validator/Resources/translations\\validators.id.xlf'), 1 => ($this->targetDirs[4].'\\vendor\\symfony\\symfony\\src\\Symfony\\Component\\Form/Resources/translations\\validators.id.xlf'), 2 => ($this->targetDirs[4].'\\vendor\\symfony\\symfony\\src\\Symfony\\Component\\Security\\Core/Resources/translations\\security.id.xlf')), 'it' => array(0 => ($this->targetDirs[4].'\\vendor\\symfony\\symfony\\src\\Symfony\\Component\\Validator/Resources/translations\\validators.it.xlf'), 1 => ($this->targetDirs[4].'\\vendor\\symfony\\symfony\\src\\Symfony\\Component\\Form/Resources/translations\\validators.it.xlf'), 2 => ($this->targetDirs[4].'\\vendor\\symfony\\symfony\\src\\Symfony\\Component\\Security\\Core/Resources/translations\\security.it.xlf')), 'ja' => array(0 => ($this->targetDirs[4].'\\vendor\\symfony\\symfony\\src\\Symfony\\Component\\Validator/Resources/translations\\validators.ja.xlf'), 1 => ($this->targetDirs[4].'\\vendor\\symfony\\symfony\\src\\Symfony\\Component\\Form/Resources/translations\\validators.ja.xlf'), 2 => ($this->targetDirs[4].'\\vendor\\symfony\\symfony\\src\\Symfony\\Component\\Security\\Core/Resources/translations\\security.ja.xlf')), 'lb' => array(0 => ($this->targetDirs[4].'\\vendor\\symfony\\symfony\\src\\Symfony\\Component\\Validator/Resources/translations\\validators.lb.xlf'), 1 => ($this->targetDirs[4].'\\vendor\\symfony\\symfony\\src\\Symfony\\Component\\Form/Resources/translations\\validators.lb.xlf'), 2 => ($this->targetDirs[4].'\\vendor\\symfony\\symfony\\src\\Symfony\\Component\\Security\\Core/Resources/translations\\security.lb.xlf')), 'lt' => array(0 => ($this->targetDirs[4].'\\vendor\\symfony\\symfony\\src\\Symfony\\Component\\Validator/Resources/translations\\validators.lt.xlf'), 1 => ($this->targetDirs[4].'\\vendor\\symfony\\symfony\\src\\Symfony\\Component\\Form/Resources/translations\\validators.lt.xlf'), 2 => ($this->targetDirs[4].'\\vendor\\symfony\\symfony\\src\\Symfony\\Component\\Security\\Core/Resources/translations\\security.lt.xlf')), 'lv' => array(0 => ($this->targetDirs[4].'\\vendor\\symfony\\symfony\\src\\Symfony\\Component\\Validator/Resources/translations\\validators.lv.xlf'), 1 => ($this->targetDirs[4].'\\vendor\\symfony\\symfony\\src\\Symfony\\Component\\Form/Resources/translations\\validators.lv.xlf'), 2 => ($this->targetDirs[4].'\\vendor\\symfony\\symfony\\src\\Symfony\\Component\\Security\\Core/Resources/translations\\security.lv.xlf')), 'mn' => array(0 => ($this->targetDirs[4].'\\vendor\\symfony\\symfony\\src\\Symfony\\Component\\Validator/Resources/translations\\validators.mn.xlf'), 1 => ($this->targetDirs[4].'\\vendor\\symfony\\symfony\\src\\Symfony\\Component\\Form/Resources/translations\\validators.mn.xlf')), 'nl' => array(0 => ($this->targetDirs[4].'\\vendor\\symfony\\symfony\\src\\Symfony\\Component\\Validator/Resources/translations\\validators.nl.xlf'), 1 => ($this->targetDirs[4].'\\vendor\\symfony\\symfony\\src\\Symfony\\Component\\Form/Resources/translations\\validators.nl.xlf'), 2 => ($this->targetDirs[4].'\\vendor\\symfony\\symfony\\src\\Symfony\\Component\\Security\\Core/Resources/translations\\security.nl.xlf')), 'nn' => array(0 => ($this->targetDirs[4].'\\vendor\\symfony\\symfony\\src\\Symfony\\Component\\Validator/Resources/translations\\validators.nn.xlf')), 'no' => array(0 => ($this->targetDirs[4].'\\vendor\\symfony\\symfony\\src\\Symfony\\Component\\Validator/Resources/translations\\validators.no.xlf'), 1 => ($this->targetDirs[4].'\\vendor\\symfony\\symfony\\src\\Symfony\\Component\\Form/Resources/translations\\validators.no.xlf'), 2 => ($this->targetDirs[4].'\\vendor\\symfony\\symfony\\src\\Symfony\\Component\\Security\\Core/Resources/translations\\security.no.xlf')), 'pl' => array(0 => ($this->targetDirs[4].'\\vendor\\symfony\\symfony\\src\\Symfony\\Component\\Validator/Resources/translations\\validators.pl.xlf'), 1 => ($this->targetDirs[4].'\\vendor\\symfony\\symfony\\src\\Symfony\\Component\\Form/Resources/translations\\validators.pl.xlf'), 2 => ($this->targetDirs[4].'\\vendor\\symfony\\symfony\\src\\Symfony\\Component\\Security\\Core/Resources/translations\\security.pl.xlf')), 'pt' => array(0 => ($this->targetDirs[4].'\\vendor\\symfony\\symfony\\src\\Symfony\\Component\\Validator/Resources/translations\\validators.pt.xlf'), 1 => ($this->targetDirs[4].'\\vendor\\symfony\\symfony\\src\\Symfony\\Component\\Form/Resources/translations\\validators.pt.xlf')), 'pt_BR' => array(0 => ($this->targetDirs[4].'\\vendor\\symfony\\symfony\\src\\Symfony\\Component\\Validator/Resources/translations\\validators.pt_BR.xlf'), 1 => ($this->targetDirs[4].'\\vendor\\symfony\\symfony\\src\\Symfony\\Component\\Form/Resources/translations\\validators.pt_BR.xlf'), 2 => ($this->targetDirs[4].'\\vendor\\symfony\\symfony\\src\\Symfony\\Component\\Security\\Core/Resources/translations\\security.pt_BR.xlf')), 'ro' => array(0 => ($this->targetDirs[4].'\\vendor\\symfony\\symfony\\src\\Symfony\\Component\\Validator/Resources/translations\\validators.ro.xlf'), 1 => ($this->targetDirs[4].'\\vendor\\symfony\\symfony\\src\\Symfony\\Component\\Form/Resources/translations\\validators.ro.xlf'), 2 => ($this->targetDirs[4].'\\vendor\\symfony\\symfony\\src\\Symfony\\Component\\Security\\Core/Resources/translations\\security.ro.xlf')), 'ru' => array(0 => ($this->targetDirs[4].'\\vendor\\symfony\\symfony\\src\\Symfony\\Component\\Validator/Resources/translations\\validators.ru.xlf'), 1 => ($this->targetDirs[4].'\\vendor\\symfony\\symfony\\src\\Symfony\\Component\\Form/Resources/translations\\validators.ru.xlf'), 2 => ($this->targetDirs[4].'\\vendor\\symfony\\symfony\\src\\Symfony\\Component\\Security\\Core/Resources/translations\\security.ru.xlf')), 'sk' => array(0 => ($this->targetDirs[4].'\\vendor\\symfony\\symfony\\src\\Symfony\\Component\\Validator/Resources/translations\\validators.sk.xlf'), 1 => ($this->targetDirs[4].'\\vendor\\symfony\\symfony\\src\\Symfony\\Component\\Form/Resources/translations\\validators.sk.xlf'), 2 => ($this->targetDirs[4].'\\vendor\\symfony\\symfony\\src\\Symfony\\Component\\Security\\Core/Resources/translations\\security.sk.xlf')), 'sl' => array(0 => ($this->targetDirs[4].'\\vendor\\symfony\\symfony\\src\\Symfony\\Component\\Validator/Resources/translations\\validators.sl.xlf'), 1 => ($this->targetDirs[4].'\\vendor\\symfony\\symfony\\src\\Symfony\\Component\\Form/Resources/translations\\validators.sl.xlf'), 2 => ($this->targetDirs[4].'\\vendor\\symfony\\symfony\\src\\Symfony\\Component\\Security\\Core/Resources/translations\\security.sl.xlf')), 'sq' => array(0 => ($this->targetDirs[4].'\\vendor\\symfony\\symfony\\src\\Symfony\\Component\\Validator/Resources/translations\\validators.sq.xlf')), 'sr_Cyrl' => array(0 => ($this->targetDirs[4].'\\vendor\\symfony\\symfony\\src\\Symfony\\Component\\Validator/Resources/translations\\validators.sr_Cyrl.xlf'), 1 => ($this->targetDirs[4].'\\vendor\\symfony\\symfony\\src\\Symfony\\Component\\Form/Resources/translations\\validators.sr_Cyrl.xlf'), 2 => ($this->targetDirs[4].'\\vendor\\symfony\\symfony\\src\\Symfony\\Component\\Security\\Core/Resources/translations\\security.sr_Cyrl.xlf')), 'sr_Latn' => array(0 => ($this->targetDirs[4].'\\vendor\\symfony\\symfony\\src\\Symfony\\Component\\Validator/Resources/translations\\validators.sr_Latn.xlf'), 1 => ($this->targetDirs[4].'\\vendor\\symfony\\symfony\\src\\Symfony\\Component\\Form/Resources/translations\\validators.sr_Latn.xlf'), 2 => ($this->targetDirs[4].'\\vendor\\symfony\\symfony\\src\\Symfony\\Component\\Security\\Core/Resources/translations\\security.sr_Latn.xlf')), 'sv' => array(0 => ($this->targetDirs[4].'\\vendor\\symfony\\symfony\\src\\Symfony\\Component\\Validator/Resources/translations\\validators.sv.xlf'), 1 => ($this->targetDirs[4].'\\vendor\\symfony\\symfony\\src\\Symfony\\Component\\Form/Resources/translations\\validators.sv.xlf'), 2 => ($this->targetDirs[4].'\\vendor\\symfony\\symfony\\src\\Symfony\\Component\\Security\\Core/Resources/translations\\security.sv.xlf')), 'th' => array(0 => ($this->targetDirs[4].'\\vendor\\symfony\\symfony\\src\\Symfony\\Component\\Validator/Resources/translations\\validators.th.xlf'), 1 => ($this->targetDirs[4].'\\vendor\\symfony\\symfony\\src\\Symfony\\Component\\Security\\Core/Resources/translations\\security.th.xlf')), 'tr' => array(0 => ($this->targetDirs[4].'\\vendor\\symfony\\symfony\\src\\Symfony\\Component\\Validator/Resources/translations\\validators.tr.xlf'), 1 => ($this->targetDirs[4].'\\vendor\\symfony\\symfony\\src\\Symfony\\Component\\Security\\Core/Resources/translations\\security.tr.xlf')), 'uk' => array(0 => ($this->targetDirs[4].'\\vendor\\symfony\\symfony\\src\\Symfony\\Component\\Validator/Resources/translations\\validators.uk.xlf'), 1 => ($this->targetDirs[4].'\\vendor\\symfony\\symfony\\src\\Symfony\\Component\\Form/Resources/translations\\validators.uk.xlf')), 'vi' => array(0 => ($this->targetDirs[4].'\\vendor\\symfony\\symfony\\src\\Symfony\\Component\\Validator/Resources/translations\\validators.vi.xlf'), 1 => ($this->targetDirs[4].'\\vendor\\symfony\\symfony\\src\\Symfony\\Component\\Security\\Core/Resources/translations\\security.vi.xlf')), 'zh_CN' => array(0 => ($this->targetDirs[4].'\\vendor\\symfony\\symfony\\src\\Symfony\\Component\\Validator/Resources/translations\\validators.zh_CN.xlf'), 1 => ($this->targetDirs[4].'\\vendor\\symfony\\symfony\\src\\Symfony\\Component\\Form/Resources/translations\\validators.zh_CN.xlf'), 2 => ($this->targetDirs[4].'\\vendor\\symfony\\symfony\\src\\Symfony\\Component\\Security\\Core/Resources/translations\\security.zh_CN.xlf'), 3 => ($this->targetDirs[4].'\\src\\Topxia\\WebBundle/Resources/translations\\messages.zh_CN.yml'), 4 => ($this->targetDirs[3].'/Resources/translations\\messages.zh_CN.yml')), 'zh_TW' => array(0 => ($this->targetDirs[4].'\\vendor\\symfony\\symfony\\src\\Symfony\\Component\\Validator/Resources/translations\\validators.zh_TW.xlf')), 'pt_PT' => array(0 => ($this->targetDirs[4].'\\vendor\\symfony\\symfony\\src\\Symfony\\Component\\Security\\Core/Resources/translations\\security.pt_PT.xlf')), 'ua' => array(0 => ($this->targetDirs[4].'\\vendor\\symfony\\symfony\\src\\Symfony\\Component\\Security\\Core/Resources/translations\\security.ua.xlf')), 'ug_CN' => array(0 => ($this->targetDirs[4].'\\src\\Topxia\\WebBundle/Resources/translations\\messages.ug_CN.yml')))), array());
 
         $instance->setConfigCacheFactory($this->get('config_cache_factory'));
         $instance->setFallbackLocales(array(0 => 'zh_CN'));
@@ -3793,7 +4680,7 @@ class appDevDebugProjectContainer extends Container
         }
         $f->setContainer($this);
 
-        $this->services['twig'] = $instance = new \Twig_Environment($this->get('twig.loader'), array('debug' => true, 'strict_variables' => true, 'paths' => array(($this->targetDirs[3].'/../web/customize') => 'customize', ($this->targetDirs[3].'/../src/Topxia/WebBundle/Resources/views') => 'topxiaweb', ($this->targetDirs[3].'/../web/themes') => 'theme', ($this->targetDirs[3].'/../') => 'root'), 'exception_controller' => 'twig.controller.exception:showAction', 'form_themes' => array(0 => 'form_div_layout.html.twig'), 'autoescape' => 'filename', 'cache' => (__DIR__.'/twig'), 'charset' => 'UTF-8', 'date' => array('format' => 'F j, Y H:i', 'interval_format' => '%d days', 'timezone' => NULL), 'number_format' => array('decimals' => 0, 'decimal_point' => '.', 'thousands_separator' => ',')));
+        $this->services['twig'] = $instance = new \Twig_Environment($this->get('twig.loader'), array('debug' => true, 'strict_variables' => true, 'paths' => array(($this->targetDirs[3].'/../web/customize') => 'customize', ($this->targetDirs[3].'/../src/Topxia/WebBundle/Resources/views') => 'topxiaweb', ($this->targetDirs[3].'/../web/themes') => 'theme', ($this->targetDirs[3].'/../') => 'root'), 'exception_controller' => 'twig.controller.exception:showAction', 'form_themes' => array(0 => 'form_div_layout.html.twig'), 'autoescape' => 'name', 'cache' => (__DIR__.'/twig'), 'charset' => 'UTF-8', 'date' => array('format' => 'F j, Y H:i', 'interval_format' => '%d days', 'timezone' => NULL), 'number_format' => array('decimals' => 0, 'decimal_point' => '.', 'thousands_separator' => ',')));
 
         $instance->addExtension($this->get('topxia.twig.web_extension'));
         $instance->addExtension($this->get('topxia.twig.html_extension'));
@@ -3817,15 +4704,19 @@ class appDevDebugProjectContainer extends Container
         $instance->addExtension(new \Symfony\Bridge\Twig\Extension\ExpressionExtension());
         $instance->addExtension(new \Symfony\Bridge\Twig\Extension\HttpKernelExtension($d));
         $instance->addExtension($e);
-        $instance->addExtension(new \Symfony\Bridge\Twig\Extension\FormExtension(new \Symfony\Bridge\Twig\Form\TwigRenderer(new \Symfony\Bridge\Twig\Form\TwigRendererEngine(array(0 => 'form_div_layout.html.twig')), $this->get('security.csrf.token_manager', ContainerInterface::NULL_ON_INVALID_REFERENCE))));
         $instance->addExtension(new \Twig_Extension_Debug());
+        $instance->addExtension(new \Symfony\Bridge\Twig\Extension\FormExtension(new \Symfony\Bridge\Twig\Form\TwigRenderer(new \Symfony\Bridge\Twig\Form\TwigRendererEngine(array(0 => 'form_div_layout.html.twig')), $this->get('security.csrf.token_manager', ContainerInterface::NULL_ON_INVALID_REFERENCE))));
+        $instance->addExtension(new \Symfony\Bundle\AsseticBundle\Twig\AsseticExtension($this->get('assetic.asset_factory'), $this->get('templating.name_parser'), true, array(), array(0 => 'GosWebSocketBundle'), new \Symfony\Bundle\AsseticBundle\DefaultValueSupplier($this)));
         $instance->addExtension($this->get('endroid.qrcode.twig.extension'));
         $instance->addExtension($this->get('permission.twig.permission_extension'));
         $instance->addExtension(new \Codeages\PluginBundle\Twig\HtmlExtension());
         $instance->addExtension(new \Codeages\PluginBundle\Twig\SlotExtension($this->get('codeages_plugin.slot_manager')));
         $instance->addExtension($this->get('codeages_plugin.dict_twig_extension'));
+        $instance->addExtension($this->get('gos_web_socket.twig.extension'));
         $instance->addExtension(new \Symfony\Bundle\WebProfilerBundle\Twig\WebProfilerExtension());
         $instance->addGlobal('app', $f);
+        $instance->addGlobal('gos_web_socket_server_host', '127.0.0.1');
+        $instance->addGlobal('gos_web_socket_server_port', 1337);
         $instance->addGlobal('disabled_features', array());
         $instance->addGlobal('site_tracking', false);
         call_user_func(array(new \Symfony\Bundle\TwigBundle\DependencyInjection\Configurator\EnvironmentConfigurator('F j, Y H:i', '%d days', NULL, 0, '.', ','), 'configure'), $instance);
@@ -3878,36 +4769,42 @@ class appDevDebugProjectContainer extends Container
      * This service is shared.
      * This method always returns the same instance of the service.
      *
-     * @return \Symfony\Bundle\TwigBundle\Loader\FilesystemLoader A Symfony\Bundle\TwigBundle\Loader\FilesystemLoader instance
+     * @return \Twig_Loader_Chain A Twig_Loader_Chain instance
      */
     protected function getTwig_LoaderService()
     {
-        $this->services['twig.loader'] = $instance = new \Symfony\Bundle\TwigBundle\Loader\FilesystemLoader($this->get('codeages_plugin.theme.templating.locator'), $this->get('templating.name_parser'));
+        $a = new \Symfony\Bundle\TwigBundle\Loader\FilesystemLoader($this->get('codeages_plugin.theme.templating.locator'), $this->get('templating.name_parser'));
+        $a->addPath(($this->targetDirs[3].'/../web/customize'), 'customize');
+        $a->addPath(($this->targetDirs[3].'/../src/Topxia/WebBundle/Resources/views'), 'topxiaweb');
+        $a->addPath(($this->targetDirs[3].'/../web/themes'), 'theme');
+        $a->addPath(($this->targetDirs[3].'/../'), 'root');
+        $a->addPath(($this->targetDirs[4].'\\vendor\\symfony\\symfony\\src\\Symfony\\Bundle\\FrameworkBundle/Resources/views'), 'Framework');
+        $a->addPath(($this->targetDirs[4].'\\vendor\\symfony\\symfony\\src\\Symfony\\Bundle\\SecurityBundle/Resources/views'), 'Security');
+        $a->addPath(($this->targetDirs[3].'/Resources/TwigBundle/views'), 'Twig');
+        $a->addPath(($this->targetDirs[4].'\\vendor\\symfony\\symfony\\src\\Symfony\\Bundle\\TwigBundle/Resources/views'), 'Twig');
+        $a->addPath(($this->targetDirs[4].'\\vendor\\symfony\\swiftmailer-bundle/Resources/views'), 'Swiftmailer');
+        $a->addPath(($this->targetDirs[4].'\\src\\Topxia\\WebBundle/Resources/views'), 'TopxiaWeb');
+        $a->addPath(($this->targetDirs[4].'\\src\\Topxia\\AdminBundle/Resources/views'), 'TopxiaAdmin');
+        $a->addPath(($this->targetDirs[4].'\\src\\Topxia\\MobileBundle/Resources/views'), 'TopxiaMobile');
+        $a->addPath(($this->targetDirs[4].'\\src\\Topxia\\MobileBundleV2/Resources/views'), 'TopxiaMobileBundleV2');
+        $a->addPath(($this->targetDirs[4].'\\src\\Classroom\\ClassroomBundle/Resources/views'), 'Classroom');
+        $a->addPath(($this->targetDirs[4].'\\src\\MaterialLib\\MaterialLibBundle/Resources/views'), 'MaterialLib');
+        $a->addPath(($this->targetDirs[4].'\\src\\SensitiveWord\\SensitiveWordBundle/Resources/views'), 'SensitiveWord');
+        $a->addPath(($this->targetDirs[4].'\\src\\Org\\OrgBundle/Resources/views'), 'Org');
+        $a->addPath(($this->targetDirs[4].'\\src\\Permission\\PermissionBundle/Resources/views'), 'Permission');
+        $a->addPath(($this->targetDirs[4].'\\vendor\\willdurand\\js-translation-bundle\\Bazinga\\Bundle\\JsTranslationBundle/Resources/views'), 'BazingaJsTranslation');
+        $a->addPath(($this->targetDirs[4].'\\vendor\\bshaffer\\oauth2-server-bundle\\OAuth2\\ServerBundle/Resources/views'), 'OAuth2Server');
+        $a->addPath(($this->targetDirs[4].'\\vendor\\gos\\web-socket-bundle/Resources/views'), 'GosWebSocket');
+        $a->addPath(($this->targetDirs[4].'\\src\\Custom\\WebBundle/Resources/views'), 'CustomWeb');
+        $a->addPath(($this->targetDirs[4].'\\src\\Custom\\AdminBundle/Resources/views'), 'CustomAdmin');
+        $a->addPath(($this->targetDirs[4].'\\vendor\\symfony\\symfony\\src\\Symfony\\Bundle\\WebProfilerBundle/Resources/views'), 'WebProfiler');
+        $a->addPath(($this->targetDirs[3].'/Resources/views'));
+        $a->addPath(($this->targetDirs[4].'\\vendor\\symfony\\symfony\\src\\Symfony\\Bridge\\Twig/Resources/views/Form'));
 
-        $instance->addPath(($this->targetDirs[3].'/../web/customize'), 'customize');
-        $instance->addPath(($this->targetDirs[3].'/../src/Topxia/WebBundle/Resources/views'), 'topxiaweb');
-        $instance->addPath(($this->targetDirs[3].'/../web/themes'), 'theme');
-        $instance->addPath(($this->targetDirs[3].'/../'), 'root');
-        $instance->addPath(($this->targetDirs[4].'\\vendor\\symfony\\symfony\\src\\Symfony\\Bundle\\SecurityBundle/Resources/views'), 'Security');
-        $instance->addPath(($this->targetDirs[3].'/Resources/TwigBundle/views'), 'Twig');
-        $instance->addPath(($this->targetDirs[4].'\\vendor\\symfony\\symfony\\src\\Symfony\\Bundle\\TwigBundle/Resources/views'), 'Twig');
-        $instance->addPath(($this->targetDirs[4].'\\vendor\\symfony\\swiftmailer-bundle/Resources/views'), 'Swiftmailer');
-        $instance->addPath(($this->targetDirs[4].'\\src\\Topxia\\WebBundle/Resources/views'), 'TopxiaWeb');
-        $instance->addPath(($this->targetDirs[4].'\\src\\Topxia\\AdminBundle/Resources/views'), 'TopxiaAdmin');
-        $instance->addPath(($this->targetDirs[4].'\\src\\Topxia\\MobileBundle/Resources/views'), 'TopxiaMobile');
-        $instance->addPath(($this->targetDirs[4].'\\src\\Topxia\\MobileBundleV2/Resources/views'), 'TopxiaMobileBundleV2');
-        $instance->addPath(($this->targetDirs[4].'\\src\\Classroom\\ClassroomBundle/Resources/views'), 'Classroom');
-        $instance->addPath(($this->targetDirs[4].'\\src\\MaterialLib\\MaterialLibBundle/Resources/views'), 'MaterialLib');
-        $instance->addPath(($this->targetDirs[4].'\\src\\SensitiveWord\\SensitiveWordBundle/Resources/views'), 'SensitiveWord');
-        $instance->addPath(($this->targetDirs[4].'\\src\\Org\\OrgBundle/Resources/views'), 'Org');
-        $instance->addPath(($this->targetDirs[4].'\\src\\Permission\\PermissionBundle/Resources/views'), 'Permission');
-        $instance->addPath(($this->targetDirs[4].'\\vendor\\willdurand\\js-translation-bundle\\Bazinga\\Bundle\\JsTranslationBundle/Resources/views'), 'BazingaJsTranslation');
-        $instance->addPath(($this->targetDirs[4].'\\vendor\\bshaffer\\oauth2-server-bundle\\OAuth2\\ServerBundle/Resources/views'), 'OAuth2Server');
-        $instance->addPath(($this->targetDirs[4].'\\src\\Custom\\WebBundle/Resources/views'), 'CustomWeb');
-        $instance->addPath(($this->targetDirs[4].'\\src\\Custom\\AdminBundle/Resources/views'), 'CustomAdmin');
-        $instance->addPath(($this->targetDirs[4].'\\vendor\\symfony\\symfony\\src\\Symfony\\Bundle\\WebProfilerBundle/Resources/views'), 'WebProfiler');
-        $instance->addPath(($this->targetDirs[3].'/Resources/views'));
-        $instance->addPath(($this->targetDirs[4].'\\vendor\\symfony\\symfony\\src\\Symfony\\Bridge\\Twig/Resources/views/Form'));
+        $this->services['twig.loader'] = $instance = new \Twig_Loader_Chain();
+
+        $instance->addLoader($this->get('codeages_plugin.theme.twig_loader'));
+        $instance->addLoader($a);
 
         return $instance;
     }
@@ -3948,7 +4845,7 @@ class appDevDebugProjectContainer extends Container
      */
     protected function getUriSignerService()
     {
-        return $this->services['uri_signer'] = new \Symfony\Component\HttpKernel\UriSigner('cogqavup1m8s0sgkkc0ko8gkokkw0ks');
+        return $this->services['uri_signer'] = new \Symfony\Component\HttpKernel\UriSigner('ThisTokenIsNotSoSecretChangeIt');
     }
 
     /**
@@ -4075,7 +4972,7 @@ class appDevDebugProjectContainer extends Container
      */
     protected function getWebProfiler_Controller_ProfilerService()
     {
-        return $this->services['web_profiler.controller.profiler'] = new \Symfony\Bundle\WebProfilerBundle\Controller\ProfilerController($this->get('router', ContainerInterface::NULL_ON_INVALID_REFERENCE), $this->get('profiler', ContainerInterface::NULL_ON_INVALID_REFERENCE), $this->get('twig'), array('data_collector.request' => array(0 => 'request', 1 => '@WebProfiler/Collector/request.html.twig'), 'data_collector.time' => array(0 => 'time', 1 => '@WebProfiler/Collector/time.html.twig'), 'data_collector.memory' => array(0 => 'memory', 1 => '@WebProfiler/Collector/memory.html.twig'), 'data_collector.ajax' => array(0 => 'ajax', 1 => '@WebProfiler/Collector/ajax.html.twig'), 'data_collector.form' => array(0 => 'form', 1 => '@WebProfiler/Collector/form.html.twig'), 'data_collector.exception' => array(0 => 'exception', 1 => '@WebProfiler/Collector/exception.html.twig'), 'data_collector.logger' => array(0 => 'logger', 1 => '@WebProfiler/Collector/logger.html.twig'), 'data_collector.events' => array(0 => 'events', 1 => '@WebProfiler/Collector/events.html.twig'), 'data_collector.router' => array(0 => 'router', 1 => '@WebProfiler/Collector/router.html.twig'), 'data_collector.translation' => array(0 => 'translation', 1 => '@WebProfiler/Collector/translation.html.twig'), 'data_collector.security' => array(0 => 'security', 1 => '@Security/Collector/security.html.twig'), 'data_collector.twig' => array(0 => 'twig', 1 => '@WebProfiler/Collector/twig.html.twig'), 'swiftmailer.data_collector' => array(0 => 'swiftmailer', 1 => '@Swiftmailer/Collector/swiftmailer.html.twig'), 'data_collector.config' => array(0 => 'config', 1 => '@WebProfiler/Collector/config.html.twig')), 'bottom');
+        return $this->services['web_profiler.controller.profiler'] = new \Symfony\Bundle\WebProfilerBundle\Controller\ProfilerController($this->get('router', ContainerInterface::NULL_ON_INVALID_REFERENCE), $this->get('profiler', ContainerInterface::NULL_ON_INVALID_REFERENCE), $this->get('twig'), array('data_collector.request' => array(0 => 'request', 1 => '@WebProfiler/Collector/request.html.twig'), 'data_collector.time' => array(0 => 'time', 1 => '@WebProfiler/Collector/time.html.twig'), 'data_collector.memory' => array(0 => 'memory', 1 => '@WebProfiler/Collector/memory.html.twig'), 'data_collector.ajax' => array(0 => 'ajax', 1 => '@WebProfiler/Collector/ajax.html.twig'), 'data_collector.form' => array(0 => 'form', 1 => '@WebProfiler/Collector/form.html.twig'), 'data_collector.exception' => array(0 => 'exception', 1 => '@WebProfiler/Collector/exception.html.twig'), 'data_collector.logger' => array(0 => 'logger', 1 => '@WebProfiler/Collector/logger.html.twig'), 'data_collector.events' => array(0 => 'events', 1 => '@WebProfiler/Collector/events.html.twig'), 'data_collector.router' => array(0 => 'router', 1 => '@WebProfiler/Collector/router.html.twig'), 'data_collector.translation' => array(0 => 'translation', 1 => '@WebProfiler/Collector/translation.html.twig'), 'data_collector.security' => array(0 => 'security', 1 => '@Security/Collector/security.html.twig'), 'data_collector.twig' => array(0 => 'twig', 1 => '@WebProfiler/Collector/twig.html.twig'), 'swiftmailer.data_collector' => array(0 => 'swiftmailer', 1 => '@Swiftmailer/Collector/swiftmailer.html.twig'), 'gos_web_socket.data_collector' => array(0 => 'websocket', 1 => 'GosWebSocketBundle:Collector:websocket.html.twig'), 'data_collector.config' => array(0 => 'config', 1 => '@WebProfiler/Collector/config.html.twig')), 'bottom');
     }
 
     /**
@@ -4102,6 +4999,27 @@ class appDevDebugProjectContainer extends Container
     protected function getWebProfiler_DebugToolbarService()
     {
         return $this->services['web_profiler.debug_toolbar'] = new \Symfony\Bundle\WebProfilerBundle\EventListener\WebDebugToolbarListener($this->get('twig'), false, 2, 'bottom', $this->get('router', ContainerInterface::NULL_ON_INVALID_REFERENCE), '^/(app(_[\\w]+)?\\.php/)?_wdt');
+    }
+
+    /**
+     * Gets the 'assetic.asset_factory' service.
+     *
+     * This service is shared.
+     * This method always returns the same instance of the service.
+     *
+     * This service is private.
+     * If you want to be able to request this service from the container directly,
+     * make it public, otherwise you might end up with broken code.
+     *
+     * @return \Symfony\Bundle\AsseticBundle\Factory\AssetFactory A Symfony\Bundle\AsseticBundle\Factory\AssetFactory instance
+     */
+    protected function getAssetic_AssetFactoryService()
+    {
+        $this->services['assetic.asset_factory'] = $instance = new \Symfony\Bundle\AsseticBundle\Factory\AssetFactory($this->get('kernel'), $this, $this->getParameterBag(), ($this->targetDirs[3].'/../web'), true);
+
+        $instance->addWorker(new \Symfony\Bundle\AsseticBundle\Factory\Worker\UseControllerWorker());
+
+        return $instance;
     }
 
     /**
@@ -4136,6 +5054,61 @@ class appDevDebugProjectContainer extends Container
     protected function getForm_ServerParamsService()
     {
         return $this->services['form.server_params'] = new \Symfony\Component\Form\Util\ServerParams($this->get('request_stack'));
+    }
+
+    /**
+     * Gets the 'gos_pubsub_router.php_file.cache' service.
+     *
+     * This service is shared.
+     * This method always returns the same instance of the service.
+     *
+     * This service is private.
+     * If you want to be able to request this service from the container directly,
+     * make it public, otherwise you might end up with broken code.
+     *
+     * @return \Gos\Bundle\PubSubRouterBundle\Cache\PhpFileCacheDecorator A Gos\Bundle\PubSubRouterBundle\Cache\PhpFileCacheDecorator instance
+     */
+    protected function getGosPubsubRouter_PhpFile_CacheService()
+    {
+        return $this->services['gos_pubsub_router.php_file.cache'] = new \Gos\Bundle\PubSubRouterBundle\Cache\PhpFileCacheDecorator(__DIR__, true);
+    }
+
+    /**
+     * Gets the 'gos_web_socket.ws.server' service.
+     *
+     * This service is shared.
+     * This method always returns the same instance of the service.
+     *
+     * This service is private.
+     * If you want to be able to request this service from the container directly,
+     * make it public, otherwise you might end up with broken code.
+     *
+     * @param bool    $lazyLoad whether to try lazy-loading the service with a proxy
+     *
+     * @return \Gos\Bundle\WebSocketBundle\Server\Type\WebSocketServer A Gos\Bundle\WebSocketBundle\Server\Type\WebSocketServer instance
+     */
+    protected function getGosWebSocket_Ws_ServerService($lazyLoad = true)
+    {
+        return $this->services['gos_web_socket.ws.server'] = new \Gos\Bundle\WebSocketBundle\Server\Type\WebSocketServer($this->get('gos_web_socket.server.event_loop'), $this->get('debug.event_dispatcher'), $this->get('gos_web_socket.periodic.registry'), $this->get('gos_web_socket_server.wamp_application'), $this->get('gos_web_socket.origins.registry'), false, $this->get('gos_web_socket.wamp.topic_manager'), $this->get('gos_web_socket.server_push_handler.registry'), $this->get('monolog.logger.websocket', ContainerInterface::NULL_ON_INVALID_REFERENCE));
+    }
+
+    /**
+     * Gets the 'gos_web_socket_server.wamp_application' service.
+     *
+     * This service is shared.
+     * This method always returns the same instance of the service.
+     *
+     * This service is private.
+     * If you want to be able to request this service from the container directly,
+     * make it public, otherwise you might end up with broken code.
+     *
+     * @param bool    $lazyLoad whether to try lazy-loading the service with a proxy
+     *
+     * @return \Gos\Bundle\WebSocketBundle\Server\App\WampApplication A Gos\Bundle\WebSocketBundle\Server\App\WampApplication instance
+     */
+    protected function getGosWebSocketServer_WampApplicationService($lazyLoad = true)
+    {
+        return $this->services['gos_web_socket_server.wamp_application'] = new \Gos\Bundle\WebSocketBundle\Server\App\WampApplication($this->get('gos_web_socket.rpc.dispatcher'), $this->get('gos_web_socket.topic.dispatcher'), $this->get('debug.event_dispatcher'), $this->get('gos_web_socket.client_storage'), $this->get('gos_web_socket.router.wamp'), $this->get('monolog.logger.websocket', ContainerInterface::NULL_ON_INVALID_REFERENCE));
     }
 
     /**
@@ -4174,7 +5147,7 @@ class appDevDebugProjectContainer extends Container
 
         $this->services['security.access.decision_manager'] = $instance = new \Symfony\Component\Security\Core\Authorization\AccessDecisionManager(array(), 'affirmative', false, true);
 
-        $instance->setVoters(array(0 => new \Permission\PermissionBundle\Security\AdminVoter(), 1 => new \Symfony\Component\Security\Core\Authorization\Voter\ExpressionVoter(new \Symfony\Component\Security\Core\Authorization\ExpressionLanguage(), $a, $b), 2 => new \Symfony\Component\Security\Core\Authorization\Voter\RoleHierarchyVoter($b), 3 => new \Symfony\Component\Security\Core\Authorization\Voter\AuthenticatedVoter($a)));
+        $instance->setVoters(array(0 => new \Symfony\Component\Security\Core\Authorization\Voter\AuthenticatedVoter($a), 1 => new \Symfony\Component\Security\Core\Authorization\Voter\RoleHierarchyVoter($b), 2 => new \Symfony\Component\Security\Core\Authorization\Voter\ExpressionVoter(new \Symfony\Component\Security\Core\Authorization\ExpressionLanguage(), $a, $b), 3 => new \Permission\PermissionBundle\Security\AdminVoter()));
 
         return $instance;
     }
@@ -4195,7 +5168,7 @@ class appDevDebugProjectContainer extends Container
     {
         $a = $this->get('security.user_checker.main');
 
-        $this->services['security.authentication.manager'] = $instance = new \Symfony\Component\Security\Core\Authentication\AuthenticationProviderManager(array(0 => new \Topxia\WebBundle\Handler\AuthenticationProvider($this->get('topxia.user_provider'), $a, 'main', $this->get('security.encoder_factory'), true), 1 => new \Symfony\Component\Security\Core\Authentication\Provider\RememberMeAuthenticationProvider($a, 'cogqavup1m8s0sgkkc0ko8gkokkw0ks', 'main'), 2 => new \Symfony\Component\Security\Core\Authentication\Provider\AnonymousAuthenticationProvider('58c53584477656.66814805')), true);
+        $this->services['security.authentication.manager'] = $instance = new \Symfony\Component\Security\Core\Authentication\AuthenticationProviderManager(array(0 => new \Topxia\WebBundle\Handler\AuthenticationProvider($this->get('topxia.user_provider'), $a, 'main', $this->get('security.encoder_factory'), true), 1 => new \Symfony\Component\Security\Core\Authentication\Provider\RememberMeAuthenticationProvider($a, 'ThisTokenIsNotSoSecretChangeIt', 'main'), 2 => new \Symfony\Component\Security\Core\Authentication\Provider\AnonymousAuthenticationProvider('58d5129f672c48.42791264')), true);
 
         $instance->setEventDispatcher($this->get('debug.event_dispatcher'));
 
@@ -4338,6 +5311,7 @@ class appDevDebugProjectContainer extends Container
                 'TwigBundle' => 'Symfony\\Bundle\\TwigBundle\\TwigBundle',
                 'MonologBundle' => 'Symfony\\Bundle\\MonologBundle\\MonologBundle',
                 'SwiftmailerBundle' => 'Symfony\\Bundle\\SwiftmailerBundle\\SwiftmailerBundle',
+                'AsseticBundle' => 'Symfony\\Bundle\\AsseticBundle\\AsseticBundle',
                 'SensioFrameworkExtraBundle' => 'Sensio\\Bundle\\FrameworkExtraBundle\\SensioFrameworkExtraBundle',
                 'EndroidQrCodeBundle' => 'Endroid\\Bundle\\QrCodeBundle\\EndroidQrCodeBundle',
                 'TopxiaWebBundle' => 'Topxia\\WebBundle\\TopxiaWebBundle',
@@ -4352,11 +5326,150 @@ class appDevDebugProjectContainer extends Container
                 'BazingaJsTranslationBundle' => 'Bazinga\\Bundle\\JsTranslationBundle\\BazingaJsTranslationBundle',
                 'OAuth2ServerBundle' => 'OAuth2\\ServerBundle\\OAuth2ServerBundle',
                 'CodeagesPluginBundle' => 'Codeages\\PluginBundle\\CodeagesPluginBundle',
+                'GosWebSocketBundle' => 'Gos\\Bundle\\WebSocketBundle\\GosWebSocketBundle',
+                'GosPubSubRouterBundle' => 'Gos\\Bundle\\PubSubRouterBundle\\GosPubSubRouterBundle',
                 'CustomWebBundle' => 'Custom\\WebBundle\\CustomWebBundle',
                 'CustomAdminBundle' => 'Custom\\AdminBundle\\CustomAdminBundle',
                 'WebProfilerBundle' => 'Symfony\\Bundle\\WebProfilerBundle\\WebProfilerBundle',
                 'SensioDistributionBundle' => 'Sensio\\Bundle\\DistributionBundle\\SensioDistributionBundle',
                 'SensioGeneratorBundle' => 'Sensio\\Bundle\\GeneratorBundle\\SensioGeneratorBundle',
+            ),
+            'kernel.bundles_metadata' => array(
+                'FrameworkBundle' => array(
+                    'parent' => NULL,
+                    'path' => ($this->targetDirs[4].'\\vendor\\symfony\\symfony\\src\\Symfony\\Bundle\\FrameworkBundle'),
+                    'namespace' => 'Symfony\\Bundle\\FrameworkBundle',
+                ),
+                'SecurityBundle' => array(
+                    'parent' => NULL,
+                    'path' => ($this->targetDirs[4].'\\vendor\\symfony\\symfony\\src\\Symfony\\Bundle\\SecurityBundle'),
+                    'namespace' => 'Symfony\\Bundle\\SecurityBundle',
+                ),
+                'TwigBundle' => array(
+                    'parent' => NULL,
+                    'path' => ($this->targetDirs[4].'\\vendor\\symfony\\symfony\\src\\Symfony\\Bundle\\TwigBundle'),
+                    'namespace' => 'Symfony\\Bundle\\TwigBundle',
+                ),
+                'MonologBundle' => array(
+                    'parent' => NULL,
+                    'path' => ($this->targetDirs[4].'\\vendor\\symfony\\monolog-bundle'),
+                    'namespace' => 'Symfony\\Bundle\\MonologBundle',
+                ),
+                'SwiftmailerBundle' => array(
+                    'parent' => NULL,
+                    'path' => ($this->targetDirs[4].'\\vendor\\symfony\\swiftmailer-bundle'),
+                    'namespace' => 'Symfony\\Bundle\\SwiftmailerBundle',
+                ),
+                'AsseticBundle' => array(
+                    'parent' => NULL,
+                    'path' => ($this->targetDirs[4].'\\vendor\\symfony\\assetic-bundle'),
+                    'namespace' => 'Symfony\\Bundle\\AsseticBundle',
+                ),
+                'SensioFrameworkExtraBundle' => array(
+                    'parent' => NULL,
+                    'path' => ($this->targetDirs[4].'\\vendor\\sensio\\framework-extra-bundle'),
+                    'namespace' => 'Sensio\\Bundle\\FrameworkExtraBundle',
+                ),
+                'EndroidQrCodeBundle' => array(
+                    'parent' => NULL,
+                    'path' => ($this->targetDirs[4].'\\vendor\\endroid\\qrcode-bundle\\src'),
+                    'namespace' => 'Endroid\\Bundle\\QrCodeBundle',
+                ),
+                'TopxiaWebBundle' => array(
+                    'parent' => NULL,
+                    'path' => ($this->targetDirs[4].'\\src\\Topxia\\WebBundle'),
+                    'namespace' => 'Topxia\\WebBundle',
+                ),
+                'TopxiaAdminBundle' => array(
+                    'parent' => NULL,
+                    'path' => ($this->targetDirs[4].'\\src\\Topxia\\AdminBundle'),
+                    'namespace' => 'Topxia\\AdminBundle',
+                ),
+                'TopxiaMobileBundle' => array(
+                    'parent' => NULL,
+                    'path' => ($this->targetDirs[4].'\\src\\Topxia\\MobileBundle'),
+                    'namespace' => 'Topxia\\MobileBundle',
+                ),
+                'TopxiaMobileBundleV2' => array(
+                    'parent' => NULL,
+                    'path' => ($this->targetDirs[4].'\\src\\Topxia\\MobileBundleV2'),
+                    'namespace' => 'Topxia\\MobileBundleV2',
+                ),
+                'ClassroomBundle' => array(
+                    'parent' => NULL,
+                    'path' => ($this->targetDirs[4].'\\src\\Classroom\\ClassroomBundle'),
+                    'namespace' => 'Classroom\\ClassroomBundle',
+                ),
+                'MaterialLibBundle' => array(
+                    'parent' => NULL,
+                    'path' => ($this->targetDirs[4].'\\src\\MaterialLib\\MaterialLibBundle'),
+                    'namespace' => 'MaterialLib\\MaterialLibBundle',
+                ),
+                'SensitiveWordBundle' => array(
+                    'parent' => NULL,
+                    'path' => ($this->targetDirs[4].'\\src\\SensitiveWord\\SensitiveWordBundle'),
+                    'namespace' => 'SensitiveWord\\SensitiveWordBundle',
+                ),
+                'OrgBundle' => array(
+                    'parent' => NULL,
+                    'path' => ($this->targetDirs[4].'\\src\\Org\\OrgBundle'),
+                    'namespace' => 'Org\\OrgBundle',
+                ),
+                'PermissionBundle' => array(
+                    'parent' => NULL,
+                    'path' => ($this->targetDirs[4].'\\src\\Permission\\PermissionBundle'),
+                    'namespace' => 'Permission\\PermissionBundle',
+                ),
+                'BazingaJsTranslationBundle' => array(
+                    'parent' => NULL,
+                    'path' => ($this->targetDirs[4].'\\vendor\\willdurand\\js-translation-bundle\\Bazinga\\Bundle\\JsTranslationBundle'),
+                    'namespace' => 'Bazinga\\Bundle\\JsTranslationBundle',
+                ),
+                'OAuth2ServerBundle' => array(
+                    'parent' => NULL,
+                    'path' => ($this->targetDirs[4].'\\vendor\\bshaffer\\oauth2-server-bundle\\OAuth2\\ServerBundle'),
+                    'namespace' => 'OAuth2\\ServerBundle',
+                ),
+                'CodeagesPluginBundle' => array(
+                    'parent' => NULL,
+                    'path' => ($this->targetDirs[4].'\\vendor\\codeages\\plugin-bundle'),
+                    'namespace' => 'Codeages\\PluginBundle',
+                ),
+                'GosWebSocketBundle' => array(
+                    'parent' => NULL,
+                    'path' => ($this->targetDirs[4].'\\vendor\\gos\\web-socket-bundle'),
+                    'namespace' => 'Gos\\Bundle\\WebSocketBundle',
+                ),
+                'GosPubSubRouterBundle' => array(
+                    'parent' => NULL,
+                    'path' => ($this->targetDirs[4].'\\vendor\\gos\\pubsub-router-bundle'),
+                    'namespace' => 'Gos\\Bundle\\PubSubRouterBundle',
+                ),
+                'CustomWebBundle' => array(
+                    'parent' => NULL,
+                    'path' => ($this->targetDirs[4].'\\src\\Custom\\WebBundle'),
+                    'namespace' => 'Custom\\WebBundle',
+                ),
+                'CustomAdminBundle' => array(
+                    'parent' => NULL,
+                    'path' => ($this->targetDirs[4].'\\src\\Custom\\AdminBundle'),
+                    'namespace' => 'Custom\\AdminBundle',
+                ),
+                'WebProfilerBundle' => array(
+                    'parent' => NULL,
+                    'path' => ($this->targetDirs[4].'\\vendor\\symfony\\symfony\\src\\Symfony\\Bundle\\WebProfilerBundle'),
+                    'namespace' => 'Symfony\\Bundle\\WebProfilerBundle',
+                ),
+                'SensioDistributionBundle' => array(
+                    'parent' => NULL,
+                    'path' => ($this->targetDirs[4].'\\vendor\\sensio\\distribution-bundle'),
+                    'namespace' => 'Sensio\\Bundle\\DistributionBundle',
+                ),
+                'SensioGeneratorBundle' => array(
+                    'parent' => NULL,
+                    'path' => ($this->targetDirs[4].'\\vendor\\sensio\\generator-bundle'),
+                    'namespace' => 'Sensio\\Bundle\\GeneratorBundle',
+                ),
             ),
             'kernel.charset' => 'UTF-8',
             'kernel.container_class' => 'appDevDebugProjectContainer',
@@ -4490,14 +5603,12 @@ class appDevDebugProjectContainer extends Container
             'database_name' => 'edusoho',
             'database_user' => 'root',
             'database_password' => 'root',
+            'locale' => 'zh_CN',
+            'secret' => 'ThisTokenIsNotSoSecretChangeIt',
             'mailer_transport' => 'smtp',
             'mailer_host' => '127.0.0.1',
             'mailer_user' => NULL,
             'mailer_password' => NULL,
-            'locale' => 'zh_CN',
-            'secret' => 'cogqavup1m8s0sgkkc0ko8gkokkw0ks',
-            'webpack_base_url' => 'http://imlocal.com',
-            'user_partner' => 'none',
             'biz_config' => array(
                 'debug' => true,
                 'db.options' => array(
@@ -4582,7 +5693,7 @@ class appDevDebugProjectContainer extends Container
             'translation.extractor.class' => 'Symfony\\Component\\Translation\\Extractor\\ChainExtractor',
             'translation.writer.class' => 'Symfony\\Component\\Translation\\Writer\\TranslationWriter',
             'property_accessor.class' => 'Symfony\\Component\\PropertyAccess\\PropertyAccessor',
-            'kernel.secret' => 'cogqavup1m8s0sgkkc0ko8gkokkw0ks',
+            'kernel.secret' => 'ThisTokenIsNotSoSecretChangeIt',
             'kernel.http_method_override' => true,
             'kernel.trusted_hosts' => array(
 
@@ -4682,14 +5793,14 @@ class appDevDebugProjectContainer extends Container
             'router.options.matcher_base_class' => 'Symfony\\Bundle\\FrameworkBundle\\Routing\\RedirectableUrlMatcher',
             'router.options.matcher_dumper_class' => 'Permission\\Dumper\\PhpMatcherDumper',
             'router.cache_warmer.class' => 'Symfony\\Bundle\\FrameworkBundle\\CacheWarmer\\RouterCacheWarmer',
-            'router.options.matcher.cache_class' => 'appDevUrlMatcher',
-            'router.options.generator.cache_class' => 'appDevUrlGenerator',
+            'router.options.matcher.cache_class' => 'appDevDebugProjectContainerUrlMatcher',
+            'router.options.generator.cache_class' => 'appDevDebugProjectContainerUrlGenerator',
             'router_listener.class' => 'Symfony\\Component\\HttpKernel\\EventListener\\RouterListener',
             'router.request_context.host' => 'localhost',
             'router.request_context.scheme' => 'http',
             'router.request_context.base_url' => '',
-            'router.resource' => ($this->targetDirs[3].'/config/routing_dev.yml'),
-            'router.cache_class_prefix' => 'appDev',
+            'router.resource' => (__DIR__.'/assetic/routing.yml'),
+            'router.cache_class_prefix' => 'appDevDebugProjectContainer',
             'request_listener.http_port' => 80,
             'request_listener.https_port' => 443,
             'annotations.reader.class' => 'Doctrine\\Common\\Annotations\\AnnotationReader',
@@ -4864,6 +5975,12 @@ class appDevDebugProjectContainer extends Container
                 'monolog.handler.chromephp' => NULL,
                 'monolog.handler.firephp' => NULL,
                 'monolog.handler.main' => NULL,
+                'monolog.handler.websocket' => array(
+                    'type' => 'inclusive',
+                    'elements' => array(
+                        0 => 'websocket',
+                    ),
+                ),
             ),
             'swiftmailer.class' => 'Swift_Mailer',
             'swiftmailer.transport.sendmail.class' => 'Swift_Transport_SendmailTransport',
@@ -4899,6 +6016,52 @@ class appDevDebugProjectContainer extends Container
                 'default' => 'swiftmailer.mailer.default',
             ),
             'swiftmailer.default_mailer' => 'default',
+            'assetic.asset_factory.class' => 'Symfony\\Bundle\\AsseticBundle\\Factory\\AssetFactory',
+            'assetic.asset_manager.class' => 'Assetic\\Factory\\LazyAssetManager',
+            'assetic.asset_manager_cache_warmer.class' => 'Symfony\\Bundle\\AsseticBundle\\CacheWarmer\\AssetManagerCacheWarmer',
+            'assetic.cached_formula_loader.class' => 'Assetic\\Factory\\Loader\\CachedFormulaLoader',
+            'assetic.config_cache.class' => 'Assetic\\Cache\\ConfigCache',
+            'assetic.config_loader.class' => 'Symfony\\Bundle\\AsseticBundle\\Factory\\Loader\\ConfigurationLoader',
+            'assetic.config_resource.class' => 'Symfony\\Bundle\\AsseticBundle\\Factory\\Resource\\ConfigurationResource',
+            'assetic.coalescing_directory_resource.class' => 'Symfony\\Bundle\\AsseticBundle\\Factory\\Resource\\CoalescingDirectoryResource',
+            'assetic.directory_resource.class' => 'Symfony\\Bundle\\AsseticBundle\\Factory\\Resource\\DirectoryResource',
+            'assetic.filter_manager.class' => 'Symfony\\Bundle\\AsseticBundle\\FilterManager',
+            'assetic.worker.ensure_filter.class' => 'Assetic\\Factory\\Worker\\EnsureFilterWorker',
+            'assetic.worker.cache_busting.class' => 'Assetic\\Factory\\Worker\\CacheBustingWorker',
+            'assetic.value_supplier.class' => 'Symfony\\Bundle\\AsseticBundle\\DefaultValueSupplier',
+            'assetic.node.paths' => array(
+
+            ),
+            'assetic.cache_dir' => (__DIR__.'/assetic'),
+            'assetic.bundles' => array(
+                0 => 'GosWebSocketBundle',
+            ),
+            'assetic.twig_extension.class' => 'Symfony\\Bundle\\AsseticBundle\\Twig\\AsseticExtension',
+            'assetic.twig_formula_loader.class' => 'Assetic\\Extension\\Twig\\TwigFormulaLoader',
+            'assetic.helper.dynamic.class' => 'Symfony\\Bundle\\AsseticBundle\\Templating\\DynamicAsseticHelper',
+            'assetic.helper.static.class' => 'Symfony\\Bundle\\AsseticBundle\\Templating\\StaticAsseticHelper',
+            'assetic.php_formula_loader.class' => 'Symfony\\Bundle\\AsseticBundle\\Factory\\Loader\\AsseticHelperFormulaLoader',
+            'assetic.debug' => true,
+            'assetic.use_controller' => true,
+            'assetic.enable_profiler' => false,
+            'assetic.read_from' => ($this->targetDirs[3].'/../web'),
+            'assetic.write_to' => ($this->targetDirs[3].'/../web'),
+            'assetic.variables' => array(
+
+            ),
+            'assetic.java.bin' => 'C:\\ProgramData\\Oracle\\Java\\javapath\\java.EXE',
+            'assetic.node.bin' => '/usr/bin/node',
+            'assetic.ruby.bin' => '/usr/bin/ruby',
+            'assetic.sass.bin' => '/usr/bin/sass',
+            'assetic.reactjsx.bin' => '/usr/bin/jsx',
+            'assetic.twig_extension.functions' => array(
+
+            ),
+            'assetic.controller.class' => 'Symfony\\Bundle\\AsseticBundle\\Controller\\AsseticController',
+            'assetic.routing_loader.class' => 'Symfony\\Bundle\\AsseticBundle\\Routing\\AsseticLoader',
+            'assetic.cache.class' => 'Assetic\\Cache\\FilesystemCache',
+            'assetic.use_controller_worker.class' => 'Symfony\\Bundle\\AsseticBundle\\Factory\\Worker\\UseControllerWorker',
+            'assetic.request_listener.class' => 'Symfony\\Bundle\\AsseticBundle\\EventListener\\RequestListener',
             'sensio_framework_extra.view.guesser.class' => 'Sensio\\Bundle\\FrameworkExtraBundle\\Templating\\TemplateGuesser',
             'sensio_framework_extra.controller.listener.class' => 'Sensio\\Bundle\\FrameworkExtraBundle\\EventListener\\ControllerListener',
             'sensio_framework_extra.routing.loader.annot_dir.class' => 'Symfony\\Component\\Routing\\Loader\\AnnotationDirectoryLoader',
@@ -5132,6 +6295,14 @@ class appDevDebugProjectContainer extends Container
             'oauth2.user_provider.class' => 'OAuth2\\ServerBundle\\User\\OAuth2UserProvider',
             'oauth2.client_manager.class' => 'OAuth2\\ServerBundle\\Manager\\ClientManager',
             'oauth2.scope_manager.class' => 'OAuth2\\ServerBundle\\Manager\\ScopeManager',
+            'web_socket_server.port' => 1337,
+            'web_socket_server.host' => '127.0.0.1',
+            'web_socket_origin_check' => false,
+            'web_socket_server.client_storage.ttl' => 900,
+            'web_socket_server.client_storage.prefix' => '',
+            'gos_web_socket.firewall' => array(
+                0 => 'ws_firewall',
+            ),
             'web_profiler.controller.profiler.class' => 'Symfony\\Bundle\\WebProfilerBundle\\Controller\\ProfilerController',
             'web_profiler.controller.router.class' => 'Symfony\\Bundle\\WebProfilerBundle\\Controller\\RouterController',
             'web_profiler.controller.exception.class' => 'Symfony\\Bundle\\WebProfilerBundle\\Controller\\ExceptionController',
@@ -5193,13 +6364,23 @@ class appDevDebugProjectContainer extends Container
                     0 => 'swiftmailer',
                     1 => '@Swiftmailer/Collector/swiftmailer.html.twig',
                 ),
+                'gos_web_socket.data_collector' => array(
+                    0 => 'websocket',
+                    1 => 'GosWebSocketBundle:Collector:websocket.html.twig',
+                ),
                 'data_collector.config' => array(
                     0 => 'config',
                     1 => '@WebProfiler/Collector/config.html.twig',
                 ),
             ),
             'console.command.ids' => array(
-                0 => 'sensio_distribution.security_checker.command',
+                0 => 'gos_web_socket.server_command',
+                1 => 'gos_web_socket.websocket_server.command',
+                2 => 'gos_pubsub_router.debug.command',
+                3 => 'sensio_distribution.security_checker.command',
+            ),
+            'gos_pubsub_registered_routers' => array(
+                0 => 'websocket',
             ),
         );
     }

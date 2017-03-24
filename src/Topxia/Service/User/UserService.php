@@ -260,6 +260,8 @@ interface UserService
 
     public function getFriendsCountByUserId($userId);
 
+    public function updateUser($id, $fields);
+// end by matthew
     /**
      * 解析文本中@(提)到的用户
      */

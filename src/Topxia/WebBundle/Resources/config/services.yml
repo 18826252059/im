@@ -38,3 +38,13 @@ services:
     topxia.target_helper:
         class:          Topxia\WebBundle\Util\TargetHelper
         arguments:      ['@service_container']
+
+    acme_hello.topic_sample_service:
+            class: Topxia\WebBundle\Topic\AcmeTopic
+            tags:
+                - { name: gos_web_socket.topic }
+
+    acme_hello.rpc_sample_service:
+        class: Topxia\WebBundle\Rpc\AcmeRpc
+        tags:
+            - { name: gos_web_socket.rpc }

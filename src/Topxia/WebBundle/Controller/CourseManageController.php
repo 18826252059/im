@@ -66,10 +66,13 @@ class CourseManageController extends BaseController
 
         $default = $this->getSettingService()->get('default', array());
 
+        //by matthew
+        $user = $this->getCurrentUser();
         return $this->render('TopxiaWebBundle:CourseManage:base.html.twig', array(
             'course'  => $course,
             'tags'    => ArrayToolkit::column($tags, 'name'),
-            'default' => $default
+            'default' => $default,
+            'user' => $user
         ));
     }
 

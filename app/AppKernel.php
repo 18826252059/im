@@ -70,6 +70,7 @@ class AppKernel extends Kernel implements PluginableHttpKernelInterface
             new Symfony\Bundle\TwigBundle\TwigBundle(),
             new Symfony\Bundle\MonologBundle\MonologBundle(),
             new Symfony\Bundle\SwiftmailerBundle\SwiftmailerBundle(),
+            new Symfony\Bundle\AsseticBundle\AsseticBundle(),
             new Sensio\Bundle\FrameworkExtraBundle\SensioFrameworkExtraBundle(),
             // new Doctrine\Bundle\DoctrineBundle\DoctrineBundle(),
             new Endroid\Bundle\QrCodeBundle\EndroidQrCodeBundle(),
@@ -86,6 +87,8 @@ class AppKernel extends Kernel implements PluginableHttpKernelInterface
             new OAuth2\ServerBundle\OAuth2ServerBundle(),
             // new TemplatePlugin\TemplatePlugin(),
             new Codeages\PluginBundle\CodeagesPluginBundle(),
+            new Gos\Bundle\WebSocketBundle\GosWebSocketBundle(),
+            new Gos\Bundle\PubSubRouterBundle\GosPubSubRouterBundle(),
         );
 
         $bundles = array_merge($bundles, $this->pluginConfigurationManager->getInstalledPluginBundles());

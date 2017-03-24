@@ -1884,6 +1884,12 @@ class UserServiceImpl extends BaseService implements UserService
     {
         return $this->getFriendDao()->getFriendsCountByUserId($userId);
     }
+
+    public function updateUser($id, $fields)
+    {
+        return $this->getUserDao()->updateUser($id,$fields);
+    }
+
 }
 
 class UserSerialize

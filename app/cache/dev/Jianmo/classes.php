@@ -8,6 +8,7 @@ public static function getSubscribedEvents();
 }
 namespace Symfony\Component\HttpKernel\EventListener
 {
+use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\HttpKernel\Event\GetResponseEvent;
 use Symfony\Component\HttpKernel\KernelEvents;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
@@ -786,6 +787,7 @@ class TemplateLocator implements FileLocatorInterface
 {
 protected $locator;
 protected $cache;
+private $cacheHits = array();
 public function __construct(FileLocatorInterface $locator, $cacheDir = null)
 {
 if (null !== $cacheDir && is_file($cache = $cacheDir.'/templates.php')) {
@@ -803,11 +805,14 @@ if (!$template instanceof TemplateReferenceInterface) {
 throw new \InvalidArgumentException('The template must be an instance of TemplateReferenceInterface.');
 }
 $key = $this->getCacheKey($template);
+if (isset($this->cacheHits[$key])) {
+return $this->cacheHits[$key];
+}
 if (isset($this->cache[$key])) {
-return $this->cache[$key];
+return $this->cacheHits[$key] = realpath($this->cache[$key]) ?: $this->cache[$key];
 }
 try {
-return $this->cache[$key] = $this->locator->locate($template->getPath(), $currentPath);
+return $this->cacheHits[$key] = $this->locator->locate($template->getPath(), $currentPath);
 } catch (\InvalidArgumentException $e) {
 throw new \InvalidArgumentException(sprintf('Unable to find template "%s" : "%s".', $template, $e->getMessage()), 0, $e);
 }
@@ -1798,7 +1803,7 @@ if (!isset($this->listeners[$eventName])) {
 return;
 }
 foreach ($this->listeners[$eventName] as $priority => $listeners) {
-if (false !== ($key = array_search($listener, $listeners, true))) {
+if (false !== in_array($listener, $listeners, true)) {
 return $priority;
 }
 }
@@ -2131,10 +2136,12 @@ class ControllerResolver implements ControllerResolverInterface
 {
 private $logger;
 private $supportsVariadic;
+private $supportsScalarTypes;
 public function __construct(LoggerInterface $logger = null)
 {
 $this->logger = $logger;
 $this->supportsVariadic = method_exists('ReflectionParameter','isVariadic');
+$this->supportsScalarTypes = method_exists('ReflectionParameter','getType');
 }
 public function getController(Request $request)
 {
@@ -2193,7 +2200,7 @@ $arguments[] = $attributes[$param->name];
 $arguments[] = $request;
 } elseif ($param->isDefaultValueAvailable()) {
 $arguments[] = $param->getDefaultValue();
-} elseif ($param->allowsNull()) {
+} elseif ($this->supportsScalarTypes && $param->hasType() && $param->allowsNull()) {
 $arguments[] = null;
 } else {
 if (is_array($controller)) {
@@ -2449,10 +2456,11 @@ $this->kernel = $kernel;
 }
 public function parse($controller)
 {
-$originalController = $controller;
-if (3 !== count($parts = explode(':', $controller))) {
+$parts = explode(':', $controller);
+if (3 !== count($parts) || in_array('', $parts, true)) {
 throw new \InvalidArgumentException(sprintf('The "%s" controller is not a valid "a:b:c" controller string.', $controller));
 }
+$originalController = $controller;
 list($bundle, $controller, $action) = $parts;
 $controller = str_replace('/','\\', $controller);
 $bundles = array();
@@ -3030,7 +3038,7 @@ $this->matchAttribute($k, $v);
 }
 public function matchScheme($scheme)
 {
-$this->schemes = array_map('strtolower', (array) $scheme);
+$this->schemes = null !== $scheme ? array_map('strtolower', (array) $scheme) : array();
 }
 public function matchHost($regexp)
 {
@@ -3046,11 +3054,11 @@ $this->matchIps($ip);
 }
 public function matchIps($ips)
 {
-$this->ips = (array) $ips;
+$this->ips = null !== $ips ? (array) $ips : array();
 }
 public function matchMethod($method)
 {
-$this->methods = array_map('strtoupper', (array) $method);
+$this->methods = null !== $method ? array_map('strtoupper', (array) $method) : array();
 }
 public function matchAttribute($key, $regexp)
 {
@@ -3058,10 +3066,10 @@ $this->attributes[$key] = $regexp;
 }
 public function matches(Request $request)
 {
-if ($this->schemes && !in_array($request->getScheme(), $this->schemes)) {
+if ($this->schemes && !in_array($request->getScheme(), $this->schemes, true)) {
 return false;
 }
-if ($this->methods && !in_array($request->getMethod(), $this->methods)) {
+if ($this->methods && !in_array($request->getMethod(), $this->methods, true)) {
 return false;
 }
 foreach ($this->attributes as $key => $pattern) {
@@ -3086,7 +3094,12 @@ namespace
 {
 class Twig_Environment
 {
-const VERSION ='1.26.1';
+const VERSION ='1.33.0';
+const VERSION_ID = 13300;
+const MAJOR_VERSION = 1;
+const MINOR_VERSION = 33;
+const RELEASE_VERSION = 0;
+const EXTRA_VERSION ='';
 protected $charset;
 protected $loader;
 protected $debug;
@@ -3117,7 +3130,7 @@ private $originalCache;
 private $bcWriteCacheFile = false;
 private $bcGetCacheFilename = false;
 private $lastModifiedExtension = 0;
-private $legacyExtensionNames = array();
+private $extensionsByClass = array();
 private $runtimeLoaders = array();
 private $runtimes = array();
 private $optionsHash;
@@ -3248,9 +3261,22 @@ public function display($name, array $context = array())
 {
 $this->loadTemplate($name)->display($context);
 }
+public function load($name)
+{
+if ($name instanceof Twig_TemplateWrapper) {
+return $name;
+}
+if ($name instanceof Twig_Template) {
+return new Twig_TemplateWrapper($this, $name);
+}
+return new Twig_TemplateWrapper($this, $this->loadTemplate($name));
+}
 public function loadTemplate($name, $index = null)
 {
-$cls = $this->getTemplateClass($name, $index);
+$cls = $mainCls = $this->getTemplateClass($name);
+if (null !== $index) {
+$cls .='_'.$index;
+}
 if (isset($this->loadedTemplates[$cls])) {
 return $this->loadedTemplates[$cls];
 }
@@ -3258,19 +3284,31 @@ if (!class_exists($cls, false)) {
 if ($this->bcGetCacheFilename) {
 $key = $this->getCacheFilename($name);
 } else {
-$key = $this->cache->generateKey($name, $cls);
+$key = $this->cache->generateKey($name, $mainCls);
 }
 if (!$this->isAutoReload() || $this->isTemplateFresh($name, $this->cache->getTimestamp($key))) {
 $this->cache->load($key);
 }
 if (!class_exists($cls, false)) {
-$content = $this->compileSource($this->getLoader()->getSource($name), $name);
+$loader = $this->getLoader();
+if (!$loader instanceof Twig_SourceContextLoaderInterface) {
+$source = new Twig_Source($loader->getSource($name), $name);
+} else {
+$source = $loader->getSourceContext($name);
+}
+$content = $this->compileSource($source);
 if ($this->bcWriteCacheFile) {
 $this->writeCacheFile($key, $content);
 } else {
 $this->cache->write($key, $content);
+$this->cache->load($key);
 }
+if (!class_exists($mainCls, false)) {
 eval('?>'.$content);
+}
+}
+if (!class_exists($cls, false)) {
+throw new Twig_Error_Runtime(sprintf('Failed to load Twig template "%s", index "%s": cache is corrupted.', $name, $index), -1, $source);
 }
 }
 if (!$this->runtimeInitialized) {
@@ -3359,10 +3397,14 @@ $this->lexer = $lexer;
 }
 public function tokenize($source, $name = null)
 {
+if (!$source instanceof Twig_Source) {
+@trigger_error(sprintf('Passing a string as the $source argument of %s() is deprecated since version 1.27. Pass a Twig_Source instance instead.', __METHOD__), E_USER_DEPRECATED);
+$source = new Twig_Source($source, $name);
+}
 if (null === $this->lexer) {
 $this->lexer = new Twig_Lexer($this);
 }
-return $this->lexer->tokenize($source, $name);
+return $this->lexer->tokenize($source);
 }
 public function getParser()
 {
@@ -3404,17 +3446,24 @@ return $this->compiler->compile($node)->getSource();
 }
 public function compileSource($source, $name = null)
 {
+if (!$source instanceof Twig_Source) {
+@trigger_error(sprintf('Passing a string as the $source argument of %s() is deprecated since version 1.27. Pass a Twig_Source instance instead.', __METHOD__), E_USER_DEPRECATED);
+$source = new Twig_Source($source, $name);
+}
 try {
-return $this->compile($this->parse($this->tokenize($source, $name)));
+return $this->compile($this->parse($this->tokenize($source)));
 } catch (Twig_Error $e) {
-$e->setTemplateFile($name);
+$e->setSourceContext($source);
 throw $e;
 } catch (Exception $e) {
-throw new Twig_Error_Syntax(sprintf('An exception has been thrown during the compilation of a template ("%s").', $e->getMessage()), -1, $name, $e);
+throw new Twig_Error_Syntax(sprintf('An exception has been thrown during the compilation of a template ("%s").', $e->getMessage()), -1, $source, $e);
 }
 }
 public function setLoader(Twig_LoaderInterface $loader)
 {
+if (!$loader instanceof Twig_SourceContextLoaderInterface && 0 !== strpos(get_class($loader),'Mock_Twig_LoaderInterface')) {
+@trigger_error(sprintf('Twig loader "%s" should implement Twig_SourceContextLoaderInterface since version 1.27.', get_class($loader)), E_USER_DEPRECATED);
+}
 $this->loader = $loader;
 }
 public function getLoader()
@@ -3447,11 +3496,14 @@ $extension->initRuntime($this);
 }
 public function hasExtension($class)
 {
-if (isset($this->legacyExtensionNames[$class])) {
-$class = $this->legacyExtensionNames[$class];
+$class = ltrim($class,'\\');
+if (isset($this->extensions[$class])) {
+if ($class !== get_class($this->extensions[$class])) {
 @trigger_error(sprintf('Referencing the "%s" extension by its name (defined by getName()) is deprecated since 1.26 and will be removed in Twig 2.0. Use the Fully Qualified Extension Class Name instead.', $class), E_USER_DEPRECATED);
 }
-return isset($this->extensions[ltrim($class,'\\')]);
+return true;
+}
+return isset($this->extensionsByClass[$class]);
 }
 public function addRuntimeLoader(Twig_RuntimeLoaderInterface $loader)
 {
@@ -3459,15 +3511,17 @@ $this->runtimeLoaders[] = $loader;
 }
 public function getExtension($class)
 {
-if (isset($this->legacyExtensionNames[$class])) {
-$class = $this->legacyExtensionNames[$class];
+$class = ltrim($class,'\\');
+if (isset($this->extensions[$class])) {
+if ($class !== get_class($this->extensions[$class])) {
 @trigger_error(sprintf('Referencing the "%s" extension by its name (defined by getName()) is deprecated since 1.26 and will be removed in Twig 2.0. Use the Fully Qualified Extension Class Name instead.', $class), E_USER_DEPRECATED);
 }
-$class = ltrim($class,'\\');
-if (!isset($this->extensions[$class])) {
+return $this->extensions[$class];
+}
+if (!isset($this->extensionsByClass[$class])) {
 throw new Twig_Error_Runtime(sprintf('The "%s" extension is not enabled.', $class));
 }
-return $this->extensions[$class];
+return $this->extensionsByClass[$class];
 }
 public function getRuntime($class)
 {
@@ -3483,34 +3537,35 @@ throw new Twig_Error_Runtime(sprintf('Unable to load the "%s" runtime.', $class)
 }
 public function addExtension(Twig_ExtensionInterface $extension)
 {
-$class = get_class($extension);
 if ($this->extensionInitialized) {
-throw new LogicException(sprintf('Unable to register extension "%s" as extensions have already been initialized.', $class));
+throw new LogicException(sprintf('Unable to register extension "%s" as extensions have already been initialized.', $extension->getName()));
 }
-$m = new ReflectionMethod($extension,'getName');
-$legacyName ='Twig_Extension'!== $m->getDeclaringClass()->getName() ? $extension->getName() : null;
-if (isset($this->extensions[$class]) || (null !== $legacyName && isset($this->legacyExtensionNames[$legacyName]))) {
-unset($this->extensions[$this->legacyExtensionNames[$legacyName]], $this->legacyExtensionNames[$legacyName]);
-@trigger_error(sprintf('The possibility to register the same extension twice ("%s") is deprecated since version 1.23 and will be removed in Twig 2.0. Use proper PHP inheritance instead.', $class), E_USER_DEPRECATED);
+$class = get_class($extension);
+if ($class !== $extension->getName()) {
+if (isset($this->extensions[$extension->getName()])) {
+unset($this->extensions[$extension->getName()], $this->extensionsByClass[$class]);
+@trigger_error(sprintf('The possibility to register the same extension twice ("%s") is deprecated since version 1.23 and will be removed in Twig 2.0. Use proper PHP inheritance instead.', $extension->getName()), E_USER_DEPRECATED);
+}
 }
 $this->lastModifiedExtension = 0;
-if ($legacyName !== $class) {
-$this->legacyExtensionNames[$legacyName] = $class;
-}
-$this->extensions[$class] = $extension;
+$this->extensionsByClass[$class] = $extension;
+$this->extensions[$extension->getName()] = $extension;
 $this->updateOptionsHash();
 }
 public function removeExtension($name)
 {
 @trigger_error(sprintf('The %s method is deprecated since version 1.12 and will be removed in Twig 2.0.', __METHOD__), E_USER_DEPRECATED);
-if (isset($this->legacyExtensionNames[$name])) {
-$name = $this->legacyExtensionNames[$name];
-@trigger_error(sprintf('Referencing the "%s" extension by its name (defined by getName()) is deprecated since 1.26 and will be removed in Twig 2.0. Use the Fully Qualified Extension Class Name instead.', $name), E_USER_DEPRECATED);
-}
 if ($this->extensionInitialized) {
 throw new LogicException(sprintf('Unable to remove extension "%s" as extensions have already been initialized.', $name));
 }
-unset($this->extensions[ltrim($name,'\\')]);
+$class = ltrim($name,'\\');
+if (isset($this->extensions[$class])) {
+if ($class !== get_class($this->extensions[$class])) {
+@trigger_error(sprintf('Referencing the "%s" extension by its name (defined by getName()) is deprecated since 1.26 and will be removed in Twig 2.0. Use the Fully Qualified Extension Class Name instead.', $class), E_USER_DEPRECATED);
+}
+unset($this->extensions[$class]);
+}
+unset($this->extensions[$class]);
 $this->updateOptionsHash();
 }
 public function setExtensions(array $extensions)
@@ -3776,7 +3831,6 @@ protected function initExtensions()
 if ($this->extensionInitialized) {
 return;
 }
-$this->extensionInitialized = true;
 $this->parsers = new Twig_TokenParserBroker(array(), array(), false);
 $this->filters = array();
 $this->functions = array();
@@ -3788,6 +3842,7 @@ foreach ($this->extensions as $extension) {
 $this->initExtension($extension);
 }
 $this->initExtension($this->staging);
+$this->extensionInitialized = true;
 }
 protected function initExtension(Twig_ExtensionInterface $extension)
 {
@@ -3829,8 +3884,11 @@ foreach ($extension->getNodeVisitors() as $visitor) {
 $this->visitors[] = $visitor;
 }
 if ($operators = $extension->getOperators()) {
+if (!is_array($operators)) {
+throw new InvalidArgumentException(sprintf('"%s::getOperators()" must return an array with operators, got "%s".', get_class($extension), is_object($operators) ? get_class($operators) : gettype($operators).(is_resource($operators) ?'':'#'.$operators)));
+}
 if (2 !== count($operators)) {
-throw new InvalidArgumentException(sprintf('"%s::getOperators()" does not return a valid operators array.', get_class($extension)));
+throw new InvalidArgumentException(sprintf('"%s::getOperators()" must return an array of 2 elements, got %d.', get_class($extension), count($operators)));
 }
 $this->unaryOperators = array_merge($this->unaryOperators, $operators[0]);
 $this->binaryOperators = array_merge($this->binaryOperators, $operators[1]);
@@ -3983,6 +4041,7 @@ new Twig_TokenParser_Spaceless(),
 new Twig_TokenParser_Flush(),
 new Twig_TokenParser_Do(),
 new Twig_TokenParser_Embed(),
+new Twig_TokenParser_With(),
 );
 }
 public function getFilters()
@@ -4003,7 +4062,7 @@ new Twig_SimpleFilter('capitalize','twig_capitalize_string_filter', array('needs
 new Twig_SimpleFilter('upper','strtoupper'),
 new Twig_SimpleFilter('lower','strtolower'),
 new Twig_SimpleFilter('striptags','strip_tags'),
-new Twig_SimpleFilter('trim','trim'),
+new Twig_SimpleFilter('trim','twig_trim_filter'),
 new Twig_SimpleFilter('nl2br','nl2br', array('pre_escape'=>'html','is_safe'=> array('html'))),
 new Twig_SimpleFilter('join','twig_join_filter'),
 new Twig_SimpleFilter('split','twig_split_filter', array('needs_environment'=> true)),
@@ -4062,61 +4121,9 @@ public function getOperators()
 return array(
 array('not'=> array('precedence'=> 50,'class'=>'Twig_Node_Expression_Unary_Not'),'-'=> array('precedence'=> 500,'class'=>'Twig_Node_Expression_Unary_Neg'),'+'=> array('precedence'=> 500,'class'=>'Twig_Node_Expression_Unary_Pos'),
 ),
-array('or'=> array('precedence'=> 10,'class'=>'Twig_Node_Expression_Binary_Or','associativity'=> Twig_ExpressionParser::OPERATOR_LEFT),'and'=> array('precedence'=> 15,'class'=>'Twig_Node_Expression_Binary_And','associativity'=> Twig_ExpressionParser::OPERATOR_LEFT),'b-or'=> array('precedence'=> 16,'class'=>'Twig_Node_Expression_Binary_BitwiseOr','associativity'=> Twig_ExpressionParser::OPERATOR_LEFT),'b-xor'=> array('precedence'=> 17,'class'=>'Twig_Node_Expression_Binary_BitwiseXor','associativity'=> Twig_ExpressionParser::OPERATOR_LEFT),'b-and'=> array('precedence'=> 18,'class'=>'Twig_Node_Expression_Binary_BitwiseAnd','associativity'=> Twig_ExpressionParser::OPERATOR_LEFT),'=='=> array('precedence'=> 20,'class'=>'Twig_Node_Expression_Binary_Equal','associativity'=> Twig_ExpressionParser::OPERATOR_LEFT),'!='=> array('precedence'=> 20,'class'=>'Twig_Node_Expression_Binary_NotEqual','associativity'=> Twig_ExpressionParser::OPERATOR_LEFT),'<'=> array('precedence'=> 20,'class'=>'Twig_Node_Expression_Binary_Less','associativity'=> Twig_ExpressionParser::OPERATOR_LEFT),'>'=> array('precedence'=> 20,'class'=>'Twig_Node_Expression_Binary_Greater','associativity'=> Twig_ExpressionParser::OPERATOR_LEFT),'>='=> array('precedence'=> 20,'class'=>'Twig_Node_Expression_Binary_GreaterEqual','associativity'=> Twig_ExpressionParser::OPERATOR_LEFT),'<='=> array('precedence'=> 20,'class'=>'Twig_Node_Expression_Binary_LessEqual','associativity'=> Twig_ExpressionParser::OPERATOR_LEFT),'not in'=> array('precedence'=> 20,'class'=>'Twig_Node_Expression_Binary_NotIn','associativity'=> Twig_ExpressionParser::OPERATOR_LEFT),'in'=> array('precedence'=> 20,'class'=>'Twig_Node_Expression_Binary_In','associativity'=> Twig_ExpressionParser::OPERATOR_LEFT),'matches'=> array('precedence'=> 20,'class'=>'Twig_Node_Expression_Binary_Matches','associativity'=> Twig_ExpressionParser::OPERATOR_LEFT),'starts with'=> array('precedence'=> 20,'class'=>'Twig_Node_Expression_Binary_StartsWith','associativity'=> Twig_ExpressionParser::OPERATOR_LEFT),'ends with'=> array('precedence'=> 20,'class'=>'Twig_Node_Expression_Binary_EndsWith','associativity'=> Twig_ExpressionParser::OPERATOR_LEFT),'..'=> array('precedence'=> 25,'class'=>'Twig_Node_Expression_Binary_Range','associativity'=> Twig_ExpressionParser::OPERATOR_LEFT),'+'=> array('precedence'=> 30,'class'=>'Twig_Node_Expression_Binary_Add','associativity'=> Twig_ExpressionParser::OPERATOR_LEFT),'-'=> array('precedence'=> 30,'class'=>'Twig_Node_Expression_Binary_Sub','associativity'=> Twig_ExpressionParser::OPERATOR_LEFT),'~'=> array('precedence'=> 40,'class'=>'Twig_Node_Expression_Binary_Concat','associativity'=> Twig_ExpressionParser::OPERATOR_LEFT),'*'=> array('precedence'=> 60,'class'=>'Twig_Node_Expression_Binary_Mul','associativity'=> Twig_ExpressionParser::OPERATOR_LEFT),'/'=> array('precedence'=> 60,'class'=>'Twig_Node_Expression_Binary_Div','associativity'=> Twig_ExpressionParser::OPERATOR_LEFT),'//'=> array('precedence'=> 60,'class'=>'Twig_Node_Expression_Binary_FloorDiv','associativity'=> Twig_ExpressionParser::OPERATOR_LEFT),'%'=> array('precedence'=> 60,'class'=>'Twig_Node_Expression_Binary_Mod','associativity'=> Twig_ExpressionParser::OPERATOR_LEFT),'is'=> array('precedence'=> 100,'callable'=> array($this,'parseTestExpression'),'associativity'=> Twig_ExpressionParser::OPERATOR_LEFT),'is not'=> array('precedence'=> 100,'callable'=> array($this,'parseNotTestExpression'),'associativity'=> Twig_ExpressionParser::OPERATOR_LEFT),'**'=> array('precedence'=> 200,'class'=>'Twig_Node_Expression_Binary_Power','associativity'=> Twig_ExpressionParser::OPERATOR_RIGHT),'??'=> array('precedence'=> 300,'class'=>'Twig_Node_Expression_NullCoalesce','associativity'=> Twig_ExpressionParser::OPERATOR_RIGHT),
+array('or'=> array('precedence'=> 10,'class'=>'Twig_Node_Expression_Binary_Or','associativity'=> Twig_ExpressionParser::OPERATOR_LEFT),'and'=> array('precedence'=> 15,'class'=>'Twig_Node_Expression_Binary_And','associativity'=> Twig_ExpressionParser::OPERATOR_LEFT),'b-or'=> array('precedence'=> 16,'class'=>'Twig_Node_Expression_Binary_BitwiseOr','associativity'=> Twig_ExpressionParser::OPERATOR_LEFT),'b-xor'=> array('precedence'=> 17,'class'=>'Twig_Node_Expression_Binary_BitwiseXor','associativity'=> Twig_ExpressionParser::OPERATOR_LEFT),'b-and'=> array('precedence'=> 18,'class'=>'Twig_Node_Expression_Binary_BitwiseAnd','associativity'=> Twig_ExpressionParser::OPERATOR_LEFT),'=='=> array('precedence'=> 20,'class'=>'Twig_Node_Expression_Binary_Equal','associativity'=> Twig_ExpressionParser::OPERATOR_LEFT),'!='=> array('precedence'=> 20,'class'=>'Twig_Node_Expression_Binary_NotEqual','associativity'=> Twig_ExpressionParser::OPERATOR_LEFT),'<'=> array('precedence'=> 20,'class'=>'Twig_Node_Expression_Binary_Less','associativity'=> Twig_ExpressionParser::OPERATOR_LEFT),'>'=> array('precedence'=> 20,'class'=>'Twig_Node_Expression_Binary_Greater','associativity'=> Twig_ExpressionParser::OPERATOR_LEFT),'>='=> array('precedence'=> 20,'class'=>'Twig_Node_Expression_Binary_GreaterEqual','associativity'=> Twig_ExpressionParser::OPERATOR_LEFT),'<='=> array('precedence'=> 20,'class'=>'Twig_Node_Expression_Binary_LessEqual','associativity'=> Twig_ExpressionParser::OPERATOR_LEFT),'not in'=> array('precedence'=> 20,'class'=>'Twig_Node_Expression_Binary_NotIn','associativity'=> Twig_ExpressionParser::OPERATOR_LEFT),'in'=> array('precedence'=> 20,'class'=>'Twig_Node_Expression_Binary_In','associativity'=> Twig_ExpressionParser::OPERATOR_LEFT),'matches'=> array('precedence'=> 20,'class'=>'Twig_Node_Expression_Binary_Matches','associativity'=> Twig_ExpressionParser::OPERATOR_LEFT),'starts with'=> array('precedence'=> 20,'class'=>'Twig_Node_Expression_Binary_StartsWith','associativity'=> Twig_ExpressionParser::OPERATOR_LEFT),'ends with'=> array('precedence'=> 20,'class'=>'Twig_Node_Expression_Binary_EndsWith','associativity'=> Twig_ExpressionParser::OPERATOR_LEFT),'..'=> array('precedence'=> 25,'class'=>'Twig_Node_Expression_Binary_Range','associativity'=> Twig_ExpressionParser::OPERATOR_LEFT),'+'=> array('precedence'=> 30,'class'=>'Twig_Node_Expression_Binary_Add','associativity'=> Twig_ExpressionParser::OPERATOR_LEFT),'-'=> array('precedence'=> 30,'class'=>'Twig_Node_Expression_Binary_Sub','associativity'=> Twig_ExpressionParser::OPERATOR_LEFT),'~'=> array('precedence'=> 40,'class'=>'Twig_Node_Expression_Binary_Concat','associativity'=> Twig_ExpressionParser::OPERATOR_LEFT),'*'=> array('precedence'=> 60,'class'=>'Twig_Node_Expression_Binary_Mul','associativity'=> Twig_ExpressionParser::OPERATOR_LEFT),'/'=> array('precedence'=> 60,'class'=>'Twig_Node_Expression_Binary_Div','associativity'=> Twig_ExpressionParser::OPERATOR_LEFT),'//'=> array('precedence'=> 60,'class'=>'Twig_Node_Expression_Binary_FloorDiv','associativity'=> Twig_ExpressionParser::OPERATOR_LEFT),'%'=> array('precedence'=> 60,'class'=>'Twig_Node_Expression_Binary_Mod','associativity'=> Twig_ExpressionParser::OPERATOR_LEFT),'is'=> array('precedence'=> 100,'associativity'=> Twig_ExpressionParser::OPERATOR_LEFT),'is not'=> array('precedence'=> 100,'associativity'=> Twig_ExpressionParser::OPERATOR_LEFT),'**'=> array('precedence'=> 200,'class'=>'Twig_Node_Expression_Binary_Power','associativity'=> Twig_ExpressionParser::OPERATOR_RIGHT),'??'=> array('precedence'=> 300,'class'=>'Twig_Node_Expression_NullCoalesce','associativity'=> Twig_ExpressionParser::OPERATOR_RIGHT),
 ),
 );
-}
-public function parseNotTestExpression(Twig_Parser $parser, Twig_NodeInterface $node)
-{
-return new Twig_Node_Expression_Unary_Not($this->parseTestExpression($parser, $node), $parser->getCurrentToken()->getLine());
-}
-public function parseTestExpression(Twig_Parser $parser, Twig_NodeInterface $node)
-{
-$stream = $parser->getStream();
-list($name, $test) = $this->getTest($parser, $node->getLine());
-if ($test instanceof Twig_SimpleTest && $test->isDeprecated()) {
-$message = sprintf('Twig Test "%s" is deprecated', $name);
-if (!is_bool($test->getDeprecatedVersion())) {
-$message .= sprintf(' since version %s', $test->getDeprecatedVersion());
-}
-if ($test->getAlternative()) {
-$message .= sprintf('. Use "%s" instead', $test->getAlternative());
-}
-$message .= sprintf(' in %s at line %d.', $stream->getFilename(), $stream->getCurrent()->getLine());
-@trigger_error($message, E_USER_DEPRECATED);
-}
-$class = $this->getTestNodeClass($parser, $test);
-$arguments = null;
-if ($stream->test(Twig_Token::PUNCTUATION_TYPE,'(')) {
-$arguments = $parser->getExpressionParser()->parseArguments(true);
-}
-return new $class($node, $name, $arguments, $parser->getCurrentToken()->getLine());
-}
-protected function getTest(Twig_Parser $parser, $line)
-{
-$stream = $parser->getStream();
-$name = $stream->expect(Twig_Token::NAME_TYPE)->getValue();
-$env = $parser->getEnvironment();
-if ($test = $env->getTest($name)) {
-return array($name, $test);
-}
-if ($stream->test(Twig_Token::NAME_TYPE)) {
-$name = $name.' '.$parser->getCurrentToken()->getValue();
-if ($test = $env->getTest($name)) {
-$parser->getStream()->next();
-return array($name, $test);
-}
-}
-$e = new Twig_Error_Syntax(sprintf('Unknown "%s" test.', $name), $line, $parser->getFilename());
-$e->addSuggestions($name, array_keys($env->getTests()));
-throw $e;
-}
-protected function getTestNodeClass(Twig_Parser $parser, $test)
-{
-if ($test instanceof Twig_SimpleTest) {
-return $test->getNodeClass();
-}
-return $test instanceof Twig_Test_Node ? $test->getClass() :'Twig_Node_Expression_Test';
 }
 public function getName()
 {
@@ -4306,7 +4313,7 @@ return array_merge($arr1, $arr2);
 function twig_slice(Twig_Environment $env, $item, $start, $length = null, $preserveKeys = false)
 {
 if ($item instanceof Traversable) {
-if ($item instanceof IteratorAggregate) {
+while ($item instanceof IteratorAggregate) {
 $item = $item->getIterator();
 }
 if ($start >= 0 && $length >= 0 && $item instanceof Iterator) {
@@ -4375,7 +4382,23 @@ return $value;
 function twig_get_array_keys_filter($array)
 {
 if ($array instanceof Traversable) {
-return array_keys(iterator_to_array($array));
+while ($array instanceof IteratorAggregate) {
+$array = $array->getIterator();
+}
+if ($array instanceof Iterator) {
+$keys = array();
+$array->rewind();
+while ($array->valid()) {
+$keys[] = $array->key();
+$array->next();
+}
+return $keys;
+}
+$keys = array();
+foreach ($array as $key => $item) {
+$keys[] = $key;
+}
+return $keys;
 }
 if (!is_array($array)) {
 return array();
@@ -4421,9 +4444,38 @@ return in_array($value, $compare, is_object($value) || is_resource($value));
 } elseif (is_string($compare) && (is_string($value) || is_int($value) || is_float($value))) {
 return''=== $value || false !== strpos($compare, (string) $value);
 } elseif ($compare instanceof Traversable) {
-return in_array($value, iterator_to_array($compare, false), is_object($value) || is_resource($value));
+if (is_object($value) || is_resource($value)) {
+foreach ($compare as $item) {
+if ($item === $value) {
+return true;
+}
+}
+} else {
+foreach ($compare as $item) {
+if ($item == $value) {
+return true;
+}
+}
 }
 return false;
+}
+return false;
+}
+function twig_trim_filter($string, $characterMask = null, $side ='both')
+{
+if (null === $characterMask) {
+$characterMask =" \t\n\r\0\x0B";
+}
+switch ($side) {
+case'both':
+return trim($string, $characterMask);
+case'left':
+return ltrim($string, $characterMask);
+case'right':
+return rtrim($string, $characterMask);
+default:
+throw new Twig_Error_Runtime('Trimming side must be "left", "right" or "both".');
+}
 }
 function twig_escape_filter(Twig_Environment $env, $string, $strategy ='html', $charset = null, $autoescape = false)
 {
@@ -4465,7 +4517,7 @@ case'js':
 if ('UTF-8'!== $charset) {
 $string = twig_convert_encoding($string,'UTF-8', $charset);
 }
-if (0 == strlen($string) ? false : (1 == preg_match('/^./su', $string) ? false : true)) {
+if (0 == strlen($string) ? false : 1 !== preg_match('/^./su', $string)) {
 throw new Twig_Error_Runtime('The string to escape is not a valid UTF-8 string.');
 }
 $string = preg_replace_callback('#[^a-zA-Z0-9,\._]#Su','_twig_escape_js_callback', $string);
@@ -4477,7 +4529,7 @@ case'css':
 if ('UTF-8'!== $charset) {
 $string = twig_convert_encoding($string,'UTF-8', $charset);
 }
-if (0 == strlen($string) ? false : (1 == preg_match('/^./su', $string) ? false : true)) {
+if (0 == strlen($string) ? false : 1 !== preg_match('/^./su', $string)) {
 throw new Twig_Error_Runtime('The string to escape is not a valid UTF-8 string.');
 }
 $string = preg_replace_callback('#[^a-zA-Z0-9]#Su','_twig_escape_css_callback', $string);
@@ -4489,7 +4541,7 @@ case'html_attr':
 if ('UTF-8'!== $charset) {
 $string = twig_convert_encoding($string,'UTF-8', $charset);
 }
-if (0 == strlen($string) ? false : (1 == preg_match('/^./su', $string) ? false : true)) {
+if (0 == strlen($string) ? false : 1 !== preg_match('/^./su', $string)) {
 throw new Twig_Error_Runtime('The string to escape is not a valid UTF-8 string.');
 }
 $string = preg_replace_callback('#[^a-zA-Z0-9,\.\-_]#Su','_twig_escape_html_attr_callback', $string);
@@ -4547,7 +4599,11 @@ if (!isset($char[1])) {
 return'\\x'.strtoupper(substr('00'.bin2hex($char), -2));
 }
 $char = twig_convert_encoding($char,'UTF-16BE','UTF-8');
-return'\\u'.strtoupper(substr('0000'.bin2hex($char), -4));
+$char = strtoupper(bin2hex($char));
+if (4 >= strlen($char)) {
+return sprintf('\u%04s', $char);
+}
+return sprintf('\u%04s\u%04s', substr($char, 0, -4), substr($char, -4));
 }
 function _twig_escape_css_callback($matches)
 {
@@ -4590,7 +4646,13 @@ return sprintf('&#x%s;', $hex);
 if (function_exists('mb_get_info')) {
 function twig_length_filter(Twig_Environment $env, $thing)
 {
-return is_scalar($thing) ? mb_strlen($thing, $env->getCharset()) : count($thing);
+if (is_scalar($thing)) {
+return mb_strlen($thing, $env->getCharset());
+}
+if (method_exists($thing,'__toString') && !$thing instanceof \Countable) {
+return mb_strlen((string) $thing, $env->getCharset());
+}
+return count($thing);
 }
 function twig_upper_filter(Twig_Environment $env, $string)
 {
@@ -4624,7 +4686,13 @@ return ucfirst(strtolower($string));
 else {
 function twig_length_filter(Twig_Environment $env, $thing)
 {
-return is_scalar($thing) ? strlen($thing) : count($thing);
+if (is_scalar($thing)) {
+return strlen($thing);
+}
+if (method_exists($thing,'__toString') && !$thing instanceof \Countable) {
+return strlen((string) $thing);
+}
+return count($thing);
 }
 function twig_title_string_filter(Twig_Environment $env, $string)
 {
@@ -4646,6 +4714,9 @@ function twig_test_empty($value)
 {
 if ($value instanceof Countable) {
 return 0 == count($value);
+}
+if (method_exists($value,'__toString')) {
+return''=== (string) $value;
 }
 return''=== $value || false === $value || null === $value || array() === $value;
 }
@@ -4676,6 +4747,16 @@ $sandbox->disableSandbox();
 }
 throw $e;
 }
+} catch (Throwable $e) {
+if ($isSandboxed && !$alreadySandboxed) {
+$sandbox->disableSandbox();
+}
+throw $e;
+} catch (Exception $e) {
+if ($isSandboxed && !$alreadySandboxed) {
+$sandbox->disableSandbox();
+}
+throw $e;
 }
 if ($isSandboxed && !$alreadySandboxed) {
 $sandbox->disableSandbox();
@@ -4684,8 +4765,13 @@ return $result;
 }
 function twig_source(Twig_Environment $env, $name, $ignoreMissing = false)
 {
+$loader = $env->getLoader();
 try {
-return $env->getLoader()->getSource($name);
+if (!$loader instanceof Twig_SourceContextLoaderInterface) {
+return $loader->getSource($name);
+} else {
+return $loader->getSourceContext($name)->getCode();
+}
 } catch (Twig_Error_Loader $e) {
 if (!$ignoreMissing) {
 throw $e;
@@ -4698,6 +4784,13 @@ if (null !== $object) {
 $constant = get_class($object).'::'.$constant;
 }
 return constant($constant);
+}
+function twig_constant_is_defined($constant, $object = null)
+{
+if (null !== $object) {
+$constant = get_class($object).'::'.$constant;
+}
+return defined($constant);
 }
 function twig_array_batch($items, $size, $fill = null)
 {
@@ -4748,14 +4841,18 @@ if (true === $defaultStrategy) {
 $defaultStrategy ='html';
 }
 if ('filename'=== $defaultStrategy) {
+@trigger_error('Using "filename" as the default strategy is deprecated since version 1.27. Use "name" instead.', E_USER_DEPRECATED);
+$defaultStrategy ='name';
+}
+if ('name'=== $defaultStrategy) {
 $defaultStrategy = array('Twig_FileExtensionEscapingStrategy','guess');
 }
 $this->defaultStrategy = $defaultStrategy;
 }
-public function getDefaultStrategy($filename)
+public function getDefaultStrategy($name)
 {
 if (!is_string($this->defaultStrategy) && false !== $this->defaultStrategy) {
-return call_user_func($this->defaultStrategy, $filename);
+return call_user_func($this->defaultStrategy, $name);
 }
 return $this->defaultStrategy;
 }
@@ -4844,6 +4941,10 @@ public function __construct(Twig_Environment $env)
 {
 $this->env = $env;
 }
+public function __toString()
+{
+return $this->getTemplateName();
+}
 abstract public function getTemplateName();
 public function getDebugInfo()
 {
@@ -4851,7 +4952,12 @@ return array();
 }
 public function getSource()
 {
+@trigger_error('The '.__METHOD__.' method is deprecated since version 1.27 and will be removed in 2.0. Use getSourceContext() instead.', E_USER_DEPRECATED);
 return'';
+}
+public function getSourceContext()
+{
+return new Twig_Source('', $this->getTemplateName());
 }
 public function getEnvironment()
 {
@@ -4875,7 +4981,7 @@ if (!isset($this->parents[$parent])) {
 $this->parents[$parent] = $this->loadTemplate($parent);
 }
 } catch (Twig_Error_Loader $e) {
-$e->setTemplateFile(null);
+$e->setSourceContext(null);
 $e->guess();
 throw $e;
 }
@@ -4897,7 +5003,7 @@ $this->traits[$name][0]->displayBlock($name, $context, $blocks, false);
 } elseif (false !== $parent = $this->getParent($context)) {
 $parent->displayBlock($name, $context, $blocks, false);
 } else {
-throw new Twig_Error_Runtime(sprintf('The template has no parent and no traits defining the "%s" block.', $name), -1, $this->getTemplateName());
+throw new Twig_Error_Runtime(sprintf('The template has no parent and no traits defining the "%s" block.', $name), -1, $this->getSourceContext());
 }
 }
 public function displayBlock($name, array $context, array $blocks = array(), $useBlocks = true)
@@ -4913,15 +5019,15 @@ $block = $this->blocks[$name][1];
 $template = null;
 $block = null;
 }
-if (null !== $template) {
-if (!$template instanceof self) {
+if (null !== $template && !$template instanceof self) {
 throw new LogicException('A block must be a method on a Twig_Template instance.');
 }
+if (null !== $template) {
 try {
 $template->$block($context, $blocks);
 } catch (Twig_Error $e) {
-if (!$e->getTemplateFile()) {
-$e->setTemplateFile($template->getTemplateName());
+if (!$e->getSourceContext()) {
+$e->setSourceContext($template->getSourceContext());
 }
 if (false === $e->getTemplateLine()) {
 $e->setTemplateLine(-1);
@@ -4929,10 +5035,12 @@ $e->guess();
 }
 throw $e;
 } catch (Exception $e) {
-throw new Twig_Error_Runtime(sprintf('An exception has been thrown during the rendering of a template ("%s").', $e->getMessage()), -1, $template->getTemplateName(), $e);
+throw new Twig_Error_Runtime(sprintf('An exception has been thrown during the rendering of a template ("%s").', $e->getMessage()), -1, $template->getSourceContext(), $e);
 }
 } elseif (false !== $parent = $this->getParent($context)) {
 $parent->displayBlock($name, $context, array_merge($this->blocks, $blocks), false);
+} else {
+@trigger_error(sprintf('Silent display of undefined block "%s" in template "%s" is deprecated since version 1.29 and will throw an exception in 2.0. Use the "block(\'%s\') is defined" expression to test for block existence.', $name, $this->getTemplateName(), $name), E_USER_DEPRECATED);
 }
 }
 public function renderParentBlock($name, array $context, array $blocks = array())
@@ -4947,13 +5055,34 @@ ob_start();
 $this->displayBlock($name, $context, $blocks, $useBlocks);
 return ob_get_clean();
 }
-public function hasBlock($name)
+public function hasBlock($name, array $context = null, array $blocks = array())
 {
+if (null === $context) {
+@trigger_error('The '.__METHOD__.' method is internal and should never be called; calling it directly is deprecated since version 1.28 and won\'t be possible anymore in 2.0.', E_USER_DEPRECATED);
 return isset($this->blocks[(string) $name]);
 }
-public function getBlockNames()
+if (isset($blocks[$name])) {
+return $blocks[$name][0] instanceof self;
+}
+if (isset($this->blocks[$name])) {
+return true;
+}
+if (false !== $parent = $this->getParent($context)) {
+return $parent->hasBlock($name, $context);
+}
+return false;
+}
+public function getBlockNames(array $context = null, array $blocks = array())
 {
+if (null === $context) {
+@trigger_error('The '.__METHOD__.' method is internal and should never be called; calling it directly is deprecated since version 1.28 and won\'t be possible anymore in 2.0.', E_USER_DEPRECATED);
 return array_keys($this->blocks);
+}
+$names = array_merge(array_keys($blocks), array_keys($this->blocks));
+if (false !== $parent = $this->getParent($context)) {
+$names = array_merge($names, $parent->getBlockNames($context));
+}
+return array_unique($names);
 }
 protected function loadTemplate($template, $templateName = null, $line = null, $index = null)
 {
@@ -4964,10 +5093,13 @@ return $this->env->resolveTemplate($template);
 if ($template instanceof self) {
 return $template;
 }
+if ($template instanceof Twig_TemplateWrapper) {
+return $template;
+}
 return $this->env->loadTemplate($template, $index);
 } catch (Twig_Error $e) {
-if (!$e->getTemplateFile()) {
-$e->setTemplateFile($templateName ? $templateName : $this->getTemplateName());
+if (!$e->getSourceContext()) {
+$e->setSourceContext($templateName ? new Twig_Source('', $templateName) : $this->getSourceContext());
 }
 if ($e->getTemplateLine()) {
 throw $e;
@@ -5012,8 +5144,8 @@ protected function displayWithErrorHandling(array $context, array $blocks = arra
 try {
 $this->doDisplay($context, $blocks);
 } catch (Twig_Error $e) {
-if (!$e->getTemplateFile()) {
-$e->setTemplateFile($this->getTemplateName());
+if (!$e->getSourceContext()) {
+$e->setSourceContext($this->getSourceContext());
 }
 if (false === $e->getTemplateLine()) {
 $e->setTemplateLine(-1);
@@ -5021,7 +5153,7 @@ $e->guess();
 }
 throw $e;
 } catch (Exception $e) {
-throw new Twig_Error_Runtime(sprintf('An exception has been thrown during the rendering of a template ("%s").', $e->getMessage()), -1, $this->getTemplateName(), $e);
+throw new Twig_Error_Runtime(sprintf('An exception has been thrown during the rendering of a template ("%s").', $e->getMessage()), -1, $this->getSourceContext(), $e);
 }
 }
 abstract protected function doDisplay(array $context, array $blocks = array());
@@ -5031,7 +5163,7 @@ if (!array_key_exists($item, $context)) {
 if ($ignoreStrictCheck || !$this->env->isStrictVariables()) {
 return;
 }
-throw new Twig_Error_Runtime(sprintf('Variable "%s" does not exist.', $item), -1, $this->getTemplateName());
+throw new Twig_Error_Runtime(sprintf('Variable "%s" does not exist.', $item), -1, $this->getSourceContext());
 }
 return $context[$item];
 }
@@ -5039,7 +5171,7 @@ protected function getAttribute($object, $item, array $arguments = array(), $typ
 {
 if (self::METHOD_CALL !== $type) {
 $arrayItem = is_bool($item) || is_float($item) ? (int) $item : $item;
-if ((is_array($object) && array_key_exists($arrayItem, $object))
+if ((is_array($object) && (isset($object[$arrayItem]) || array_key_exists($arrayItem, $object)))
 || ($object instanceof ArrayAccess && isset($object[$arrayItem]))
 ) {
 if ($isDefinedTest) {
@@ -5075,7 +5207,7 @@ $message = sprintf('Impossible to access an attribute ("%s") on a null variable.
 } else {
 $message = sprintf('Impossible to access an attribute ("%s") on a %s variable ("%s").', $item, gettype($object), $object);
 }
-throw new Twig_Error_Runtime($message, -1, $this->getTemplateName());
+throw new Twig_Error_Runtime($message, -1, $this->getSourceContext());
 }
 }
 if (!is_object($object)) {
@@ -5090,7 +5222,7 @@ $message = sprintf('Impossible to invoke a method ("%s") on a null variable.', $
 } else {
 $message = sprintf('Impossible to invoke a method ("%s") on a %s variable ("%s").', $item, gettype($object), $object);
 }
-throw new Twig_Error_Runtime($message, -1, $this->getTemplateName());
+throw new Twig_Error_Runtime($message, -1, $this->getSourceContext());
 }
 if (self::METHOD_CALL !== $type && !$object instanceof self) { if (isset($object->$item) || array_key_exists((string) $item, $object)) {
 if ($isDefinedTest) {
@@ -5103,31 +5235,48 @@ return $object->$item;
 }
 }
 $class = get_class($object);
-if (!isset(self::$cache[$class]['methods'])) {
+if (!isset(self::$cache[$class])) {
 if ($object instanceof self) {
 $ref = new ReflectionClass($class);
 $methods = array();
 foreach ($ref->getMethods(ReflectionMethod::IS_PUBLIC) as $refMethod) {
-$methodName = strtolower($refMethod->name);
-if ('getenvironment'!== $methodName) {
-$methods[$methodName] = true;
+if ('getenvironment'!== strtolower($refMethod->name)) {
+$methods[] = $refMethod->name;
 }
 }
-self::$cache[$class]['methods'] = $methods;
 } else {
-self::$cache[$class]['methods'] = array_change_key_case(array_flip(get_class_methods($object)));
+$methods = get_class_methods($object);
 }
+sort($methods);
+$cache = array();
+foreach ($methods as $method) {
+$cache[$method] = $method;
+$cache[$lcName = strtolower($method)] = $method;
+if ('g'=== $lcName[0] && 0 === strpos($lcName,'get')) {
+$name = substr($method, 3);
+$lcName = substr($lcName, 3);
+} elseif ('i'=== $lcName[0] && 0 === strpos($lcName,'is')) {
+$name = substr($method, 2);
+$lcName = substr($lcName, 2);
+} else {
+continue;
+}
+if (!isset($cache[$name])) {
+$cache[$name] = $method;
+}
+if (!isset($cache[$lcName])) {
+$cache[$lcName] = $method;
+}
+}
+self::$cache[$class] = $cache;
 }
 $call = false;
-$lcItem = strtolower($item);
-if (isset(self::$cache[$class]['methods'][$lcItem])) {
-$method = (string) $item;
-} elseif (isset(self::$cache[$class]['methods']['get'.$lcItem])) {
-$method ='get'.$item;
-} elseif (isset(self::$cache[$class]['methods']['is'.$lcItem])) {
-$method ='is'.$item;
-} elseif (isset(self::$cache[$class]['methods']['__call'])) {
-$method = (string) $item;
+if (isset(self::$cache[$class][$item])) {
+$method = self::$cache[$class][$item];
+} elseif (isset(self::$cache[$class][$lcItem = strtolower($item)])) {
+$method = self::$cache[$class][$lcItem];
+} elseif (isset(self::$cache[$class]['__call'])) {
+$method = $item;
 $call = true;
 } else {
 if ($isDefinedTest) {
@@ -5136,7 +5285,7 @@ return false;
 if ($ignoreStrictCheck || !$this->env->isStrictVariables()) {
 return;
 }
-throw new Twig_Error_Runtime(sprintf('Neither the property "%1$s" nor one of the methods "%1$s()", "get%1$s()"/"is%1$s()" or "__call()" exist and have public access in class "%2$s".', $item, get_class($object)), -1, $this->getTemplateName());
+throw new Twig_Error_Runtime(sprintf('Neither the property "%1$s" nor one of the methods "%1$s()", "get%1$s()"/"is%1$s()" or "__call()" exist and have public access in class "%2$s".', $item, $class), -1, $this->getSourceContext());
 }
 if ($isDefinedTest) {
 return true;
@@ -5145,7 +5294,11 @@ if ($this->env->hasExtension('Twig_Extension_Sandbox')) {
 $this->env->getExtension('Twig_Extension_Sandbox')->checkMethodAllowed($object, $method);
 }
 try {
+if (!$arguments) {
+$ret = $object->$method();
+} else {
 $ret = call_user_func_array(array($object, $method), $arguments);
+}
 } catch (BadMethodCallException $e) {
 if ($call && ($ignoreStrictCheck || !$this->env->isStrictVariables())) {
 return;
@@ -5153,6 +5306,16 @@ return;
 throw $e;
 }
 if ($object instanceof Twig_TemplateInterface) {
+$self = $object->getTemplateName() === $this->getTemplateName();
+$message = sprintf('Calling "%s" on template "%s" from template "%s" is deprecated since version 1.28 and won\'t be supported anymore in 2.0.', $item, $object->getTemplateName(), $this->getTemplateName());
+if ('renderBlock'=== $method ||'displayBlock'=== $method) {
+$message .= sprintf(' Use block("%s"%s) instead).', $arguments[0], $self ?'':', template');
+} elseif ('hasBlock'=== $method) {
+$message .= sprintf(' Use "block("%s"%s) is defined" instead).', $arguments[0], $self ?'':', template');
+} elseif ('render'=== $method ||'display'=== $method) {
+$message .= sprintf(' Use include("%s") instead).', $object->getTemplateName());
+}
+@trigger_error($message, E_USER_DEPRECATED);
 return $ret ===''?'': new Twig_Markup($ret, $this->env->getCharset());
 }
 return $ret;
@@ -5205,12 +5368,12 @@ return'NaN';
 }
 return $data;
 }
-if (is_array($data) || $data instanceof \Traversable) {
+if (is_array($data)) {
 $normalized = array();
 $count = 1;
 foreach ($data as $key => $value) {
 if ($count++ >= 1000) {
-$normalized['...'] ='Over 1000 items, aborting normalization';
+$normalized['...'] ='Over 1000 items ('.count($data).' total), aborting normalization';
 break;
 }
 $normalized[$key] = $this->normalize($value);
@@ -5403,6 +5566,9 @@ if (false !== strpos($output,'%'.$var.'%')) {
 $output = str_replace('%'.$var.'%', $this->stringify($val), $output);
 }
 }
+if (false !== strpos($output,'%')) {
+$output = preg_replace('/%(?:extra|context)\..+?%/','', $output);
+}
 return $output;
 }
 public function formatBatch(array $records)
@@ -5430,7 +5596,7 @@ $previousText .=', '.get_class($previous).'(code: '.$previous->getCode().'): '.$
 }
 $str ='[object] ('.get_class($e).'(code: '.$e->getCode().'): '.$e->getMessage().' at '.$e->getFile().':'.$e->getLine().$previousText.')';
 if ($this->includeStacktraces) {
-$str .="\n[stacktrace]\n".$e->getTraceAsString();
+$str .="\n[stacktrace]\n".$e->getTraceAsString()."\n";
 }
 return $str;
 }
@@ -5450,6 +5616,9 @@ return str_replace('\\/','/', @json_encode($data));
 protected function replaceNewlines($str)
 {
 if ($this->allowInlineLineBreaks) {
+if (0 === strpos($str,'{')) {
+return str_replace(array('\r','\n'), array("\r","\n"), $str);
+}
 return $str;
 }
 return str_replace(array("\r\n","\r","\n"),' ', $str);
@@ -5645,10 +5814,14 @@ throw new \UnexpectedValueException(sprintf('The stream or file "%s" could not b
 if ($this->useLocking) {
 flock($this->stream, LOCK_EX);
 }
-fwrite($this->stream, (string) $record['formatted']);
+$this->streamWrite($this->stream, $record);
 if ($this->useLocking) {
 flock($this->stream, LOCK_UN);
 }
+}
+protected function streamWrite($stream, array $record)
+{
+fwrite($stream, (string) $record['formatted']);
 }
 private function customErrorHandler($code, $msg)
 {
@@ -5865,11 +6038,11 @@ public function clear()
 $this->records = array();
 $this->recordsByLevel = array();
 }
-protected function hasRecordRecords($level)
+public function hasRecords($level)
 {
 return isset($this->recordsByLevel[$level]);
 }
-protected function hasRecord($record, $level)
+public function hasRecord($record, $level)
 {
 if (is_array($record)) {
 $record = $record['message'];
@@ -5913,7 +6086,7 @@ $this->records[] = $record;
 public function __call($method, $args)
 {
 if (preg_match('/(.*)(Debug|Info|Notice|Warning|Error|Critical|Alert|Emergency)(.*)/', $method, $matches) > 0) {
-$genericMethod = $matches[1] .'Record'. $matches[3];
+$genericMethod = $matches[1] . ('Records'!== $matches[3] ?'Record':'') . $matches[3];
 $level = constant('Monolog\Logger::'. strtoupper($matches[2]));
 if (method_exists($this, $genericMethod)) {
 $args[] = $level;
@@ -6040,7 +6213,7 @@ return false;
 if (!static::$timezone) {
 static::$timezone = new \DateTimeZone(date_default_timezone_get() ?:'UTC');
 }
-if ($this->microsecondTimestamps) {
+if ($this->microsecondTimestamps && PHP_VERSION_ID < 70100) {
 $ts = \DateTime::createFromFormat('U.u', sprintf('%.6F', microtime(true)), static::$timezone);
 } else {
 $ts = new \DateTime(null, static::$timezone);
@@ -6301,6 +6474,342 @@ return $record['level'] >= $this->actionLevel;
 }
 }
 }
+namespace Assetic
+{
+interface ValueSupplierInterface
+{
+public function getValues();
+}
+}
+namespace Symfony\Bundle\AsseticBundle
+{
+use Assetic\ValueSupplierInterface;
+use Symfony\Component\DependencyInjection\ContainerInterface;
+class DefaultValueSupplier implements ValueSupplierInterface
+{
+protected $container;
+public function __construct(ContainerInterface $container)
+{
+$this->container = $container;
+}
+public function getValues()
+{
+$request = $this->getCurrentRequest();
+if (!$request) {
+return array();
+}
+return array('locale'=> $request->getLocale(),'env'=> $this->container->getParameter('kernel.environment'),
+);
+}
+private function getCurrentRequest()
+{
+$request = null;
+$requestStack = $this->container->get('request_stack', ContainerInterface::NULL_ON_INVALID_REFERENCE);
+if ($requestStack) {
+$request = $requestStack->getCurrentRequest();
+} elseif ($this->container->isScopeActive('request')) {
+$request = $this->container->get('request');
+}
+return $request;
+}
+}
+}
+namespace Assetic\Factory
+{
+use Assetic\Asset\AssetCollection;
+use Assetic\Asset\AssetCollectionInterface;
+use Assetic\Asset\AssetInterface;
+use Assetic\Asset\AssetReference;
+use Assetic\Asset\FileAsset;
+use Assetic\Asset\GlobAsset;
+use Assetic\Asset\HttpAsset;
+use Assetic\AssetManager;
+use Assetic\Factory\Worker\WorkerInterface;
+use Assetic\Filter\DependencyExtractorInterface;
+use Assetic\FilterManager;
+class AssetFactory
+{
+private $root;
+private $debug;
+private $output;
+private $workers;
+private $am;
+private $fm;
+public function __construct($root, $debug = false)
+{
+$this->root = rtrim($root,'/');
+$this->debug = $debug;
+$this->output ='assetic/*';
+$this->workers = array();
+}
+public function setDebug($debug)
+{
+$this->debug = $debug;
+}
+public function isDebug()
+{
+return $this->debug;
+}
+public function setDefaultOutput($output)
+{
+$this->output = $output;
+}
+public function addWorker(WorkerInterface $worker)
+{
+$this->workers[] = $worker;
+}
+public function getAssetManager()
+{
+return $this->am;
+}
+public function setAssetManager(AssetManager $am)
+{
+$this->am = $am;
+}
+public function getFilterManager()
+{
+return $this->fm;
+}
+public function setFilterManager(FilterManager $fm)
+{
+$this->fm = $fm;
+}
+public function createAsset($inputs = array(), $filters = array(), array $options = array())
+{
+if (!is_array($inputs)) {
+$inputs = array($inputs);
+}
+if (!is_array($filters)) {
+$filters = array($filters);
+}
+if (!isset($options['output'])) {
+$options['output'] = $this->output;
+}
+if (!isset($options['vars'])) {
+$options['vars'] = array();
+}
+if (!isset($options['debug'])) {
+$options['debug'] = $this->debug;
+}
+if (!isset($options['root'])) {
+$options['root'] = array($this->root);
+} else {
+if (!is_array($options['root'])) {
+$options['root'] = array($options['root']);
+}
+$options['root'][] = $this->root;
+}
+if (!isset($options['name'])) {
+$options['name'] = $this->generateAssetName($inputs, $filters, $options);
+}
+$asset = $this->createAssetCollection(array(), $options);
+$extensions = array();
+foreach ($inputs as $input) {
+if (is_array($input)) {
+$asset->add(call_user_func_array(array($this,'createAsset'), $input));
+} else {
+$asset->add($this->parseInput($input, $options));
+$extensions[pathinfo($input, PATHINFO_EXTENSION)] = true;
+}
+}
+foreach ($filters as $filter) {
+if ('?'!= $filter[0]) {
+$asset->ensureFilter($this->getFilter($filter));
+} elseif (!$options['debug']) {
+$asset->ensureFilter($this->getFilter(substr($filter, 1)));
+}
+}
+if (!empty($options['vars'])) {
+$toAdd = array();
+foreach ($options['vars'] as $var) {
+if (false !== strpos($options['output'],'{'.$var.'}')) {
+continue;
+}
+$toAdd[] ='{'.$var.'}';
+}
+if ($toAdd) {
+$options['output'] = str_replace('*','*.'.implode('.', $toAdd), $options['output']);
+}
+}
+if (1 == count($extensions) && !pathinfo($options['output'], PATHINFO_EXTENSION) && $extension = key($extensions)) {
+$options['output'] .='.'.$extension;
+}
+$asset->setTargetPath(str_replace('*', $options['name'], $options['output']));
+return $this->applyWorkers($asset);
+}
+public function generateAssetName($inputs, $filters, $options = array())
+{
+foreach (array_diff(array_keys($options), array('output','debug','root')) as $key) {
+unset($options[$key]);
+}
+ksort($options);
+return substr(sha1(serialize($inputs).serialize($filters).serialize($options)), 0, 7);
+}
+public function getLastModified(AssetInterface $asset)
+{
+$mtime = 0;
+foreach ($asset instanceof AssetCollectionInterface ? $asset : array($asset) as $leaf) {
+$mtime = max($mtime, $leaf->getLastModified());
+if (!$filters = $leaf->getFilters()) {
+continue;
+}
+$prevFilters = array();
+foreach ($filters as $filter) {
+$prevFilters[] = $filter;
+if (!$filter instanceof DependencyExtractorInterface) {
+continue;
+}
+$clone = clone $leaf;
+$clone->clearFilters();
+foreach (array_slice($prevFilters, 0, -1) as $prevFilter) {
+$clone->ensureFilter($prevFilter);
+}
+$clone->load();
+foreach ($filter->getChildren($this, $clone->getContent(), $clone->getSourceDirectory()) as $child) {
+$mtime = max($mtime, $this->getLastModified($child));
+}
+}
+}
+return $mtime;
+}
+protected function parseInput($input, array $options = array())
+{
+if ('@'== $input[0]) {
+return $this->createAssetReference(substr($input, 1));
+}
+if (false !== strpos($input,'://') || 0 === strpos($input,'//')) {
+return $this->createHttpAsset($input, $options['vars']);
+}
+if (self::isAbsolutePath($input)) {
+if ($root = self::findRootDir($input, $options['root'])) {
+$path = ltrim(substr($input, strlen($root)),'/');
+} else {
+$path = null;
+}
+} else {
+$root = $this->root;
+$path = $input;
+$input = $this->root.'/'.$path;
+}
+if (false !== strpos($input,'*')) {
+return $this->createGlobAsset($input, $root, $options['vars']);
+}
+return $this->createFileAsset($input, $root, $path, $options['vars']);
+}
+protected function createAssetCollection(array $assets = array(), array $options = array())
+{
+return new AssetCollection($assets, array(), null, isset($options['vars']) ? $options['vars'] : array());
+}
+protected function createAssetReference($name)
+{
+if (!$this->am) {
+throw new \LogicException('There is no asset manager.');
+}
+return new AssetReference($this->am, $name);
+}
+protected function createHttpAsset($sourceUrl, $vars)
+{
+return new HttpAsset($sourceUrl, array(), false, $vars);
+}
+protected function createGlobAsset($glob, $root = null, $vars)
+{
+return new GlobAsset($glob, array(), $root, $vars);
+}
+protected function createFileAsset($source, $root = null, $path = null, $vars)
+{
+return new FileAsset($source, array(), $root, $path, $vars);
+}
+protected function getFilter($name)
+{
+if (!$this->fm) {
+throw new \LogicException('There is no filter manager.');
+}
+return $this->fm->get($name);
+}
+private function applyWorkers(AssetCollectionInterface $asset)
+{
+foreach ($asset as $leaf) {
+foreach ($this->workers as $worker) {
+$retval = $worker->process($leaf, $this);
+if ($retval instanceof AssetInterface && $leaf !== $retval) {
+$asset->replaceLeaf($leaf, $retval);
+}
+}
+}
+foreach ($this->workers as $worker) {
+$retval = $worker->process($asset, $this);
+if ($retval instanceof AssetInterface) {
+$asset = $retval;
+}
+}
+return $asset instanceof AssetCollectionInterface ? $asset : $this->createAssetCollection(array($asset));
+}
+private static function isAbsolutePath($path)
+{
+return'/'== $path[0] ||'\\'== $path[0] || (3 < strlen($path) && ctype_alpha($path[0]) && $path[1] ==':'&& ('\\'== $path[2] ||'/'== $path[2]));
+}
+private static function findRootDir($path, array $roots)
+{
+foreach ($roots as $root) {
+if (0 === strpos($path, $root)) {
+return $root;
+}
+}
+}
+}
+}
+namespace Symfony\Bundle\AsseticBundle\Factory
+{
+use Assetic\Factory\AssetFactory as BaseAssetFactory;
+use Symfony\Component\DependencyInjection\ContainerInterface;
+use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
+use Symfony\Component\HttpKernel\KernelInterface;
+class AssetFactory extends BaseAssetFactory
+{
+private $kernel;
+private $container;
+private $parameterBag;
+public function __construct(KernelInterface $kernel, ContainerInterface $container, ParameterBagInterface $parameterBag, $baseDir, $debug = false)
+{
+$this->kernel = $kernel;
+$this->container = $container;
+$this->parameterBag = $parameterBag;
+parent::__construct($baseDir, $debug);
+}
+protected function parseInput($input, array $options = array())
+{
+$input = $this->parameterBag->resolveValue($input);
+if ('@'== $input[0] && false !== strpos($input,'/')) {
+$bundle = substr($input, 1);
+if (false !== $pos = strpos($bundle,'/')) {
+$bundle = substr($bundle, 0, $pos);
+}
+$options['root'] = array($this->kernel->getBundle($bundle)->getPath());
+if (false !== $pos = strpos($input,'*')) {
+list($before, $after) = explode('*', $input, 2);
+$input = $this->kernel->locateResource($before).'*'.$after;
+} else {
+$input = $this->kernel->locateResource($input);
+}
+}
+return parent::parseInput($input, $options);
+}
+protected function createAssetReference($name)
+{
+if (!$this->getAssetManager()) {
+$this->setAssetManager($this->container->get('assetic.asset_manager'));
+}
+return parent::createAssetReference($name);
+}
+protected function getFilter($name)
+{
+if (!$this->getFilterManager()) {
+$this->setFilterManager($this->container->get('assetic.filter_manager'));
+}
+return parent::getFilter($name);
+}
+}
+}
 namespace Sensio\Bundle\FrameworkExtraBundle\EventListener
 {
 use Doctrine\Common\Annotations\Reader;
@@ -6318,7 +6827,11 @@ $this->reader = $reader;
 }
 public function onKernelController(FilterControllerEvent $event)
 {
-if (!is_array($controller = $event->getController())) {
+$controller = $event->getController();
+if (!is_array($controller) && method_exists($controller,'__invoke')) {
+$controller = array($controller,'__invoke');
+}
+if (!is_array($controller)) {
 return;
 }
 $className = class_exists('Doctrine\Common\Util\ClassUtils') ? ClassUtils::getClass($controller[0]) : get_class($controller[0]);
@@ -6384,10 +6897,12 @@ class ParamConverterListener implements EventSubscriberInterface
 {
 protected $manager;
 protected $autoConvert;
+private $isParameterTypeSupported;
 public function __construct(ParamConverterManager $manager, $autoConvert = true)
 {
 $this->manager = $manager;
 $this->autoConvert = $autoConvert;
+$this->isParameterTypeSupported = method_exists('ReflectionParameter','getType');
 }
 public function onKernelController(FilterControllerEvent $event)
 {
@@ -6414,19 +6929,25 @@ $this->manager->apply($request, $configurations);
 private function autoConfigure(\ReflectionFunctionAbstract $r, Request $request, $configurations)
 {
 foreach ($r->getParameters() as $param) {
-if (!$param->getClass() || $param->getClass()->isInstance($request)) {
+if ($param->getClass() && $param->getClass()->isInstance($request)) {
 continue;
 }
 $name = $param->getName();
+$class = $param->getClass();
+$hasType = $this->isParameterTypeSupported && $param->hasType();
+if ($class || $hasType) {
 if (!isset($configurations[$name])) {
 $configuration = new ParamConverter(array());
 $configuration->setName($name);
-$configuration->setClass($param->getClass()->getName());
 $configurations[$name] = $configuration;
-} elseif (null === $configurations[$name]->getClass()) {
-$configurations[$name]->setClass($param->getClass()->getName());
 }
-$configurations[$name]->setIsOptional($param->isOptional());
+if ($class && null === $configurations[$name]->getClass()) {
+$configurations[$name]->setClass($class->getName());
+}
+}
+if (isset($configurations[$name])) {
+$configurations[$name]->setIsOptional($param->isOptional() || $param->isDefaultValueAvailable() || $hasType && $param->getType()->allowsNull());
+}
 }
 return $configurations;
 }
@@ -6470,11 +6991,11 @@ return false;
 if (isset($options['format'])) {
 $date = DateTime::createFromFormat($options['format'], $value);
 if (!$date) {
-throw new NotFoundHttpException('Invalid date given.');
+throw new NotFoundHttpException(sprintf('Invalid date given for parameter "%s".', $param));
 }
 } else {
 if (false === strtotime($value)) {
-throw new NotFoundHttpException('Invalid date given.');
+throw new NotFoundHttpException(sprintf('Invalid date given for parameter "%s".', $param));
 }
 $date = new DateTime($value);
 }
@@ -6517,7 +7038,7 @@ if (false === $object = $this->findOneBy($class, $request, $options)) {
 if ($configuration->isOptional()) {
 $object = null;
 } else {
-throw new \LogicException('Unable to guess how to get a Doctrine instance from the request information.');
+throw new \LogicException(sprintf('Unable to guess how to get a Doctrine instance from the request information for parameter "%s".', $name));
 }
 }
 }
@@ -6752,11 +7273,8 @@ public function onKernelController(FilterControllerEvent $event)
 {
 $request = $event->getRequest();
 $template = $request->attributes->get('_template');
-if (null === $template) {
-return;
-}
 if (!$template instanceof Template) {
-throw new \InvalidArgumentException('Request attribute "_template" is reserved for @Template annotations.');
+return;
 }
 $template->setOwner($controller = $event->getController());
 if (null === $template->getTemplate()) {
@@ -6768,7 +7286,7 @@ public function onKernelView(GetResponseForControllerResultEvent $event)
 {
 $request = $event->getRequest();
 $template = $request->attributes->get('_template');
-if (null === $template) {
+if (!$template instanceof Template) {
 return;
 }
 $parameters = $event->getControllerResult();
@@ -6802,11 +7320,15 @@ if (0 === count($arguments)) {
 $r = new \ReflectionObject($controller);
 $arguments = array();
 foreach ($r->getMethod($action)->getParameters() as $param) {
-$arguments[] = $param->getName();
+$arguments[] = $param;
 }
 }
 foreach ($arguments as $argument) {
+if ($argument instanceof \ReflectionParameter) {
+$parameters[$name = $argument->getName()] = !$request->attributes->has($name) && $argument->isDefaultValueAvailable() ? $argument->getDefaultValue() : $request->attributes->get($name);
+} else {
 $parameters[$argument] = $request->attributes->get($argument);
+}
 }
 return $parameters;
 }
@@ -6851,6 +7373,7 @@ if ($response->isNotModified($request)) {
 $event->setController(function () use ($response) {
 return $response;
 });
+$event->stopPropagation();
 } else {
 if ($etag) {
 $this->etags[$request] = $etag;
@@ -6967,7 +7490,7 @@ if (null === $this->tokenStorage->getToken()) {
 throw new \LogicException('To use the @Security tag, your controller needs to be behind a firewall.');
 }
 if (null === $this->language) {
-throw new \LogicException('To use the @Security tag, you need to use the Security component 2.4 or newer and to install the ExpressionLanguage component.');
+throw new \LogicException('To use the @Security tag, you need to use the Security component 2.4 or newer and install the ExpressionLanguage component.');
 }
 if (!$this->language->evaluate($configuration->getExpression(), $this->getVariables($request))) {
 throw new AccessDeniedException(sprintf('Expression "%s" denied access.', $configuration->getExpression()));

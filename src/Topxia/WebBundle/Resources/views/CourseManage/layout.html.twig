@@ -31,8 +31,8 @@
       {% set side_nav = side_nav|default(null) %}
       <div class="sidenav locked" style="height: 80%;">
           {#<ul class="nav nav-pills nav-pills-sm mbs file-chooser-tabs">#}
-          <ul class="nav nav-tabs nav-justified">
-              <li><a class="file-chooser-uploader-tab" href="#video-chooser-upload-pane"
+          <ul class="nav nav-tabs nav-justified" style="margin-bottom: 0px;">
+              <li><a id="test" class="file-chooser-uploader-tab" href="#video-chooser-upload-pane"
                      data-toggle="tab">{{ '历史消息'|trans }}</a></li>
               <li>
                   <a id="friend-list" href="#video-chooser-disk-pane" data-toggle="tab">
@@ -61,6 +61,7 @@
                       <img src="{{ asset('assets/img/avatar/1.png') }}" alt="" class="contact__photo" />
                       <span class="contact__name">Ethan Hawke</span>
                       <span class="contact__status online"></span>
+                      <input type="hidden" id="friend-info">
                   </a>
               </ul>
               <ul class="nav nav-pills nav-pills-sm">
@@ -68,6 +69,7 @@
                       <img src="{{ asset('assets/img/avatar/1.png') }}" alt="" class="contact__photo" />
                       <span class="contact__name">Ethan Hawke</span>
                       <span class="contact__status online"></span>
+                      <input type="hidden" id="friend-info">
                   </a>
               </ul>
               <ul class="nav nav-pills nav-pills-sm">
@@ -121,7 +123,9 @@
               </ul>
           </div>
       </div>
-
+        <input type="hidden" id="friend-name">
+        <input type="hidden" id="friend-picture">
+        <input type="hidden" id="friend-id">
 
     {% endblock %}
   </div>
@@ -141,10 +145,12 @@
                 success: function(response, status, jqXHR) {
 //                    alert(response.data.friend.length);
                     var friends = response.data.friend;
-                    var html = "";
+
+                    $("#friend-content").html("");
                     $.each(friends,function (index,item) {
+                        var html = "";
                         html += '<ul class=\"nav nav-pills nav-pills-sm\">' +
-                                '<a href=\"#\" class=\"list-group-item\" style=\"border: 0px;\">';
+                                '<a id=\"list-item-' + item.id + '\" href=\"#\" class=\"list-group-item\" style=\"border: 0px;\">';
 
                         if (item.smallAvatar == null || item.smallAvatar == "") {
                             html +=  '<img src=\"'+ "{{ asset('assets/img/default/avatar.png') }}" + '\" alt=\"\" class=\"contact__photo\" style=\"border-radius: 50%;width: 34px;height: 34px;margin:0 5px 0 0;\" />';
@@ -154,15 +160,50 @@
 
                         html += '<span class=\"contact__name\">' + item.nickname +'</span>' +
                                 '<span class=\"contact__status online\"></span>' +
+                                        '<input type=\"hidden\" id=\"userId\" value=\"' + item.id + '\">' +
+                                        '<input type=\"hidden\" id=\"nickname\" value=\"' + item.nickname + '\">' +
+                                        '<input type=\"hidden\" id=\"picture\" value=\"' + item.smallAvatar + '\">' +
                                 '</a></ul>';
+
+                        $("#friend-content").append(html);
+
+                        var html = '<div id=\"message-panel-' + item.id + '\" class=\"panel-body hidden\" style=\"overflow:scroll;overflow-x:hidden;height: 60%;\"></div>';
+                        $("#pannel-header").after(html);
                     });
 
-                    $("#friend-content").html(html);
+                    $("div#friend-content ul a").click(function () {
+//                        alert($(this).find('input#userId').attr('value'));
+//                        var item = $(this).find('input').attr('value');
+//                        alert($(this).find('input#userId').attr('value'));
+                        $("#friend-id").val($(this).find('input#userId').attr('value'));
+                        $("#friend-name").val($(this).find('input#nickname').attr('value'));
+                        $("#friend-picture").val($(this).find('input#picture').attr('value'));
+
+                        var pannelSelector = '#message-panel-' + $(this).find('input#userId').attr('value');
+                        var showPanel = $(pannelSelector);
+                        var hidePannel = $("div").find('div.active');
+                        if (showPanel.length == 0) {
+                            //构造聊天pannel
+                            hidePannel.removeClass('active');
+                            hidePannel.addClass('hidden');
+                            var html = '<div id=\"message-panel-' + $(this).find('input#userId').attr('value') + '\" class=\"panel-body active\" style=\"overflow:scroll;overflow-x:hidden;height: 60%;\"></div>';
+                            $("#pannel-header").after(html);
+                        } else {
+                            //pannel不为空的话，就是已经存在pannel了，只要隐藏先前的，显示此pannel就好
+                            hidePannel.removeClass('active');
+                            hidePannel.addClass('hidden');
+                            showPanel.removeClass('hidden');
+                            showPanel.addClass('active');
+                        }
+                        $("#pannel-header").html($("#friend-name").val());
+                    });
+//                    $("#friend-content").html(html);
                 },
                 error: function(jqXHR, status, error) {
 //                    Notify.danger(Translator.trans('请求上传授权码失败！'));
                 }
             });
         });
+
     </script>
 {% endblock %}

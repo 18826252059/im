@@ -15,7 +15,7 @@ interface MessageService
      * @param  string  $content                私信内容
      * @return array   私信的相关信息
      */
-    public function sendMessage($fromId, $toId, $content, $createdTime = null);
+    public function sendMessage($fromId, $toId, $content, $createdTime = null, $status = 1);
 
     public function getConversation($conversationId);
 

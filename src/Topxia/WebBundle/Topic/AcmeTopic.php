@@ -30,8 +30,10 @@ class AcmeTopic extends BaseController implements TopicInterface
         //this will broadcast the message to ALL subscribers of this topic.
         $userId = $request->getAttributes()->get('userId');
         $sessionId = $connection->WAMP->sessionId;
-        $this->getUserService()->updateUser($userId,array('sessionId' => $sessionId));
-        $topic->broadcast(['msg' => $connection->resourceId . " has joined " . $topic->getId()."===".$connection->WAMP->sessionId]);
+        if ($userId) {
+            $this->getUserService()->updateUser($userId,array('sessionId' => $sessionId));
+        }
+        $topic->broadcast(['msg' => $connection->resourceId . " has joined " . $topic->getId()."===".count($topic)]);
     }
 
     /**
@@ -69,10 +71,18 @@ class AcmeTopic extends BaseController implements TopicInterface
         */
 
         print_r($event);
+//        $event = json_decode($event);
+        $fromId = isset($event['fromId']) ? $event['fromId'] : 0;
+        $message = isset($event['msg']) ? $event['msg'] : null;
+        $toId = $request->getAttributes()->get('userId');
+
+        print($fromId.'===='.$toId.'====='.$message);
+        $this->getMessageService()->sendMessage($fromId, $toId, $message, $status = 1);
+
         $topic->broadcast([
-            'fromId' => '1',
-            'msg' => $event
-        ],$exclude,$eligible);
+            'fromId' => $fromId,
+            'msg' => $message
+        ]);
     }
 
     /**
@@ -82,5 +92,10 @@ class AcmeTopic extends BaseController implements TopicInterface
     public function getName()
     {
         return 'acme.topic';
+    }
+
+    protected function getMessageService()
+    {
+        return $this->getServiceKernel()->createService('User.MessageService');
     }
 }

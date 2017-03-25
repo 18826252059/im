@@ -16,8 +16,11 @@ isCoursePublished: course.status,
 
 
   <div class="panel panel-default panel-col" style="height: 80%">
-    <div class="panel-heading">{{ '聊天界面'|trans }}</div>
-    <div id="message-panel" class="panel-body" style="overflow:scroll;overflow-x:hidden;height: 60%;">
+    <div id="pannel-header" class="panel-heading" style="text-align: center;">
+      {{ '聊天界面'|trans }}
+      {#<p style="text-align: center;">聊天界面</p>#}
+    </div>
+    <div id="message-panel-1" class="panel-body hidden" style="overflow:scroll;overflow-x:hidden;height: 60%;">
 
       <ul class="nav nav-pills nav-pills-sm">
           <img src="{{ asset('assets/img/avatar/1.png') }}" alt="" class="contact__photo" style="float: left;margin: 0 10px 0 0;"/>
@@ -74,6 +77,63 @@ isCoursePublished: course.status,
       {#</ul>#}
 
     </div>
+    <div id="message-panel-2" class="panel-body active" style="overflow:scroll;overflow-x:hidden;height: 60%;">
+
+      {#<ul class="nav nav-pills nav-pills-sm">#}
+        {#<img src="{{ asset('assets/img/avatar/1.png') }}" alt="" class="contact__photo" style="float: left;margin: 0 10px 0 0;"/>#}
+        {#<p class="contact__name" style="margin: 0 0 10px;">Ethan Hawke</p>#}
+        {#<p class="contact__content" style="display: inline-block;padding: 10px 15px;border-radius: 5px;background: #93C763">jdkjfajfjksdjf</p>#}
+      {#</ul>#}
+
+      {#<ul class="nav nav-pills nav-pills-sm" style="text-align: right;">#}
+        {#<img src="{{ asset('assets/img/avatar/1.png') }}" alt="" class="contact__photo" style="float: right;margin: 0 0 0 10px;"/>#}
+        {#<p class="contact__name" style="text-align: right;margin: 0 0 10px;">Ethan Hawke</p>#}
+        {#<p class="contact__content" style="display: inline-block;padding: 10px 15px;border-radius: 5px;background: #93C763;">jdkjfajfjksdjf</p>#}
+      {#</ul>#}
+
+      {#<ul class="nav nav-pills nav-pills-sm">#}
+        {#<p style="text-align: center;">12:30</p>#}
+      {#</ul>#}
+
+      {#<ul class="nav nav-pills nav-pills-sm" style="text-align: right;">#}
+      {#<img src="{{ asset('assets/img/avatar/1.png') }}" alt="" class="contact__photo" style="float: right;margin: 0 0 0 10px;"/>#}
+      {#<p class="contact__name" style="text-align: right;margin: 0 0 10px;">Ethan Hawke</p>#}
+      {#<p class="contact__content" style="display: inline-block;padding: 10px 15px;border-radius: 5px;background: #93C763;">jdkjfajfjksdjf</p>#}
+      {#</ul>#}
+
+
+      {#<ul class="nav nav-pills nav-pills-sm" style="text-align: right;">#}
+      {#<img src="{{ asset('assets/img/avatar/1.png') }}" alt="" class="contact__photo" style="float: right;margin: 0 0 0 10px;"/>#}
+      {#<p class="contact__name" style="text-align: right;margin: 0 0 10px;">Ethan Hawke</p>#}
+      {#<p class="contact__content" style="display: inline-block;padding: 10px 15px;border-radius: 5px;background: #93C763;">jdkjfajfjksdjf</p>#}
+      {#</ul>#}
+      {#<ul class="nav nav-pills nav-pills-sm" style="text-align: right;">#}
+      {#<img src="{{ asset('assets/img/avatar/1.png') }}" alt="" class="contact__photo" style="float: right;margin: 0 0 0 10px;"/>#}
+      {#<p class="contact__name" style="text-align: right;margin: 0 0 10px;">Ethan Hawke</p>#}
+      {#<p class="contact__content" style="display: inline-block;padding: 10px 15px;border-radius: 5px;background: #93C763;">jdkjfajfjksdjf</p>#}
+      {#</ul>#}
+      {#<ul class="nav nav-pills nav-pills-sm" style="text-align: right;">#}
+      {#<img src="{{ asset('assets/img/avatar/1.png') }}" alt="" class="contact__photo" style="float: right;margin: 0 0 0 10px;"/>#}
+      {#<p class="contact__name" style="text-align: right;margin: 0 0 10px;">Ethan Hawke</p>#}
+      {#<p class="contact__content" style="display: inline-block;padding: 10px 15px;border-radius: 5px;background: #93C763;">jdkjfajfjksdjf</p>#}
+      {#</ul>#}
+      {#<ul class="nav nav-pills nav-pills-sm" style="text-align: right;">#}
+      {#<img src="{{ asset('assets/img/avatar/1.png') }}" alt="" class="contact__photo" style="float: right;margin: 0 0 0 10px;"/>#}
+      {#<p class="contact__name" style="text-align: right;margin: 0 0 10px;">Ethan Hawke</p>#}
+      {#<p class="contact__content" style="display: inline-block;padding: 10px 15px;border-radius: 5px;background: #93C763;">jdkjfajfjksdjf</p>#}
+      {#</ul>#}
+      {#<ul class="nav nav-pills nav-pills-sm" style="text-align: right;">#}
+      {#<img src="{{ asset('assets/img/avatar/1.png') }}" alt="" class="contact__photo" style="float: right;margin: 0 0 0 10px;"/>#}
+      {#<p class="contact__name" style="text-align: right;margin: 0 0 10px;">Ethan Hawke</p>#}
+      {#<p class="contact__content" style="display: inline-block;padding: 10px 15px;border-radius: 5px;background: #93C763;">jdkjfajfjksdjf</p>#}
+      {#</ul>#}
+      {#<ul class="nav nav-pills nav-pills-sm" style="text-align: right;">#}
+      {#<img src="{{ asset('assets/img/avatar/1.png') }}" alt="" class="contact__photo" style="float: right;margin: 0 0 0 10px;"/>#}
+      {#<p class="contact__name" style="text-align: right;margin: 0 0 10px;">Ethan Hawke</p>#}
+      {#<p class="contact__content" style="display: inline-block;padding: 10px 15px;border-radius: 5px;background: #93C763;">jdkjfajfjksdjf</p>#}
+      {#</ul>#}
+
+    </div>
     <div class="panel-footer">
       <form class="form-horizontal" id="message" method="post">
       <textarea id="message" name="message" required="required"
@@ -85,29 +145,36 @@ isCoursePublished: course.status,
       {#</div>#}
     </div>
   </div>
-  <script type="text/javascript">
-    $("#message-send-btn").click(function () {
-      var html = '<ul class=\"nav nav-pills nav-pills-sm\" style=\"text-align: right;\">';
-      {% if user.smallAvatar|default("") == "" %}
-      html += '<img src=\"{{ asset('assets/img/avatar/1.png') }}\" class=\"contact__photo\" style=\"float: right;margin: 0 0 0 10px;\"/>';
-      {% else %}
-      html += '<img src=\"{{ user.smallAvatar }}\" class=\"contact__photo\" style=\"float: right;margin: 0 0 0 10px;\"/>';
-      {% endif %}
-      html += '<p class=\"contact__name\" style=\"text-align: right;margin: 0 0 10px;\">{{ user.nickname|default(null) }}</p>';
-      html += '<p class=\"contact__content\" style=\"display: inline-block;padding: 10px 15px;border-radius: 5px;background: #93C763;\">'+ $("textarea#message").val() +'</p></ul>';
-      $("#message-panel").append(html);
-//      $("textarea#message").val('');
-    });
-  </script>
+  {#<script type="text/javascript">#}
+    {#$("#message-send-btn").click(function () {#}
+      {#var html = '<ul class=\"nav nav-pills nav-pills-sm\" style=\"text-align: right;\">';#}
+      {#{% if user.smallAvatar|default("") == "" %}#}
+      {#html += '<img src=\"{{ asset('assets/img/avatar/1.png') }}\" class=\"contact__photo\" style=\"float: right;margin: 0 0 0 10px;\"/>';#}
+      {#{% else %}#}
+      {#html += '<img src=\"{{ user.smallAvatar }}\" class=\"contact__photo\" style=\"float: right;margin: 0 0 0 10px;\"/>';#}
+      {#{% endif %}#}
+      {#html += '<p class=\"contact__name\" style=\"text-align: right;margin: 0 0 10px;\">{{ user.nickname|default(null) }}</p>';#}
+      {#html += '<p class=\"contact__content\" style=\"display: inline-block;padding: 10px 15px;border-radius: 5px;background: #93C763;\">'+ $("textarea#message").val() +'</p></ul>';#}
+      {#$("#message-panel-1").append(html);#}
+{#//      $("textarea#message").val('');#}
+    {#});#}
+   {#/* $("#test").click(function () {#}
+     {#$("#message-panel-1").removeClass('hidden');#}
+     {#$("#message-panel-1").addClass('active');#}
+     {#$("#message-panel-2").removeClass('active');#}
+     {#$("#message-panel-2").addClass('hidden');#}
+     {#});*/#}
+  {#</script>#}
 
   <script type="text/javascript">
     var websocket = WS.connect("ws://127.0.0.1:1337");
 
     websocket.on("socket/connect", function(session){
-      session.subscribe("acme/channel/1", function(uri, payload){
+      var channel = 'acme/channel/' + {{ user.id }};
+      session.subscribe(channel, function(uri, payload){
         console.log("Received message and show", payload.msg);
 
-        showLeftMessage(payload.fromId);
+        showLeftMessage(payload);
       });
 
       session.call("sample/sum", {"term1": 2, "term2": 5}).then(
@@ -135,11 +202,28 @@ isCoursePublished: course.status,
 //      session.publish("acme/channel", {msg: "I'm back!"});
 
       $("#message-send-btn").click(function () {
-        var id = $("textarea#message").val();
-        alert(id);
-        var exclude = new Array(1);
-        exclude[0] = id;
-        session.publish("acme/channel/1", {msg: "I send a message!"},new Array(),exclude);
+        var html = '<ul class=\"nav nav-pills nav-pills-sm\" style=\"text-align: right;\">';
+        {% if user.smallAvatar|default("") == "" %}
+        html += '<img src=\"{{ asset('assets/img/avatar/1.png') }}\" class=\"contact__photo\" style=\"float: right;margin: 0 0 0 10px;\"/>';
+        {% else %}
+        html += '<img src=\"{{ user.smallAvatar }}\" class=\"contact__photo\" style=\"float: right;margin: 0 0 0 10px;\"/>';
+        {% endif %}
+        html += '<p class=\"contact__name\" style=\"text-align: right;margin: 0 0 10px;\">{{ user.nickname|default(null) }}</p>';
+        html += '<p class=\"contact__content\" style=\"display: inline-block;padding: 10px 15px;border-radius: 5px;background: #93C763;\">'+ $("textarea#message").val() +'</p></ul>';
+        var selector = '#message-panel-' + $("#friend-id").val();
+        $(selector).append(html);
+
+        var message = $("textarea#message").val();
+//        var exclude = new Array(1);
+//        exclude[0] = id;
+        var fromId = {{ user.id }};
+        var toId = $("#friend-id").val();
+        var toChannel = 'acme/channel/' + toId;
+        session.publish(toChannel, {fromId: fromId, msg: message});
+//        $("#message-panel-2").removeClass('hidden');
+//        $("#message-panel-2").addClass('active');
+//        $("#message-panel-1").removeClass('active');
+//        $("#message-panel-1").addClass('hidden');
       });
     });
 
@@ -149,14 +233,23 @@ isCoursePublished: course.status,
       console.log("Disconnected for " + error.reason + " with code " + error.code);
     });
 
-    function showLeftMessage(message) {
+    function showLeftMessage(content) {
+//      alert(content.fromId + "===" + content.msg);
       var html = '<ul class="nav nav-pills nav-pills-sm">';
 
-      html += ' <img src="{{ asset('assets/img/avatar/1.png') }}" alt="" class="contact__photo" style="float: left;margin: 0 10px 0 0;"/>';
+      var listItemSelector = '#list-item-' + content.fromId;
+      var picture = $(listItemSelector).find('input#picture').val();
+      if (picture == null || picture == "") {
+        html += ' <img src="{{ asset('assets/img/avatar/1.png') }}" alt="" class="contact__photo" style="float: left;margin: 0 10px 0 0;"/>';
+      } else {
+        html += '<img src="' + picture + '"  class="contact__photo" style="float: left;margin: 0 10px 0 0;"/>';
+      }
 
-      html += '<p class="contact__name" style="margin: 0 0 10px;">Ethan Hawke</p>';
-      html += '<p class="contact__content" style="display: inline-block;padding: 10px 15px;border-radius: 5px;background: #93C763">'+ message +'</p></ul>';
-      $("#message-panel").append(html);
+      html += '<p class="contact__name" style="margin: 0 0 10px;">' + $(listItemSelector).find('input#nickname').val() + '</p>';
+      html += '<p class="contact__content" style="display: inline-block;padding: 10px 15px;border-radius: 5px;background: #93C763">'+ content.msg +'</p></ul>';
+
+      var showPannelselector = '#message-panel-' + content.fromId;
+      $(showPannelselector).append(html);
     }
   </script>
 {% endblock %}

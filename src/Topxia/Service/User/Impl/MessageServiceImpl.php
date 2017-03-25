@@ -17,7 +17,7 @@ class MessageServiceImpl extends BaseService implements MessageService
         return $this->getMessageDao()->searchMessages($conditions, $sort, $start, $limit);
     }
 
-    public function sendMessage($fromId, $toId, $content, $type = 'text', $createdTime = null)
+    public function sendMessage($fromId, $toId, $content, $type = 'text', $createdTime = null, $status = 1)
     {
         if (empty($fromId) || empty($toId)) {
             throw $this->createServiceException($this->getKernel()->trans('发件人或收件人未注册!'));
@@ -32,7 +32,7 @@ class MessageServiceImpl extends BaseService implements MessageService
         }
 
         $createdTime = empty($createdTime) ? time() : $createdTime;
-        $message     = $this->addMessage($fromId, $toId, $content, $type, $createdTime);
+        $message     = $this->addMessage($fromId, $toId, $content, $type, $createdTime, $status);
         $this->prepareConversationAndRelationForSender($message, $toId, $fromId, $createdTime);
         $this->prepareConversationAndRelationForReceiver($message, $fromId, $toId, $createdTime);
         $this->getUserService()->waveUserCounter($toId, 'newMessageNum', 1);
@@ -143,14 +143,15 @@ class MessageServiceImpl extends BaseService implements MessageService
         return $this->getConversationDao()->getConversationByFromIdAndToId($fromId, $toId);
     }
 
-    protected function addMessage($fromId, $toId, $content, $type, $createdTime)
+    protected function addMessage($fromId, $toId, $content, $type, $createdTime, $status)
     {
         $message = array(
             'fromId'      => $fromId,
             'toId'        => $toId,
             'type'        => $type,
             'content'     => $this->purifyHtml($content),
-            'createdTime' => $createdTime
+            'createdTime' => $createdTime,
+            'status' => $status
         );
         return $this->getMessageDao()->addMessage($message);
     }

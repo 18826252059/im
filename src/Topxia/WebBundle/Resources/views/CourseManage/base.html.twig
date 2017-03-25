@@ -20,64 +20,67 @@ isCoursePublished: course.status,
       {{ '聊天界面'|trans }}
       {#<p style="text-align: center;">聊天界面</p>#}
     </div>
-    <div id="message-panel-1" class="panel-body hidden" style="overflow:scroll;overflow-x:hidden;height: 60%;">
-
-      <ul class="nav nav-pills nav-pills-sm">
-          <img src="{{ asset('assets/img/avatar/1.png') }}" alt="" class="contact__photo" style="float: left;margin: 0 10px 0 0;"/>
-          <p class="contact__name" style="margin: 0 0 10px;">Ethan Hawke</p>
-          <p class="contact__content" style="display: inline-block;padding: 10px 15px;border-radius: 5px;background: #93C763">jdkjfajfjksdjf</p>
-      </ul>
-
-      <ul class="nav nav-pills nav-pills-sm" style="text-align: right;">
-          <img src="{{ asset('assets/img/avatar/1.png') }}" alt="" class="contact__photo" style="float: right;margin: 0 0 0 10px;"/>
-          <p class="contact__name" style="text-align: right;margin: 0 0 10px;">Ethan Hawke</p>
-          <p class="contact__content" style="display: inline-block;padding: 10px 15px;border-radius: 5px;background: #93C763;">jdkjfajfjksdjf</p>
-      </ul>
-
-      <ul class="nav nav-pills nav-pills-sm">
-        <p style="text-align: center;">12:30</p>
-        </ul>
-
-      {#<ul class="nav nav-pills nav-pills-sm" style="text-align: right;">#}
-        {#<img src="{{ asset('assets/img/avatar/1.png') }}" alt="" class="contact__photo" style="float: right;margin: 0 0 0 10px;"/>#}
-        {#<p class="contact__name" style="text-align: right;margin: 0 0 10px;">Ethan Hawke</p>#}
-        {#<p class="contact__content" style="display: inline-block;padding: 10px 15px;border-radius: 5px;background: #93C763;">jdkjfajfjksdjf</p>#}
-      {#</ul>#}
-
-
-      {#<ul class="nav nav-pills nav-pills-sm" style="text-align: right;">#}
-        {#<img src="{{ asset('assets/img/avatar/1.png') }}" alt="" class="contact__photo" style="float: right;margin: 0 0 0 10px;"/>#}
-        {#<p class="contact__name" style="text-align: right;margin: 0 0 10px;">Ethan Hawke</p>#}
-        {#<p class="contact__content" style="display: inline-block;padding: 10px 15px;border-radius: 5px;background: #93C763;">jdkjfajfjksdjf</p>#}
-      {#</ul>#}
-      {#<ul class="nav nav-pills nav-pills-sm" style="text-align: right;">#}
-        {#<img src="{{ asset('assets/img/avatar/1.png') }}" alt="" class="contact__photo" style="float: right;margin: 0 0 0 10px;"/>#}
-        {#<p class="contact__name" style="text-align: right;margin: 0 0 10px;">Ethan Hawke</p>#}
-        {#<p class="contact__content" style="display: inline-block;padding: 10px 15px;border-radius: 5px;background: #93C763;">jdkjfajfjksdjf</p>#}
-      {#</ul>#}
-      {#<ul class="nav nav-pills nav-pills-sm" style="text-align: right;">#}
-        {#<img src="{{ asset('assets/img/avatar/1.png') }}" alt="" class="contact__photo" style="float: right;margin: 0 0 0 10px;"/>#}
-        {#<p class="contact__name" style="text-align: right;margin: 0 0 10px;">Ethan Hawke</p>#}
-        {#<p class="contact__content" style="display: inline-block;padding: 10px 15px;border-radius: 5px;background: #93C763;">jdkjfajfjksdjf</p>#}
-      {#</ul>#}
-      {#<ul class="nav nav-pills nav-pills-sm" style="text-align: right;">#}
-        {#<img src="{{ asset('assets/img/avatar/1.png') }}" alt="" class="contact__photo" style="float: right;margin: 0 0 0 10px;"/>#}
-        {#<p class="contact__name" style="text-align: right;margin: 0 0 10px;">Ethan Hawke</p>#}
-        {#<p class="contact__content" style="display: inline-block;padding: 10px 15px;border-radius: 5px;background: #93C763;">jdkjfajfjksdjf</p>#}
-      {#</ul>#}
-      {#<ul class="nav nav-pills nav-pills-sm" style="text-align: right;">#}
-        {#<img src="{{ asset('assets/img/avatar/1.png') }}" alt="" class="contact__photo" style="float: right;margin: 0 0 0 10px;"/>#}
-        {#<p class="contact__name" style="text-align: right;margin: 0 0 10px;">Ethan Hawke</p>#}
-        {#<p class="contact__content" style="display: inline-block;padding: 10px 15px;border-radius: 5px;background: #93C763;">jdkjfajfjksdjf</p>#}
-      {#</ul>#}
-      {#<ul class="nav nav-pills nav-pills-sm" style="text-align: right;">#}
-        {#<img src="{{ asset('assets/img/avatar/1.png') }}" alt="" class="contact__photo" style="float: right;margin: 0 0 0 10px;"/>#}
-        {#<p class="contact__name" style="text-align: right;margin: 0 0 10px;">Ethan Hawke</p>#}
-        {#<p class="contact__content" style="display: inline-block;padding: 10px 15px;border-radius: 5px;background: #93C763;">jdkjfajfjksdjf</p>#}
-      {#</ul>#}
+    <div id="message-panel" class="panel-body active" style="overflow:scroll;overflow-x:hidden;height: 60%;">
 
     </div>
-    <div id="message-panel-2" class="panel-body active" style="overflow:scroll;overflow-x:hidden;height: 60%;">
+    {#<div id="message-panel-1" class="panel-body hidden" style="overflow:scroll;overflow-x:hidden;height: 60%;">#}
+
+      {#<ul class="nav nav-pills nav-pills-sm">#}
+          {#<img src="{{ asset('assets/img/avatar/1.png') }}" alt="" class="contact__photo" style="float: left;margin: 0 10px 0 0;"/>#}
+          {#<p class="contact__name" style="margin: 0 0 10px;">Ethan Hawke</p>#}
+          {#<p class="contact__content" style="display: inline-block;padding: 10px 15px;border-radius: 5px;background: #93C763">jdkjfajfjksdjf</p>#}
+      {#</ul>#}
+
+      {#<ul class="nav nav-pills nav-pills-sm" style="text-align: right;">#}
+          {#<img src="{{ asset('assets/img/avatar/1.png') }}" alt="" class="contact__photo" style="float: right;margin: 0 0 0 10px;"/>#}
+          {#<p class="contact__name" style="text-align: right;margin: 0 0 10px;">Ethan Hawke</p>#}
+          {#<p class="contact__content" style="display: inline-block;padding: 10px 15px;border-radius: 5px;background: #93C763;">jdkjfajfjksdjf</p>#}
+      {#</ul>#}
+
+      {#<ul class="nav nav-pills nav-pills-sm">#}
+        {#<p style="text-align: center;">12:30</p>#}
+        {#</ul>#}
+
+      {#<ul class="nav nav-pills nav-pills-sm" style="text-align: right;">#}
+        {#<img src="{{ asset('assets/img/avatar/1.png') }}" alt="" class="contact__photo" style="float: right;margin: 0 0 0 10px;"/>#}
+        {#<p class="contact__name" style="text-align: right;margin: 0 0 10px;">Ethan Hawke</p>#}
+        {#<p class="contact__content" style="display: inline-block;padding: 10px 15px;border-radius: 5px;background: #93C763;">jdkjfajfjksdjf</p>#}
+      {#</ul>#}
+
+
+      {#<ul class="nav nav-pills nav-pills-sm" style="text-align: right;">#}
+        {#<img src="{{ asset('assets/img/avatar/1.png') }}" alt="" class="contact__photo" style="float: right;margin: 0 0 0 10px;"/>#}
+        {#<p class="contact__name" style="text-align: right;margin: 0 0 10px;">Ethan Hawke</p>#}
+        {#<p class="contact__content" style="display: inline-block;padding: 10px 15px;border-radius: 5px;background: #93C763;">jdkjfajfjksdjf</p>#}
+      {#</ul>#}
+      {#<ul class="nav nav-pills nav-pills-sm" style="text-align: right;">#}
+        {#<img src="{{ asset('assets/img/avatar/1.png') }}" alt="" class="contact__photo" style="float: right;margin: 0 0 0 10px;"/>#}
+        {#<p class="contact__name" style="text-align: right;margin: 0 0 10px;">Ethan Hawke</p>#}
+        {#<p class="contact__content" style="display: inline-block;padding: 10px 15px;border-radius: 5px;background: #93C763;">jdkjfajfjksdjf</p>#}
+      {#</ul>#}
+      {#<ul class="nav nav-pills nav-pills-sm" style="text-align: right;">#}
+        {#<img src="{{ asset('assets/img/avatar/1.png') }}" alt="" class="contact__photo" style="float: right;margin: 0 0 0 10px;"/>#}
+        {#<p class="contact__name" style="text-align: right;margin: 0 0 10px;">Ethan Hawke</p>#}
+        {#<p class="contact__content" style="display: inline-block;padding: 10px 15px;border-radius: 5px;background: #93C763;">jdkjfajfjksdjf</p>#}
+      {#</ul>#}
+      {#<ul class="nav nav-pills nav-pills-sm" style="text-align: right;">#}
+        {#<img src="{{ asset('assets/img/avatar/1.png') }}" alt="" class="contact__photo" style="float: right;margin: 0 0 0 10px;"/>#}
+        {#<p class="contact__name" style="text-align: right;margin: 0 0 10px;">Ethan Hawke</p>#}
+        {#<p class="contact__content" style="display: inline-block;padding: 10px 15px;border-radius: 5px;background: #93C763;">jdkjfajfjksdjf</p>#}
+      {#</ul>#}
+      {#<ul class="nav nav-pills nav-pills-sm" style="text-align: right;">#}
+        {#<img src="{{ asset('assets/img/avatar/1.png') }}" alt="" class="contact__photo" style="float: right;margin: 0 0 0 10px;"/>#}
+        {#<p class="contact__name" style="text-align: right;margin: 0 0 10px;">Ethan Hawke</p>#}
+        {#<p class="contact__content" style="display: inline-block;padding: 10px 15px;border-radius: 5px;background: #93C763;">jdkjfajfjksdjf</p>#}
+      {#</ul>#}
+      {#<ul class="nav nav-pills nav-pills-sm" style="text-align: right;">#}
+        {#<img src="{{ asset('assets/img/avatar/1.png') }}" alt="" class="contact__photo" style="float: right;margin: 0 0 0 10px;"/>#}
+        {#<p class="contact__name" style="text-align: right;margin: 0 0 10px;">Ethan Hawke</p>#}
+        {#<p class="contact__content" style="display: inline-block;padding: 10px 15px;border-radius: 5px;background: #93C763;">jdkjfajfjksdjf</p>#}
+      {#</ul>#}
+
+    {#</div>#}
+    {#<div id="message-panel-2" class="panel-body active" style="overflow:scroll;overflow-x:hidden;height: 60%;">#}
 
       {#<ul class="nav nav-pills nav-pills-sm">#}
         {#<img src="{{ asset('assets/img/avatar/1.png') }}" alt="" class="contact__photo" style="float: left;margin: 0 10px 0 0;"/>#}
@@ -133,7 +136,7 @@ isCoursePublished: course.status,
       {#<p class="contact__content" style="display: inline-block;padding: 10px 15px;border-radius: 5px;background: #93C763;">jdkjfajfjksdjf</p>#}
       {#</ul>#}
 
-    </div>
+    {#</div>#}
     <div class="panel-footer">
       <form class="form-horizontal" id="message" method="post">
       <textarea id="message" name="message" required="required"

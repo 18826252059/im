@@ -2467,3 +2467,9 @@ importer_index:
 #esbar_my_history:
 #    path:  /esbar/my/history
 #    defaults: { _controller: TopxiaWebBundle:EsBar/EsBar:history}
+
+#by matthew
+
+add-friend-pick:
+    path: /add/friend/search
+    defaults: { _controller: TopxiaWebBundle:Friend:pick}

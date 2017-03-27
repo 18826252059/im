@@ -1,0 +1,73 @@
+{% extends 'TopxiaWebBundle::bootstrap-modal-layout.html.twig' %}
+
+{% set modal_class= "modal-lg" %}
+
+{% block title %}{{'添加好友'|trans}}{% endblock %}
+{% block body %}
+<style>
+.course-item:hover {
+    cursor: pointer;
+}
+.course-wide-list .course-item .select{
+
+}
+</style>
+
+{#<div class="alert alert-info" role="alert">{{'加入%name%的课程为选中的原课程复制生成，并与原课程实时同步更新。如需解除同步，请对该课程进行编辑。'|trans({'%name%':setting('classroom.name')|default('班级'|trans)})}}#}
+{#</div>#}
+
+<form class="form-inline form-search" role="search-form">
+      <div class="form-group ">
+        <input type="text" class="form-control" name="key" id="enterSearch" value="" placeholder="{{'用户名'|trans}}" data-url="">
+      </div>
+      <button type="button" class="btn btn-primary"  id="search"  data-url="">{{'搜索'|trans}}</button>
+      {#<a class="btn btn-primary" id="all-courses" data-url="">{{'全部课程'|trans}}</a>#}
+</form>
+
+<div class="row mtl">
+    <div class="col-md-12">
+      <div class="courses-list">
+        {% include('TopxiaWebBundle:Friend:search-list.html.twig') %}
+        {#{{ que|default('defeat') }}#}
+          {#<style>#}
+              {#.course-wide-list .enabled:hover{#}
+
+                  {#background: #eee;#}
+                  {#border-color: #ddd;#}
+              {#}#}
+
+              {#.course-wide-list .enabled{#}
+
+                  {#cursor: default;#}
+                  {#background: #eee;#}
+              {#}#}
+
+          {#</style>#}
+          {#<ul class="course-wide-list">#}
+              {#<li class="nav nav-pills nav-pills-sm">#}
+                  {#<a href="#" class="list-group-item" style="border: 0px;">#}
+                      {#<img src="{{ asset('assets/img/avatar/1.png') }}" alt="" class="contact__photo" />#}
+                      {#<span class="contact__name">Ethan Hawke</span>#}
+                      {#<span class="contact__status online"></span>#}
+                  {#</a>#}
+              {#</li>#}
+              {#<li class="nav nav-pills nav-pills-sm">#}
+                  {#<a href="#" class="list-group-item" style="border: 0px;">#}
+                      {#<img src="{{ asset('assets/img/avatar/1.png') }}" alt="" class="contact__photo" />#}
+                      {#<span class="contact__name">Ethan Hawke</span>#}
+                      {#<span class="contact__status online"></span>#}
+                  {#</a>#}
+              {#</li>#}
+              {#</ul>#}
+      </div>
+    </div>
+</div>
+
+{% endblock %}
+
+{% block footer %}
+  <button id="sure" class="btn btn-primary pull-right" data-url="">{{'加为好友'|trans}}</button>
+  <button type="button" class="btn btn-link pull-right" data-dismiss="modal">{{'取消'|trans}}</button>
+
+    <script>app.load('friend-list/pick')</script>
+{% endblock %}

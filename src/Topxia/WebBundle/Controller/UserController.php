@@ -384,6 +384,8 @@ class UserController extends BaseController
 
         $this->getUserService()->follow($user['id'], $id);
 
+//        $data = array();
+//        $data['code'] = true;
         return $this->createJsonResponse(true);
     }
 

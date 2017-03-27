@@ -138,7 +138,7 @@ define(function(require, exports, module) {
     $(".js-search").focus(function() {
         $(this).prop("placeholder", "").addClass("active");
     }).blur(function() {
-        $(this).prop("placeholder", Translator.trans('搜索')).removeClass("active");
+        $(this).prop("placeholder", Translator.trans('添加好友')).removeClass("active");
     });
 
     if ($(".nav.nav-tabs").length > 0 && !navigator.userAgent.match(/(iPhone|iPod|Android|ios|iPad)/i)) {

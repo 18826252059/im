@@ -11,6 +11,32 @@ define(function (require, exports, module) {
     require('jquery.bootstrap-datetimepicker');
 
     exports.run = function () {
+        //好友列表到聊天窗口的过渡
+        $("div#friend-content ul a").click(function () {
+            alert("test reload");
+            var pannelSelector = '#message-panel-' + $(this).find('input').attr('id');
+            var showPanel = $(pannelSelector);
+            var hidePannel = $("div").find('div.active');
+            if (showPanel == null) {
+                //构造聊天pannel
+                hidePannel.removeClass('active');
+                hidePannel.addClass('hidden');
+
+            } else {
+                //pannel不为空的话，就是已经存在pannel了，只要隐藏先前的，显示此pannel就好
+                hidePannel.removeClass('active');
+                hidePannel.addClass('hidden');
+                showPanel.removeClass('hidden');
+                showPanel.addClass('active');
+            }
+           //                    alert($(this).find('input').attr('id'));
+//                        var item = $(this).find('input').attr('value');
+//                        alert($(this).find('input#userId').attr('value'));
+            $("#friend-id").val($(this).find('input#userId').attr('value'));
+            $("#friend-name").val($(this).find('input#nickname').attr('value'));
+            $("#friend-picture").val($(this).find('input#picture').attr('value'));
+        });
+        /*
         $.get($("#maxStudentNum-field").data("liveCapacityUrl"), function (data) {
             $("#maxStudentNum-field").data("liveCapacity", data.capacity);
             if (data.code == 2 || data.code == 1) {
@@ -186,7 +212,7 @@ define(function (require, exports, module) {
                 default:
                     break;
             }
-        }
+        }*/
 
     };
 

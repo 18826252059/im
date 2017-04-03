@@ -23,7 +23,7 @@ class BatchNotificationServiceImpl extends BaseService implements BatchNotificat
         if(!isset($fields['targetType'])){
             $fields['targetType'] = 'global';
         }
-        $fields['createdTime'] = isset($fields['createdTime']) ? time() : $fields['createdTime'];
+        $fields['createdTime'] = isset($fields['createdTime']) ? $fields['createdTime'] : time();
         $fields['sendedTime'] = 0;
         $notification = $this->getBatchNotificationDao()->addBatchNotification($fields);
         return $notification;

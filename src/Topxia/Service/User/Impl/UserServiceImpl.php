@@ -129,7 +129,9 @@ class UserServiceImpl extends BaseService implements UserService
         $users = UserSerialize::unserializes(
             $this->getUserDao()->findUsersByIds($ids)
         );
+
         return ArrayToolkit::index($users, 'id');
+//        return $users;
     }
 
     public function findUserProfilesByIds(array $ids)
@@ -1382,19 +1384,19 @@ class UserServiceImpl extends BaseService implements UserService
         }
 
         if ($fromId == $toId) {
-            throw new InvalidArgumentException('不能关注自己');
+            throw new InvalidArgumentException('不能添加自己');
         }
 
         $blacklist = $this->getBlacklistService()->getBlacklistByUserIdAndBlackId($toId, $fromId);
 
         if (!empty($blacklist)) {
-            throw new RuntimeException('关注失败');
+            throw new RuntimeException('添加失败');
         }
 
         $friend = $this->getFriendDao()->getFriendByFromIdAndToId($fromId, $toId);
 
         if (!empty($friend)) {
-            throw new RuntimeException('不允许重复关注');
+            throw new RuntimeException('对方已是您的好友或等待对方同意，请不要重复添加');
         }
 
         $isFollowed = $this->isFollowed($toId, $fromId);
@@ -1406,7 +1408,9 @@ class UserServiceImpl extends BaseService implements UserService
             'pair'        => $pair
         ));
         $this->getFriendDao()->updateFriendByFromIdAndToId($toId, $fromId, array('pair' => $pair));
-        $this->getDispatcher()->dispatch('user.follow', new ServiceEvent($friend));
+//        $this->getDispatcher()->dispatch('user.follow', new ServiceEvent($friend));
+        $field = array('fromId' => $fromId, 'content' => $fromUser['nickname'].'请求添加您为好友', 'targetId' => $toId, 'published' => 0);
+        $this->getBatchNotificationService()->createBatchNotification($field);
         return $friend;
     }
 
@@ -1888,6 +1892,11 @@ class UserServiceImpl extends BaseService implements UserService
     public function updateUser($id, $fields)
     {
         return $this->getUserDao()->updateUser($id,$fields);
+    }
+
+    protected function getBatchNotificationService()
+    {
+        return $this->createService('User.BatchNotificationService');
     }
 
 }

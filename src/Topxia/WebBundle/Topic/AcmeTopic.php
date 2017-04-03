@@ -3,7 +3,10 @@
 namespace Topxia\WebBundle\Topic;
 
 use Gos\Bundle\WebSocketBundle\Router\WampRequest;
+use Gos\Bundle\WebSocketBundle\Topic\ConnectionPeriodicTimer;
 use Gos\Bundle\WebSocketBundle\Topic\TopicInterface;
+use Gos\Bundle\WebSocketBundle\Topic\TopicPeriodicTimer;
+use Gos\Bundle\WebSocketBundle\Topic\TopicPeriodicTimerInterface;
 use Ratchet\ConnectionInterface;
 use Ratchet\Wamp\Topic;
 use Topxia\WebBundle\Controller\BaseController;
@@ -16,6 +19,13 @@ use Topxia\WebBundle\Controller\BaseController;
  */
 class AcmeTopic extends BaseController implements TopicInterface
 {
+
+    protected $notification;
+
+//    /**
+//     * @var TopicPeriodicTimer
+//     */
+//    protected $periodicTimer;
 
     /**
      * This will receive any Subscription requests for this topic.
@@ -34,6 +44,24 @@ class AcmeTopic extends BaseController implements TopicInterface
             $this->getUserService()->updateUser($userId,array('sessionId' => $sessionId));
         }
         $topic->broadcast(['msg' => $connection->resourceId . " has joined " . $topic->getId()."===".count($topic)]);
+
+//      /*  $condition = array();
+//        $condition['published'] = 0;
+//        $notify = $this->getBatchNotificationService()->searchBatchNotifications($condition,array('createdTime','DESC'),0,10);
+//        $this->notification = $notify;
+//        /** @var ConnectionPeriodicTimer $topicTimer */
+//        $topicTimer = $connection->PeriodicTimer;
+//
+//        //Add periodic timer
+//        $topicTimer->addPeriodicTimer('hello', 2, function() use ($topic, $connection) {
+//
+//            $temp = $this->notification;
+//            if (!empty($temp)) {
+//                $connection->event($topic->getId(), ['msg' => $temp['fromId']]);
+//            } else {
+//                $connection->event($topic->getId(), ['msg' => 'ooooops']);
+//            }
+//        });*/
     }
 
     /**
@@ -97,5 +125,40 @@ class AcmeTopic extends BaseController implements TopicInterface
     protected function getMessageService()
     {
         return $this->getServiceKernel()->createService('User.MessageService');
+    }
+
+//    /**
+//     * @param Topic $topic
+//     *
+//     * @return mixed
+//     */
+//    public function registerPeriodicTimer(Topic $topic)
+//    {
+//        $userId = $request->getAttributes()->get('userId');
+//        print
+//        $notify = $this->getBatchNotificationService()->
+//        //add
+//        $this->periodicTimer->addPeriodicTimer($this, 'hello', 2, function() use ($topic) {
+//            $topic->broadcast(['msg' => 'hello world']);
+//        });
+///*
+//        //exist
+//        $this->periodicTimer->isPeriodicTimerActive($this, 'hello'); // true or false
+//
+//        //remove
+//        $this->periodicTimer->cancelPeriodicTimer($this, 'hello');*/
+//    }
+//
+//    /**
+//     * @param TopicPeriodicTimer $periodicTimer
+//     */
+//    public function setPeriodicTimer(TopicPeriodicTimer $periodicTimer)
+//    {
+//        $this->periodicTimer = $periodicTimer;
+//    }
+
+    protected function getBatchNotificationService()
+    {
+        return $this->getServiceKernel()->createService('User.BatchNotificationService');
     }
 }

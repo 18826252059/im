@@ -19,4 +19,6 @@ interface MessageDao
     public function searchMessagesCount($conditions);
 
     public function searchMessages($conditions, $orderBy, $start, $limit);
+
+    public function getLatestContactUserIds($fromId, $start = 0, $limit = 10);
 }

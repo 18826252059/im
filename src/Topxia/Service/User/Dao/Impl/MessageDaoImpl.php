@@ -108,4 +108,12 @@ class MessageDaoImpl extends BaseDao implements MessageDao
         $sql   = "DELETE FROM {$this->table} WHERE id IN ({$marks});";
         return $this->getConnection()->executeUpdate($sql, $ids);
     }
+
+    public function getLatestContactUserIds($fromId, $start = 0, $limit = 10)
+    {
+//        $start = (integer)$start;
+//        $limit = (integer)$limit;
+        $sql = "SELECT DISTINCT toId FROM {$this->table} WHERE fromId = ? ORDER BY createdTime DESC LIMIT {$start},{$limit}";
+        return $this->getConnection()->fetchAll($sql, array($fromId));
+    }
 }

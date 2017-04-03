@@ -16,8 +16,18 @@ class DefaultController extends BaseController
             $this->getBatchNotificationService()->checkoutBatchNotification($user['id']);
         }
 
-        $friendlyLinks = $this->getNavigationService()->getOpenedNavigationsTreeByType('friendlyLink');
-        return $this->render('TopxiaWebBundle:Default:index.html.twig', array('friendlyLinks' => $friendlyLinks));
+        $historyUserIds = $this->getMessageService()->getLatestContactUserIds($user['id']);
+        $users = $this->getUserService()->findUsersByIds($historyUserIds);
+
+        return $this->render('TopxiaWebBundle:CourseManage:base.html.twig', array(
+            'user'   => $user,
+//            'friends' => $friends,
+            'historyUsers' => $users
+
+        ));
+
+//        $friendlyLinks = $this->getNavigationService()->getOpenedNavigationsTreeByType('friendlyLink');
+//        return $this->render('TopxiaWebBundle:Default:index.html.twig', array('friendlyLinks' => $friendlyLinks));
     }
 
     public function userlearningAction()
@@ -256,5 +266,15 @@ class DefaultController extends BaseController
     private function getBlacklistService()
     {
         return $this->getServiceKernel()->createService('User.BlacklistService');
+    }
+
+    protected function getPermissionExtension()
+    {
+        return $this->container->get('permission.twig.permission_extension');
+    }
+
+    private function getMessageService()
+    {
+        return $this->getServiceKernel()->createService('User.MessageService');
     }
 }

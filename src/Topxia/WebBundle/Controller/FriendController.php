@@ -23,6 +23,8 @@ class FriendController extends BaseController
         $account = $request->query->get('que');
         $condition = array('keywordType' => 'nickname','keyword' => $account);
 
+        $userCount = array();
+        $users = array();
         $userCount = $this->getUserService()->searchUserCount($condition);
         $page = empty($this->get('request')) ? 0 : $this->get('request');
         $paginator = new Paginator(
@@ -37,6 +39,27 @@ class FriendController extends BaseController
             0,
             10
         );
+
+        if (empty($users)) {
+            $condition['keywordType'] = 'verifiedMobile';
+            $userCount = $this->getUserService()->searchUserCount($condition);
+            $users = $this->getUserService()->searchUsers(
+                $condition,
+                array('createdTime', 'DESC'),
+                0,
+                10
+            );
+        }
+        if (empty($users)) {
+            $condition['keywordType'] = 'email';
+            $userCount = $this->getUserService()->searchUserCount($condition);
+            $users = $this->getUserService()->searchUsers(
+                $condition,
+                array('createdTime', 'DESC'),
+                0,
+                10
+            );
+        }
 
 //        $data = array();
 //        $data['users'] = $users;

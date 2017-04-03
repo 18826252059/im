@@ -143,6 +143,14 @@ class MessageServiceImpl extends BaseService implements MessageService
         return $this->getConversationDao()->getConversationByFromIdAndToId($fromId, $toId);
     }
 
+    public function getLatestContactUserIds($fromId, $start = 0, $limit = 10)
+    {
+        $fromId = (integer) $fromId;
+        $userIds = $this->getMessageDao()->getLatestContactUserIds($fromId, $start, $limit);
+        $historyUserIds = ArrayToolkit::column($userIds,'toId');
+        return $historyUserIds;
+    }
+
     protected function addMessage($fromId, $toId, $content, $type, $createdTime, $status)
     {
         $message = array(

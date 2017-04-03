@@ -32,7 +32,7 @@
       <div class="sidenav locked" style="height: 80%;">
           {#<ul class="nav nav-pills nav-pills-sm mbs file-chooser-tabs">#}
           <ul class="nav nav-tabs nav-justified" style="margin-bottom: 0px;">
-              <li><a id="test" class="file-chooser-uploader-tab" href="#video-chooser-upload-pane"
+              <li><a id="history-list" class="file-chooser-uploader-tab" href="#video-chooser-upload-pane"
                      data-toggle="tab">{{ '历史消息'|trans }}</a></li>
               <li>
                   <a id="friend-list" href="#video-chooser-disk-pane" data-toggle="tab">
@@ -42,12 +42,26 @@
 
           </ul>
           <div id="friend-content" style="overflow: auto; height: 80%;">
+              {% if historyUsers %}
+                  {% for friend in historyUsers %}
+                      <ul class="nav nav-pills nav-pills-sm">
+                          <a href="#" class="list-group-item" style="border: 0px;">
+                              <img src="{{ filepath(friend.smallAvatar, 'avatar.png') }}" alt="" class="contact__photo" style="border-radius: 50%;width: 34px;height: 34px;" /><span class="dot pull-right"></span>
+                              <span class="contact__name">{{ friend.nickname }}</span>
+                              <span class="contact__status online"></span>
+                          </a>
+                      </ul>
+                  {% endfor %}
+              {% endif %}
           <ul class="nav nav-pills nav-pills-sm">
-              <a href="#" class="list-group-item" style="border: 0px;">
-              <img src="{{ asset('assets/img/avatar/1.png') }}" alt="" class="contact__photo" style="border-radius: 50%;width: 34px;height: 34px;" /><span class="dot pull-right"></span>
-              <span class="contact__name">Ethan Hawke</span>
-              <span class="contact__status online"></span>
+              <a data-toggle="collapse" href="#collapseOne" class="list-group-item" style="border: 0px;">
+              <img src="{{ asset('assets/img/default/icon_1.png') }}" alt="" class="contact__photo" style="border-radius: 50%;width: 34px;height: 34px;" /><span class="dot pull-right"></span>
+              {#<span class="glyphicon glyphicon-bell"></span>#}
+              <span class="contact__name">sanddd请求添加您为好友</span>
+                  <div id="collapseOne" class="panel-collapse collapse"><span class="btn btn-info btn-xs pull-right">同意</span>
+                      <span class="btn btn-default btn-xs pull-right">拒绝</span></div>
               </a>
+
           </ul>
           <ul class="nav nav-pills nav-pills-sm">
               <a href="#" class="list-group-item" style="border: 0px;">
@@ -155,14 +169,92 @@
                         if (item.smallAvatar == null || item.smallAvatar == "") {
                             html +=  '<img src=\"'+ "{{ asset('assets/img/default/avatar.png') }}" + '\" alt=\"\" class=\"contact__photo\" style=\"border-radius: 50%;width: 34px;height: 34px;margin:0 5px 0 0;\" />';
                         } else {
-                            html +=  '<img src=\"'+ item.smallAvatar + '\" alt=\"\" class=\"contact__photo\" style=\"border-radius: 50%;width: 34px;height: 34px;margin:0 5px 0 0;\" />';
+                            var pattern = /(http):\/\/[^\s]*/;
+                            if (pattern.test(item.smallAvatar)) {
+                                html +=  '<img src=\"'+ item.smallAvatar + '\" alt=\"\" class=\"contact__photo\" style=\"border-radius: 50%;width: 34px;height: 34px;margin:0 5px 0 0;\" />';
+                            } else {
+                                html +=  '<img src=\"'+ '/files' + item.smallAvatar.substr(8) + '\" alt=\"\" class=\"contact__photo\" style=\"border-radius: 50%;width: 34px;height: 34px;margin:0 5px 0 0;\" />';
+                            }
                         }
 
                         html += '<span class=\"contact__name\">' + item.nickname +'</span>' +
                                 '<span class=\"contact__status online\"></span>' +
-                                        '<input type=\"hidden\" id=\"userId\" value=\"' + item.id + '\">' +
-                                        '<input type=\"hidden\" id=\"nickname\" value=\"' + item.nickname + '\">' +
-                                        '<input type=\"hidden\" id=\"picture\" value=\"' + item.smallAvatar + '\">' +
+                                '</a></ul>';
+
+                        $("#friend-content").append(html);
+
+                        var html = '<div id=\"message-panel-' + item.id + '\" class=\"panel-body hidden\" style=\"overflow:scroll;overflow-x:hidden;height: 60%;\"></div>';
+                        $("#pannel-header").after(html);
+                    });
+
+                    $("div#friend-content ul a").click(function () {
+//                        alert($(this).find('input#userId').attr('value'));
+//                        var item = $(this).find('input').attr('value');
+//                        alert($(this).find('input#userId').attr('value'));
+                        $("#friend-id").val($(this).find('input#userId').attr('value'));
+                        $("#friend-name").val($(this).find('input#nickname').attr('value'));
+                        $("#friend-picture").val($(this).find('input#picture').attr('value'));
+
+                        var pannelSelector = '#message-panel-' + $(this).find('input#userId').attr('value');
+                        var showPanel = $(pannelSelector);
+                        var hidePannel = $("div").find('div.active');
+                        if (showPanel.length == 0) {
+                            //构造聊天pannel
+                            hidePannel.removeClass('active');
+                            hidePannel.addClass('hidden');
+                            var html = '<div id=\"message-panel-' + $(this).find('input#userId').attr('value') + '\" class=\"panel-body active\" style=\"overflow:scroll;overflow-x:hidden;height: 60%;\"></div>';
+                            $("#pannel-header").after(html);
+                        } else {
+                            //pannel不为空的话，就是已经存在pannel了，只要隐藏先前的，显示此pannel就好
+                            hidePannel.removeClass('active');
+                            hidePannel.addClass('hidden');
+                            showPanel.removeClass('hidden');
+                            showPanel.addClass('active');
+                        }
+                        $("#pannel-header").html($("#friend-name").val());
+                    });
+//                    $("#friend-content").html(html);
+                },
+                error: function(jqXHR, status, error) {
+//                    Notify.danger(Translator.trans('请求上传授权码失败！'));
+                }
+            });
+        });
+
+        $("#history-list").click(function () {
+            $.ajax({
+//                url: '/app_dev.php/mapi_v1/friend/list/'+userId,
+                url: "{{ path('mapi_list_history_user',{id:user.id}) }}",
+                async: false,
+                dataType: 'json',
+                cache: false,
+                success: function(response, status, jqXHR) {
+//                    alert(response.data.friend.length);
+                    var friends = response.data.historyUsers;
+
+                    $("#friend-content").html("");
+                    $.each(friends,function (index,item) {
+                        var html = "";
+                        html += '<ul class=\"nav nav-pills nav-pills-sm\">' +
+                                '<a id=\"list-item-' + item.id + '\" href=\"#\" class=\"list-group-item\" style=\"border: 0px;\">';
+
+                        if (item.smallAvatar == null || item.smallAvatar == "") {
+                            html +=  '<img src=\"'+ "{{ asset('assets/img/default/avatar.png') }}" + '\" alt=\"\" class=\"contact__photo\" style=\"border-radius: 50%;width: 34px;height: 34px;margin:0 5px 0 0;\" />';
+                        } else {
+                            {#html +=  '<img src=\"'+ {{ filepath(item.smallAvatar,'avatar.png') }} + '\" alt=\"\" class=\"contact__photo\" style=\"border-radius: 50%;width: 34px;height: 34px;margin:0 5px 0 0;\" />';#}
+                            var pattern = /(http):\/\/[^\s]*/;
+                            if (pattern.test(item.smallAvatar)) {
+                                html +=  '<img src=\"'+ item.smallAvatar + '\" alt=\"\" class=\"contact__photo\" style=\"border-radius: 50%;width: 34px;height: 34px;margin:0 5px 0 0;\" />';
+                            } else {
+                                html +=  '<img src=\"'+ '/files' + item.smallAvatar.substr(8) + '\" alt=\"\" class=\"contact__photo\" style=\"border-radius: 50%;width: 34px;height: 34px;margin:0 5px 0 0;\" />';
+                            }
+                        }
+
+                        html += '<span class=\"contact__name\">' + item.nickname +'</span>' +
+                                '<span class=\"contact__status online\"></span>' +
+                                '<input type=\"hidden\" id=\"userId\" value=\"' + item.id + '\">' +
+                                '<input type=\"hidden\" id=\"nickname\" value=\"' + item.nickname + '\">' +
+                                '<input type=\"hidden\" id=\"picture\" value=\"' + item.smallAvatar + '\">' +
                                 '</a></ul>';
 
                         $("#friend-content").append(html);

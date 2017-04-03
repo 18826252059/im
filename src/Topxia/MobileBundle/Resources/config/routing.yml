@@ -176,3 +176,13 @@ mapi_list_friend:
     path:  /friend/list/{id}
     defaults: { _controller: TopxiaMobileBundle:Friend:list }
 #    methods: [POST, GET]
+
+mapi_list_history_user:
+    path:  /history/user/list/{id}
+    defaults: { _controller: TopxiaMobileBundle:Friend:listHistory }
+#    methods: [POST, GET]
+
+mapi_list_search_user:
+    path:  /search/user/list
+    defaults: { _controller: TopxiaMobileBundle:Friend:searchUser }
+#    methods: [POST, GET]

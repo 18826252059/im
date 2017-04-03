@@ -115,4 +115,5 @@ interface MessageService
 
     public function clearUserNewMessageCounter($userId);
 
+    public function getLatestContactUserIds($fromId, $start = 0, $limit = 10);
 }

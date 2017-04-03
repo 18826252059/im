@@ -382,11 +382,19 @@ class UserController extends BaseController
             throw $this->createAccessDeniedException();
         }
 
-        $this->getUserService()->follow($user['id'], $id);
+        try {
+            $this->getUserService()->follow($user['id'], $id);
+            $result = array('code' => 1,'message' => '添加请求已发送，请您耐心等待');
+            return $this->createJsonResponse($result);
+        } catch (\Exception $e) {
+            $result = array('code' => 0, 'message' => $e->getMessage());
+            return $this->createJsonResponse($result);
+        }
+
 
 //        $data = array();
 //        $data['code'] = true;
-        return $this->createJsonResponse(true);
+//        return $this->createJsonResponse(true);
     }
 
     public function checkPasswordAction(Request $request)

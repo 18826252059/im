@@ -1,7 +1,7 @@
 admin_operation_keyword:
     name: 敏感词管理
     parent: admin_operation
-    group: 4
+    group: 2
     children:
         admin_keyword:
             name: 敏感词列表
